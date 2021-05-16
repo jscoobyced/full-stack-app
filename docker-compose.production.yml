@@ -6,7 +6,7 @@ services:
     image: jscdroiddev/docker-nodejs-mariadb-be:dev
     restart: unless-stopped
     ports:
-      - "3001:3001"
+      - "127.0.0.1:3001:3001"
     environment:
       NODE_ENV: production
       DB_HOST: db
@@ -14,14 +14,14 @@ services:
       DB_PASSWORD: ${SERVER_DB_PASSWORD}
       DB_NAME: my_app
       BACK_END_API_PORT: 3001
-      FRONT_END_API_HOST: my-server.tld
-      FRONT_END_API_PORT: "80, 443, 3000"
+      FRONT_END_API_HOST: rochefolle.org
+      FRONT_END_API_PORT: "443"
 
   fe:
     image: jscdroiddev/docker-nodejs-mariadb-fe:dev
     restart: unless-stopped
     ports:
-      - "3000:80"
+      - "127.0.0.1:3000:80"
   
   db:
     image: mariadb:latest
@@ -33,10 +33,10 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     volumes:
       - type: bind
-        source: "/opt/dnm/db/my_data"
+        source: "/opt/fsa/db/my_data"
         target: "/var/lib/mysql"
       - type: bind
-        source: "/opt/dnm/db/updates"
+        source: "/opt/fsa/db/updates"
         target: "/home"
 
 volumes:

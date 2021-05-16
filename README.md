@@ -2,7 +2,7 @@
 
 This is all you need to build a full website using ReactJS and NodeJS.
 
-[![codecov](https://codecov.io/gh/jscoobyced/docker-nodejs-mariadb/branch/main/graph/badge.svg)](https://codecov.io/gh/jscoobyced/docker-nodejs-mariadb)
+[![codecov](https://codecov.io/gh/jscoobyced/full-stack-app/branch/main/graph/badge.svg)](https://codecov.io/gh/jscoobyced/full-stack-app)
 
 
 ## Quick Start
