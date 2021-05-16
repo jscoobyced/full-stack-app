@@ -1,0 +1,34 @@
+header {
+  flex: 2;
+}
+
+header,
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header span {
+  font-size: x-large;
+}
+
+main {
+  flex: 20;
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+  padding-left: 1em;
+}
+
+main>span {
+  margin-top: 1em;
+}
+
+span.loading {
+  padding-left: 2em;
+}
+
+footer {
+  flex: 1;
+}
