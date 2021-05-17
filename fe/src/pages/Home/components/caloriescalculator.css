@@ -14,10 +14,12 @@ label {
 
 .select-ingredient {
   padding-top: 20px;
+  flex: 1;
 }
 
 .input-quantity {
   width: 100px;
+  padding-left: 10px;
 }
 
 .button-add {
@@ -25,4 +27,13 @@ label {
   background-color: rgb(220, 220, 220);
   margin-top: 10px;
   display: block;
+}
+
+section {
+  display: flex;
+  flex-direction: row;
+}
+
+section ul {
+  flex: 1;
 }

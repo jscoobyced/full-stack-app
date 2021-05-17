@@ -67,7 +67,7 @@ const mockUnitCategories: UnitCategory[] = [
   },
   {
     categoryId: 2,
-    name: 'Masse',
+    name: 'Mass',
   },
 ];
 
