@@ -93,7 +93,7 @@ jobs:
         with:
           context: fe
           push: true
-          tags: jscdroiddev/docker-nodejs-mariadb-fe:${{ env.DOCKER_TAG }}
+          tags: jscdroiddev/full-stack-app-fe:${{ env.DOCKER_TAG }}
 
   build-be:
     name: build-be
@@ -125,7 +125,7 @@ jobs:
         with:
           context: be
           push: true
-          tags: jscdroiddev/docker-nodejs-mariadb-be:${{ env.DOCKER_TAG }}
+          tags: jscdroiddev/full-stack-app-be:${{ env.DOCKER_TAG }}
   deploy:
     needs: [build-fe, build-be]
     runs-on: ubuntu-latest
