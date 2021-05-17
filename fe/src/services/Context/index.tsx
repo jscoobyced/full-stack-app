@@ -1,8 +1,8 @@
 import React from "react";
-import { IUserService } from "../User";
+import { IConfiguration } from "../Configuration";
 
 interface IServiceContext {
-  userService: IUserService
+  configuration: IConfiguration
 }
 
 const defaultServiceContext = undefined as unknown as IServiceContext;
