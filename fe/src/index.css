@@ -5,10 +5,28 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(220, 240, 255);
+  font-size: 1.5em;
+}
+
+* {
+  font-family: 'Poppins Light', cursive;
+  color: rgb(0, 0, 139);
+}
+
+@font-face {
+  font-family: 'Poppins Light';
+  src: url('Poppins-Light.ttf') format('truetype');
 }
 
 #root {
   display: flex;
   flex-direction: column;
   height: 100vh;
+}
+
+a,
+a:hover,
+a:visited {
+  color: #606060;
 }

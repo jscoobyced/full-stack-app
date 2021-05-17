@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './IndieFlower-Regular.ttf';
 import './index.css';
 import { App } from './pages/Home';
 import { ServiceContext } from './services/Context';
-import { UserService } from './services/User';
+import { ConfigurationService } from './services/Configuration';
 
-const userService = UserService();
+const configurationService = ConfigurationService();
 
 ReactDOM.render(
   <React.StrictMode>
-    <ServiceContext.Provider value={{ userService }}>
+    <ServiceContext.Provider value={{ configuration: configurationService}}>
       <App />
     </ServiceContext.Provider>
   </React.StrictMode>,

@@ -1,0 +1,28 @@
+select,
+button,
+input {
+  padding: 2px;
+  font-size: 0.8em;
+  border-radius: 5px;
+  background-color: white;
+  ;
+}
+
+label {
+  display: block;
+}
+
+.select-ingredient {
+  padding-top: 20px;
+}
+
+.input-quantity {
+  width: 100px;
+}
+
+.button-add {
+  padding: 2px 10px;
+  background-color: rgb(220, 220, 220);
+  margin-top: 10px;
+  display: block;
+}
