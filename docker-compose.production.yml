@@ -3,7 +3,7 @@ version: "3.7"
 services:
 
   be:
-    image: jscdroiddev/docker-nodejs-mariadb-be:dev
+    image: jscdroiddev/full-stack-app-be:latest
     restart: unless-stopped
     ports:
       - "127.0.0.1:3001:3001"
@@ -18,7 +18,7 @@ services:
       FRONT_END_API_PORT: "443"
 
   fe:
-    image: jscdroiddev/docker-nodejs-mariadb-fe:dev
+    image: jscdroiddev/full-stack-app-fe:latest
     restart: unless-stopped
     ports:
       - "127.0.0.1:3000:80"
