@@ -4,9 +4,9 @@ import './Poppins-Light.ttf';
 import './index.css';
 import { App } from './pages/Home';
 import { ServiceContext } from './services/Context';
-import { ConfigurationService } from './services/Configuration';
+import { MockConfigurationService } from './services/Configuration/mock';
 
-const configurationService = ConfigurationService();
+const configurationService = MockConfigurationService();
 
 ReactDOM.render(
   <React.StrictMode>
