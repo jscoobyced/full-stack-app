@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './IndieFlower-Regular.ttf';
+import './Poppins-Light.ttf';
 import './index.css';
 import { App } from './pages/Home';
 import { ServiceContext } from './services/Context';
