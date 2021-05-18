@@ -1,64 +1,14 @@
-import { ConfigurationResponse, IConfiguration } from ".";
-import { Ingredient, IngredientCategory, IngredientData, Unit, UnitCategory, UnitData } from "..";
+import { IConfiguration } from ".";
+import { Ingredient, IngredientCategory, Unit, UnitCategory } from "..";
 
 const mockIngredientCategories: IngredientCategory[] = [{
   categoryId: 0,
-  name: 'Solids'
+  name: 'Powder'
 }, {
   categoryId: 1,
-  name: 'Liquids'
+  name: 'Liquid'
 }];
 
-export const mockIngredients: Ingredient[] = [
-  {
-    ingredientId: 1,
-    name: 'Bread Flour',
-    category: mockIngredientCategories[0],
-    calories: 100,
-  },
-  {
-    ingredientId: 2,
-    name: 'Cake Flour',
-    category: mockIngredientCategories[0],
-    calories: 110,
-  },
-  {
-    ingredientId: 3,
-    name: 'Multi-Purpose Flour',
-    category: mockIngredientCategories[0],
-    calories: 120,
-  }, {
-    ingredientId: 4,
-    name: 'Instant Yeast',
-    category: mockIngredientCategories[0],
-    calories: 50,
-  }, {
-    ingredientId: 5,
-    name: 'Water',
-    category: mockIngredientCategories[1],
-    calories: 0,
-  }, {
-    ingredientId: 6,
-    name: 'Milk',
-    category: mockIngredientCategories[1],
-    calories: 90,
-  }, {
-    ingredientId: 7,
-    name: 'Vanilla Extract',
-    category: mockIngredientCategories[1],
-    calories: 200,
-  }, {
-    ingredientId: 8,
-    name: 'Lemon juice',
-    category: mockIngredientCategories[1],
-    calories: 75,
-  },
-];
-
-export const mockIngredientResponse: IngredientData = {
-  categories: mockIngredientCategories,
-  ingredients: mockIngredients,
-};
 
 const mockUnitCategories: UnitCategory[] = [
   {
@@ -112,21 +62,141 @@ export const mockUnits: Unit[] = [
     symbol: 'lb',
     category: mockUnitCategories[1],
   },
+  {
+    unitId: 8,
+    name: 'piece',
+    symbol: 'p',
+    category: mockUnitCategories[1],
+  },
 ];
 
-export const mockUnitResponse: UnitData = {
-  categories: mockUnitCategories,
-  units: mockUnits,
+export const mockIngredients: Ingredient[] = [
+  {
+    ingredientId: 1,
+    name: 'Wheat Flour',
+    category: mockIngredientCategories[0],
+    baseCalorie: {
+      unit: mockUnits[1],
+      serving: 1,
+      calories: 364
+    },
+    conversions: [
+      {
+        fromUnit: mockUnits[2],
+        multiplier: 1 / 16,
+      },
+      {
+        fromUnit: mockUnits[5],
+        multiplier: 1 / 120,
+      },
+    ]
+  },
+  {
+    ingredientId: 2,
+    name: 'Rice Flour',
+    category: mockIngredientCategories[0],
+    baseCalorie: {
+      unit: mockUnits[1],
+      serving: 1,
+      calories: 366
+    },
+    conversions: [
+      {
+        fromUnit: mockUnits[2],
+        multiplier: 1 / 16,
+      },
+      {
+        fromUnit: mockUnits[5],
+        multiplier: 1 / 120,
+      },
+    ]
+  }, {
+    ingredientId: 3,
+    name: 'Milk',
+    category: mockIngredientCategories[1],
+    baseCalorie: {
+      unit: mockUnits[0],
+      serving: 1,
+      calories: 0.44
+    },
+    conversions: [
+      {
+        fromUnit: mockUnits[1],
+        multiplier: 237,
+      },
+      {
+        fromUnit: mockUnits[5],
+        multiplier: 1,
+      },
+    ]
+  },
+];
+
+export const mockUnit = {
+  category: {
+    categoryId: 0,
+    name: 'Volume'
+  },
+  name: 'Cup',
+  symbol: 'cup',
+  unitId: 0,
 };
 
-export const mockConfigurationResponse: ConfigurationResponse = {
-  ingredients: mockIngredientResponse,
-  units: mockUnitResponse,
+export const mockSecondUnit = {
+  category: {
+    categoryId: 1,
+    name: 'Mass'
+  },
+  name: 'Gram',
+  symbol: 'gram',
+  unitId: 1,
+};
+
+export const mockThirdUnit = {
+  category: {
+    categoryId: 2,
+    name: 'Weird'
+  },
+  name: 'Glop',
+  symbol: 'glop',
+  unitId: 2,
+};
+
+export const mockIngredientWithoutConversion = {
+  ingredientId: 0,
+  name: 'Ingredient X',
+  category: {
+    categoryId: 0,
+    name: 'Solid',
+  },
+  baseCalorie: {
+    calories: 10,
+    serving: 2,
+    unit: mockUnit,
+  },
+};
+
+export const mockIngredientWithConversion = {
+  ingredientId: 0,
+  name: 'Ingredient X',
+  category: {
+    categoryId: 0,
+    name: 'Solid',
+  },
+  baseCalorie: {
+    calories: 10,
+    serving: 1,
+    unit: mockUnit,
+  },
+  conversions: [{
+    fromUnit: mockSecondUnit,
+    multiplier: 1.5,
+  }],
 };
 
 export const MockConfigurationService = (): IConfiguration => {
-  const getConfiguration = async (): Promise<ConfigurationResponse> => {
-    return Promise.resolve(mockConfigurationResponse);
+  const getConfiguration = async (): Promise<Ingredient[]> => {
+    return Promise.resolve(mockIngredients);
   };
 
   return {

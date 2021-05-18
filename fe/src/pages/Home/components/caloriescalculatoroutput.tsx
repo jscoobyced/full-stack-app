@@ -11,10 +11,10 @@ export const CaloriesCalculatorOutput = (props: OutputProps) => {
   return (
     <ul>
       {
-        selectedIngredients.map((ingredient, index) => {
+        selectedIngredients.map((selectedIngredient, index) => {
           return <li
-            key={'result-ingredient-' + ingredient.ingredient.ingredientId + '-' + index}>
-            {ingredient.quantity} {ingredient.unit.symbol} of {ingredient.ingredient.name} is {ingredient.ingredient.calories} calories.
+            key={'result-ingredient-' + selectedIngredient.ingredient.ingredientId + '-' + index}>
+            {selectedIngredient.serving} {selectedIngredient.unit.symbol} of {selectedIngredient.ingredient.name} is {selectedIngredient.totalCalories} calories.
               </li>;
         })
       }
