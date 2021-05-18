@@ -13,7 +13,8 @@ jest.mock('./caloriescalculatorinput', () => (props: {
     selectIngredient({
       ingredient: mockIngredients[0],
       unit: mockUnits[0],
-      quantity: 0,
+      serving: 0,
+      totalCalories: 0,
     });
   }
 

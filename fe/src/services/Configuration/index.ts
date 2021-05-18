@@ -1,18 +1,12 @@
-import { IngredientData, UnitData } from "..";
+import { Ingredient } from "..";
 import { BACK_END_SERVICES_ENDPOINTS, BACK_END_URL } from "../../config/constants";
 
-export type ConfigurationResponse = {
-  ingredients: IngredientData,
-  units: UnitData,
-};
-
-
 export interface IConfiguration {
-  getConfiguration: () => Promise<ConfigurationResponse>
+  getConfiguration: () => Promise<Ingredient[]>
 }
 
 export const ConfigurationService = (): IConfiguration => {
-  const getConfiguration = async (): Promise<ConfigurationResponse> => {
+  const getConfiguration = async (): Promise<Ingredient[]> => {
     return fetch(`${BACK_END_URL}${BACK_END_SERVICES_ENDPOINTS.getConfiguration}`).then(data => {
       return data.json();
     });

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { SelectedIngredient } from "../../../services";
+import { calculateAllCalories } from "../../../services/Calories";
 import CaloriesCalculatorInput from "./caloriescalculatorinput";
 import { CaloriesCalculatorOutput } from "./caloriescalculatoroutput";
 
@@ -8,15 +9,9 @@ export const CaloriesCalculator = () => {
   const [totalCalories, setTotalCalories] = useState(0);
 
   const setSelectedIngredient = (selectedIngredient: SelectedIngredient) => {
-    const currentIngredients = [] as SelectedIngredient[];
-    let calories = selectedIngredient.ingredient.calories;
-    ingredients.forEach(ingredient => {
-      currentIngredients.push(ingredient);
-      calories += ingredient.ingredient.calories;
-    });
-    currentIngredients.push(selectedIngredient);
-    setIngredients(currentIngredients);
-    setTotalCalories(calories);
+    const newIngredients = [selectedIngredient].concat(ingredients);
+    setIngredients(newIngredients);
+    setTotalCalories(calculateAllCalories(newIngredients));
   };
 
   return (

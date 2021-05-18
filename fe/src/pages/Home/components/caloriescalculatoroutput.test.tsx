@@ -16,11 +16,13 @@ describe('CaloriesCalculatorOutput component', () => {
     const ingredients: SelectedIngredient[] = [{
       ingredient: mockIngredients[0],
       unit: mockUnits[0],
-      quantity: 5
+      serving: 5,
+      totalCalories: 0
     }, {
       ingredient: mockIngredients[2],
       unit: mockUnits[1],
-      quantity: 10
+      serving: 10,
+      totalCalories: 0,
     },]
     const { unmount } = render(
       <CaloriesCalculatorOutput selectedIngredients={ingredients} totalCalories={0} />);
