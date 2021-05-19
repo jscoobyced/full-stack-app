@@ -8,7 +8,7 @@ let mockData = (): IngredientTypes => undefined;
 let mockError = (): ErrorData => undefined;
 
 jest.mock('../../services/IngredientService', () => ({
-  getUsers: jest.fn().mockImplementation(() => {
+  getIngredients: jest.fn().mockImplementation(() => {
     return Promise.resolve({
       data: mockData(),
       error: mockError(),
