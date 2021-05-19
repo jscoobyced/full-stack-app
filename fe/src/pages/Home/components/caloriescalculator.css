@@ -14,7 +14,7 @@ label {
 
 .select-ingredient {
   padding-top: 20px;
-  flex: 1;
+  flex: 4;
 }
 
 .input-quantity {
@@ -34,6 +34,59 @@ section {
   flex-direction: row;
 }
 
-section ul {
-  flex: 1;
+section .ingredient-calories-summary {
+  flex: 6;
+  padding: 0;
+  margin: 0;
+  border-spacing: 0;
+}
+
+.ingredient-calories-summary.show {
+  display: table;
+}
+
+.ingredient-calories-summary.hide {
+  display: none;
+}
+
+.ingredient-calories-summary th {
+  text-align: left;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+}
+
+.ingredient-calories-summary td:last-of-type,
+.ingredient-calories-summary th:last-of-type {
+  text-align: center;
+}
+
+.ingredient-calories-summary td,
+.ingredient-calories-summary th {
+  border-left: 1px solid gray;
+  padding: 5px 10px;
+}
+
+.ingredient-calories-summary td:last-of-type,
+.ingredient-calories-summary th:last-of-type {
+  border-right: 1px solid gray;
+}
+
+.ingredient-calories-summary tr:nth-child(even) {
+  background-color: white;
+}
+
+.ingredient-calories-summary thead,
+.ingredient-calories-summary tfoot {
+  background-color: lightskyblue;
+}
+
+@media only screen and (max-width: 1000px) {
+  section {
+    flex-direction: column;
+  }
+
+  section .ingredient-calories-summary {
+    margin-top: 15px;
+    ;
+  }
 }

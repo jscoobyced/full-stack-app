@@ -1,6 +1,6 @@
 import React from 'react';
 import { useContext, useEffect, useState } from 'react';
-import { Ingredient, SelectedIngredient, Unit } from '../../../services';
+import { Ingredient, IngredientCategory, SelectedIngredient, Unit } from '../../../services';
 import { calculateCalories } from '../../../services/Calories';
 import { ServiceContext } from '../../../services/Context';
 import './caloriescalculator.css';
@@ -21,18 +21,29 @@ const CaloriesCalculatorInput = (props: InputProps) => {
   const [unitData, setUnitData] = useState([] as JSX.Element[]);
   const [quantity, setQuantity] = useState(0);
 
-  const { configuration } = useContext(ServiceContext);
+  const { ingredientService } = useContext(ServiceContext);
 
   useEffect(() => {
-    configuration.getConfiguration().then(ingredients => {
+    ingredientService.getIngredients().then(ingredients => {
       setIngredientList(ingredients);
       setIngredientData(buildIngredientList(ingredients));
     });
-  }, [configuration]);
+  }, [ingredientService]);
 
   const buildIngredientList = (ingredients: Ingredient[]) => {
     const rawIngredientCategories = ingredients.flatMap(ingredient => ingredient.category);
-    const ingredientCategories = Array.from(new Set(rawIngredientCategories));
+    const ingredientCategories: IngredientCategory[] = [];
+    // Need to do manually because data coming from API
+    // can't dedupe using ES6 'Set'
+    rawIngredientCategories.forEach(category => {
+      let found = false;
+      ingredientCategories.forEach(existing => {
+        if (category.categoryId === existing.categoryId) {
+          found = true;
+        }
+      });
+      if (!found) ingredientCategories.push(category);
+    });
     return ingredientCategories.map(category => {
       return <optgroup key={'ingredient-category-' + category.categoryId}
         label={category.name}>

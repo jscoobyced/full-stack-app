@@ -4,13 +4,13 @@ import './Poppins-Light.ttf';
 import './index.css';
 import { App } from './pages/Home';
 import { ServiceContext } from './services/Context';
-import { MockConfigurationService } from './services/Configuration/mock';
+import { IngredientService } from './services/Ingredient';
 
-const configurationService = MockConfigurationService();
+const ingredientService = IngredientService();
 
 ReactDOM.render(
   <React.StrictMode>
-    <ServiceContext.Provider value={{ configuration: configurationService}}>
+    <ServiceContext.Provider value={{ ingredientService }}>
       <App />
     </ServiceContext.Provider>
   </React.StrictMode>,

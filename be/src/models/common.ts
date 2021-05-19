@@ -1,6 +1,6 @@
-import { UserTypes } from './user';
+import { IngredientTypes } from './ingredients';
 
-type ServiceType = void | number | string | UserTypes;
+type ServiceType = void | number | string | IngredientTypes;
 
 export type ErrorData = { code?: number; message?: string } | undefined;
 

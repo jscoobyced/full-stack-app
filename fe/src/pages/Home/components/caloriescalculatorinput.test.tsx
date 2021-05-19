@@ -1,26 +1,27 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Ingredient, SelectedIngredient, Unit } from '../../../services';
-import { IConfiguration } from '../../../services/Configuration';
-import { MockConfigurationService, mockIngredients, mockIngredientWithoutConversion, mockUnits } from '../../../services/Configuration/mock';
+import { IIngredientService } from '../../../services/Ingredient';
 import { ServiceContext } from '../../../services/Context';
 import CaloriesCalculatorInput from './caloriescalculatorinput';
+import { mockIngredients, mockIngredientWithoutConversion, mockUnits } from '../../../services/Ingredient/mock-data';
+import { MockIngredientService } from '../../../services/Ingredient/mock';
 
-const configuration = MockConfigurationService();
+const configuration = MockIngredientService();
 
-const configurationWithoutConversion = (): IConfiguration => {
-  const getConfiguration = async (): Promise<Ingredient[]> => {
+const configurationWithoutConversion = (): IIngredientService => {
+  const getIngredients = async (): Promise<Ingredient[]> => {
     return Promise.resolve([mockIngredientWithoutConversion]);
   };
 
   return {
-    getConfiguration
+    getIngredients
   };
 };
 
 describe('Main component', () => {
   it('can render the options', async () => {
     const selectIngredient = jest.fn();
-    const { unmount, getByRole } = render(<ServiceContext.Provider value={{ configuration }}>
+    const { unmount, getByRole } = render(<ServiceContext.Provider value={{ ingredientService: configuration }}>
       <CaloriesCalculatorInput selectIngredient={selectIngredient} />
     </ServiceContext.Provider>);
     await waitFor(() => {
@@ -41,7 +42,7 @@ describe('Main component', () => {
       totalCalories: 3660,
     };
     const selectIngredient = jest.fn().mockImplementation(() => expected);
-    const { unmount } = render(<ServiceContext.Provider value={{ configuration }}>
+    const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration }}>
       <CaloriesCalculatorInput selectIngredient={selectIngredient} />
     </ServiceContext.Provider>);
     let ingredientSelect = {} as HTMLSelectElement;
@@ -67,7 +68,7 @@ describe('Main component', () => {
       totalCalories: 3660,
     };
     const selectIngredient = jest.fn().mockImplementation(() => expected);
-    const { unmount } = render(<ServiceContext.Provider value={{ configuration }}>
+    const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration }}>
       <CaloriesCalculatorInput selectIngredient={selectIngredient} />
     </ServiceContext.Provider>);
     let ingredientSelect = {} as HTMLSelectElement;
@@ -89,7 +90,7 @@ describe('Main component', () => {
     };
     const selectIngredient = jest.fn().mockImplementation(() => expected);
     const noConversionConfiguration = configurationWithoutConversion();
-    const { unmount } = render(<ServiceContext.Provider value={{ configuration: noConversionConfiguration }}>
+    const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: noConversionConfiguration }}>
       <CaloriesCalculatorInput selectIngredient={selectIngredient} />
     </ServiceContext.Provider>);
     let ingredientSelect = {} as HTMLSelectElement;
@@ -116,7 +117,7 @@ describe('Main component', () => {
       totalCalories: 0,
     };
     const selectIngredient = jest.fn().mockImplementation(() => selectedIngredient);
-    const { unmount } = render(<ServiceContext.Provider value={{ configuration }}>
+    const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration }}>
       <CaloriesCalculatorInput selectIngredient={selectIngredient} />
     </ServiceContext.Provider>);
     let ingredientSelect = {} as HTMLSelectElement;

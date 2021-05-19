@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { SelectedIngredient } from '../../../services';
-import { mockIngredients, mockUnits } from '../../../services/Configuration/mock';
+import { mockIngredients, mockUnits } from '../../../services/Ingredient/mock-data';
 import { CaloriesCalculator } from './caloriescalculator';
 
 jest.mock('./caloriescalculatorinput', () => (props: {
@@ -37,9 +37,8 @@ describe('CaloriesCalculator component', () => {
     const button = screen.getByRole('button') as HTMLButtonElement;
     fireEvent.click(button);
     fireEvent.click(button);
-    const options = screen.getByRole('list') as HTMLUListElement;
-    expect(options).toBeInTheDocument();
-    expect(options.children.length).toEqual(3);
+    const table = screen.getByRole('table');
+    expect(table.children.length).toEqual(3);
     unmount();
   });
 });

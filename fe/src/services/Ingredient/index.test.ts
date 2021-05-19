@@ -1,5 +1,5 @@
-import { ConfigurationService } from ".";
-import { mockIngredients } from "./mock";
+import { IngredientService } from ".";
+import { mockIngredients } from "./mock-data";
 
 const mockResponse = {
   json: () => Promise.resolve(mockIngredients),
@@ -15,7 +15,7 @@ afterEach(() => {
 
 describe('Configuration Service', () => {
   it('gets the configuration from API', async () => {
-    const configuration = await ConfigurationService().getConfiguration();
+    const configuration = await IngredientService().getIngredients();
     expect(configuration).toBeDefined();
     expect(configuration).toEqual(mockIngredients);
   });

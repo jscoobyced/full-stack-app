@@ -1,14 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import { SelectedIngredient } from '../../../services';
-import { mockIngredients, mockUnits } from '../../../services/Configuration/mock';
+import { mockIngredients, mockUnits } from '../../../services/Ingredient/mock-data';
 import { CaloriesCalculatorOutput } from './caloriescalculatoroutput';
 
 describe('CaloriesCalculatorOutput component', () => {
   it('can render with no ingredient', () => {
     const { unmount } = render(
       <CaloriesCalculatorOutput selectedIngredients={[]} totalCalories={0} />);
-    const listElement = screen.getByText(/Total calories/i);
-    expect(listElement).toBeInTheDocument();
+    const table = screen.getByRole('table');
+    expect(table.className).toContain('hide');
     unmount();
   });
 
@@ -26,9 +26,8 @@ describe('CaloriesCalculatorOutput component', () => {
     },]
     const { unmount } = render(
       <CaloriesCalculatorOutput selectedIngredients={ingredients} totalCalories={0} />);
-    const options = screen.getByRole('list') as HTMLUListElement;
-    expect(options).toBeInTheDocument();
-    expect(options.children.length).toEqual(ingredients.length + 1);
+    const table = screen.getByRole('table');
+    expect(table.children.length).toEqual(ingredients.length + 1);
     unmount();
   });
 });

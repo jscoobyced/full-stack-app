@@ -1,6 +1,6 @@
 import { calculateAllCalories, calculateCalories } from ".";
 import { SelectedIngredient } from "..";
-import { mockIngredientWithConversion, mockIngredientWithoutConversion, mockSecondUnit, mockThirdUnit, mockUnit } from "../Configuration/mock";
+import { mockIngredientWithConversion, mockIngredientWithoutConversion, mockSecondUnit, mockThirdUnit, mockUnit } from "../Ingredient/mock-data";
 
 
 describe('calculateCalories', () => {

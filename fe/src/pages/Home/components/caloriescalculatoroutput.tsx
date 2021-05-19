@@ -7,18 +7,35 @@ type OutputProps = {
 
 export const CaloriesCalculatorOutput = (props: OutputProps) => {
   const { selectedIngredients, totalCalories } = props;
+  const isVisible = selectedIngredients && selectedIngredients.length > 0 ? 'show' : 'hide';
 
   return (
-    <ul>
-      {
-        selectedIngredients.map((selectedIngredient, index) => {
-          return <li
-            key={'result-ingredient-' + selectedIngredient.ingredient.ingredientId + '-' + index}>
-            {selectedIngredient.serving} {selectedIngredient.unit.symbol} of {selectedIngredient.ingredient.name} is {selectedIngredient.totalCalories} calories.
-              </li>;
-        })
-      }
-      <li>Total calories is {totalCalories}.</li>
-    </ul>
+    <table className={'ingredient-calories-summary ' + isVisible}>
+      <thead>
+        <tr>
+          <th>Ingredient</th>
+          <th>Quantity</th>
+          <th>Calories</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          selectedIngredients.map((selectedIngredient, index) => {
+            return <tr key={'result-ingredient-' + selectedIngredient.ingredient.ingredientId + '-' + index}>
+              <td>{selectedIngredient.ingredient.name}</td>
+              <td>{selectedIngredient.serving} {selectedIngredient.unit.symbol}</td>
+              <td> {selectedIngredient.totalCalories}</td>
+            </tr>;
+          })
+        }
+      </tbody>
+      <tfoot>
+        <tr>
+          <th>Total</th>
+          <th></th>
+          <th>{totalCalories}</th>
+        </tr>
+      </tfoot>
+    </table>
   );
 }

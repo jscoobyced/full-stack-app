@@ -9,7 +9,7 @@ export const CaloriesCalculator = () => {
   const [totalCalories, setTotalCalories] = useState(0);
 
   const setSelectedIngredient = (selectedIngredient: SelectedIngredient) => {
-    const newIngredients = [selectedIngredient].concat(ingredients);
+    const newIngredients = ingredients.concat([selectedIngredient]);
     setIngredients(newIngredients);
     setTotalCalories(calculateAllCalories(newIngredients));
   };
