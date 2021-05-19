@@ -26,8 +26,19 @@ export type Ingredient = {
 };
 
 export type SelectedIngredient = {
+  id: number,
   ingredient: Ingredient,
   unit: Unit,
   serving: number,
   totalCalories: number,
 };
+
+export type IngredientTypes = Ingredient | Ingredient[] | undefined;
+
+type ServiceType = void | number | string | IngredientTypes;
+
+export type ErrorData = { code?: number; message?: string } | undefined;
+
+export type ServiceResponse = { data: ServiceType; error?: ErrorData };
+
+export type ControllerResponse = { data?: unknown; error?: ErrorData };

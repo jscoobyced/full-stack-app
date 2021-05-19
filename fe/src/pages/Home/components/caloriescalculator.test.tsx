@@ -1,32 +1,11 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { SelectedIngredient } from '../../../services';
-import { mockIngredients, mockUnits } from '../../../services/Configuration/mock';
 import { CaloriesCalculator } from './caloriescalculator';
 
-jest.mock('./caloriescalculatorinput', () => (props: {
-  selectIngredient: (selectedIngredient: SelectedIngredient) => void
-}) => {
-  const { selectIngredient } = props;
-
-  const onButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    selectIngredient({
-      ingredient: mockIngredients[0],
-      unit: mockUnits[0],
-      serving: 0,
-      totalCalories: 0,
-    });
-  }
-
-  return (
-    <button onClick={onButtonClick} />
-  );
-});
+jest.mock('./caloriescalculatorinput');
 
 afterAll(() => {
   jest.restoreAllMocks();
 });
-
 
 describe('CaloriesCalculator component', () => {
   it('can render', async () => {
@@ -37,9 +16,18 @@ describe('CaloriesCalculator component', () => {
     const button = screen.getByRole('button') as HTMLButtonElement;
     fireEvent.click(button);
     fireEvent.click(button);
-    const options = screen.getByRole('list') as HTMLUListElement;
-    expect(options).toBeInTheDocument();
-    expect(options.children.length).toEqual(3);
+    const table = screen.getByRole('table');
+    expect(table.children.length).toEqual(3);
     unmount();
+  });
+
+  it('can remove ingredients', async () => {
+    const { unmount } = render(
+      <CaloriesCalculator />);
+      const button = screen.getByRole('button') as HTMLButtonElement;
+      fireEvent.click(button);  
+      const removeButton = screen.getByRole('img');
+      fireEvent.click(removeButton);
+      unmount();
   });
 });

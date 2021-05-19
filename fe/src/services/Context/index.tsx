@@ -1,8 +1,8 @@
 import React from "react";
-import { IConfiguration } from "../Configuration";
+import { IIngredientService } from "../Ingredient";
 
 interface IServiceContext {
-  configuration: IConfiguration
+  ingredientService: IIngredientService
 }
 
 const defaultServiceContext = undefined as unknown as IServiceContext;

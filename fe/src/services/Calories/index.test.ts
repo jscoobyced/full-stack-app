@@ -1,6 +1,6 @@
 import { calculateAllCalories, calculateCalories } from ".";
 import { SelectedIngredient } from "..";
-import { mockIngredientWithConversion, mockIngredientWithoutConversion, mockSecondUnit, mockThirdUnit, mockUnit } from "../Configuration/mock";
+import { mockIngredientWithConversion, mockIngredientWithoutConversion, mockSecondUnit, mockThirdUnit, mockUnit } from "../Ingredient/mock-data";
 
 
 describe('calculateCalories', () => {
@@ -12,6 +12,7 @@ describe('calculateCalories', () => {
 
   it('returns correct calories when unit is baseCalorie', () => {
     const selectedIngredient: SelectedIngredient = {
+      id: 1,
       ingredient: mockIngredientWithoutConversion,
       unit: mockUnit,
       serving: 10,
@@ -23,6 +24,7 @@ describe('calculateCalories', () => {
 
   it('returns correct calories when unit is converted', () => {
     const selectedIngredient: SelectedIngredient = {
+      id: 1,
       ingredient: mockIngredientWithConversion,
       unit: mockSecondUnit,
       serving: 10,
@@ -34,6 +36,7 @@ describe('calculateCalories', () => {
 
   it('returns 0 for no unit found ingredient', () => {
     const selectedIngredient: SelectedIngredient = {
+      id: 1,
       ingredient: mockIngredientWithoutConversion,
       unit: mockSecondUnit,
       serving: 10,
@@ -46,6 +49,7 @@ describe('calculateCalories', () => {
 
   it('returns 0 for no unit filtered ingredient', () => {
     const selectedIngredient: SelectedIngredient = {
+      id: 1,
       ingredient: mockIngredientWithConversion,
       unit: mockThirdUnit,
       serving: 10,
@@ -71,6 +75,7 @@ describe('calculateAllCalories', () => {
 
   it('returns correct calories for a list of selected ingredient', () => {
     const selectedIngredient: SelectedIngredient = {
+      id: 1,
       ingredient: mockIngredientWithConversion,
       unit: mockSecondUnit,
       serving: 10,

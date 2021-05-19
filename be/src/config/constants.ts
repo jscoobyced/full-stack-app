@@ -7,8 +7,7 @@ export const API_VERSION = {
 };
 
 export const API_ERROR_CODES = {
-  NO_USER_FOUND: 100,
-  USER_NOT_CREATED: 101,
+  NO_INGREDIENT_FOUND: 100,
 };
 
 export const ERROR_CODES = {

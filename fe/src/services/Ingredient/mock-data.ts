@@ -1,4 +1,3 @@
-import { IConfiguration } from ".";
 import { Ingredient, IngredientCategory, Unit, UnitCategory } from "..";
 
 const mockIngredientCategories: IngredientCategory[] = [{
@@ -193,13 +192,3 @@ export const mockIngredientWithConversion = {
     multiplier: 1.5,
   }],
 };
-
-export const MockConfigurationService = (): IConfiguration => {
-  const getConfiguration = async (): Promise<Ingredient[]> => {
-    return Promise.resolve(mockIngredients);
-  };
-
-  return {
-    getConfiguration
-  };
-}

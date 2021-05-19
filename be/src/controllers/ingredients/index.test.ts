@@ -1,18 +1,14 @@
 import { ErrorData } from '../../models/common';
-import { User, UserTypes } from '../../models/user';
+import * as IngredientController from '.';
+import { Ingredient, IngredientTypes } from '../../models/ingredients';
 import { createDefaultMock } from '../../testUtil';
-import * as UserHandler from './user';
+import { mockIngredients } from '../../services/__mocks__/IngredientService';
 
-let mockData = (): UserTypes => undefined;
+let mockData = (): IngredientTypes => undefined;
 let mockError = (): ErrorData => undefined;
-const mockUser: User = {
-  username: 'Mocked',
-  firstname: 'Johnny',
-  lastname: 'Smith',
-};
 
-jest.mock('../../services/UserService', () => ({
-  getUserByUsername: jest.fn().mockImplementation(() => {
+jest.mock('../../services/IngredientService', () => ({
+  getIngredients: jest.fn().mockImplementation(() => {
     return Promise.resolve({
       data: mockData(),
       error: mockError(),
@@ -21,56 +17,46 @@ jest.mock('../../services/UserService', () => ({
 }));
 
 beforeEach(() => {
-  mockData = (): UserTypes => undefined;
+  mockData = (): IngredientTypes => undefined;
   mockError = (): ErrorData => undefined;
 });
 
-describe('User Handler - getUserByUsername', () => {
-  it('does not find the user due to an error', async () => {
+describe('Ingredient Controller - getIngredients', () => {
+  it('does not find ingredients due to an error', async () => {
     mockError = () => {
       return {
+        code: 10,
         message: 'Blablabla',
       };
     };
     const { mockRequest, mockResponse } = createDefaultMock();
-    mockRequest.query = {
-      username: '',
-    };
-    await UserHandler.getUserByUsername(mockRequest, mockResponse);
+    await IngredientController.getIngredients(mockRequest, mockResponse);
     expect(mockResponse.send).toHaveBeenCalledTimes(0);
     expect(mockResponse.status).toHaveBeenCalledTimes(1);
     expect(mockResponse.status).toHaveBeenCalledWith(400);
   });
 
-  it('does not find the user', async () => {
+  it('does not find user with undefined data', async () => {
     const { mockRequest, mockResponse } = createDefaultMock();
-    mockRequest.query = {
-      username: '',
-    };
-    await UserHandler.getUserByUsername(mockRequest, mockResponse);
+    await IngredientController.getIngredients(mockRequest, mockResponse);
     expect(mockResponse.send).toHaveBeenCalledTimes(0);
     expect(mockResponse.status).toHaveBeenCalledTimes(1);
     expect(mockResponse.status).toHaveBeenCalledWith(404);
   });
 
-  it('does not find the user due to username undefined', async () => {
+  it('does not find user with empty data', async () => {
     const { mockRequest, mockResponse } = createDefaultMock();
-    mockRequest.query = {
-      username: undefined,
-    };
-    await UserHandler.getUserByUsername(mockRequest, mockResponse);
+    mockData = () => <Ingredient[]>[];
+    await IngredientController.getIngredients(mockRequest, mockResponse);
     expect(mockResponse.send).toHaveBeenCalledTimes(0);
     expect(mockResponse.status).toHaveBeenCalledTimes(1);
     expect(mockResponse.status).toHaveBeenCalledWith(404);
   });
 
-  it('returns the user', async () => {
+  it('returns users list', async () => {
     const { mockRequest, mockResponse } = createDefaultMock();
-    mockRequest.query = {
-      username: 'John',
-    };
-    mockData = () => mockUser;
-    await UserHandler.getUserByUsername(mockRequest, mockResponse);
+    mockData = () => mockIngredients;
+    await IngredientController.getIngredients(mockRequest, mockResponse);
     expect(mockResponse.send).toHaveBeenCalledTimes(1);
     expect(mockResponse.status).toHaveBeenCalledTimes(0);
   });
