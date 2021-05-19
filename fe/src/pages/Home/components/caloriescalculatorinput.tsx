@@ -20,6 +20,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
   const [unit, setUnit] = useState({} as Unit);
   const [unitData, setUnitData] = useState([] as JSX.Element[]);
   const [quantity, setQuantity] = useState(0);
+  const [counter, setCounter] = useState(0);
 
   const { ingredientService } = useContext(ServiceContext);
 
@@ -109,11 +110,13 @@ const CaloriesCalculatorInput = (props: InputProps) => {
   const addIngredient = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const selectedIngredient: SelectedIngredient = {
+      id: counter,
       ingredient,
       unit,
       serving: quantity,
       totalCalories: 0,
     };
+    setCounter(counter + 1);
     selectedIngredient.totalCalories = calculateCalories(selectedIngredient);
     selectIngredient(selectedIngredient);
   }

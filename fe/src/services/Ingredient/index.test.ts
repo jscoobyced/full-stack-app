@@ -2,7 +2,9 @@ import { IngredientService } from ".";
 import { mockIngredients } from "./mock-data";
 
 const mockResponse = {
-  json: () => Promise.resolve(mockIngredients),
+  json: () => Promise.resolve({
+    data: mockIngredients,
+  }),
 } as Response;
 
 beforeEach(() => {
@@ -13,10 +15,10 @@ afterEach(() => {
   jest.restoreAllMocks();
 });
 
-describe('Configuration Service', () => {
-  it('gets the configuration from API', async () => {
-    const configuration = await IngredientService().getIngredients();
-    expect(configuration).toBeDefined();
-    expect(configuration).toEqual(mockIngredients);
+describe('Ingredient Service', () => {
+  it('gets the ingredients from API', async () => {
+    const ingredients = await IngredientService().getIngredients();
+    expect(ingredients).toBeDefined();
+    expect(ingredients).toEqual(mockIngredients);
   });
 });

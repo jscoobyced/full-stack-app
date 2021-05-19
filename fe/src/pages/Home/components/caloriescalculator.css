@@ -80,6 +80,12 @@ section .ingredient-calories-summary {
   background-color: lightskyblue;
 }
 
+.ingredient-calories-summary img.remove {
+  width: 24px;
+  vertical-align: middle;
+  padding-bottom: 4px;
+}
+
 @media only screen and (max-width: 1000px) {
   section {
     flex-direction: column;
@@ -87,6 +93,5 @@ section .ingredient-calories-summary {
 
   section .ingredient-calories-summary {
     margin-top: 15px;
-    ;
   }
 }

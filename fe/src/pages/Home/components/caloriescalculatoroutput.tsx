@@ -3,11 +3,21 @@ import { SelectedIngredient } from "../../../services";
 type OutputProps = {
   selectedIngredients: SelectedIngredient[];
   totalCalories: number;
+  removeIngredient: (selectedIngredient: SelectedIngredient) => void,
 };
 
 export const CaloriesCalculatorOutput = (props: OutputProps) => {
-  const { selectedIngredients, totalCalories } = props;
+  const { selectedIngredients, totalCalories, removeIngredient } = props;
   const isVisible = selectedIngredients && selectedIngredients.length > 0 ? 'show' : 'hide';
+
+  const doRemoveIngredient = (event: React.MouseEvent<HTMLImageElement>) => {
+    event.preventDefault();
+    const id = +(event.target as HTMLSpanElement).id;
+    const ingredient = selectedIngredients.filter(ingredient => ingredient.id === id);
+    if (!!ingredient && ingredient.length === 1) {
+      removeIngredient(ingredient[0]);
+    }
+  }
 
   return (
     <table className={'ingredient-calories-summary ' + isVisible}>
@@ -16,15 +26,22 @@ export const CaloriesCalculatorOutput = (props: OutputProps) => {
           <th>Ingredient</th>
           <th>Quantity</th>
           <th>Calories</th>
+          <th>Remove</th>
         </tr>
       </thead>
       <tbody>
         {
-          selectedIngredients.map((selectedIngredient, index) => {
-            return <tr key={'result-ingredient-' + selectedIngredient.ingredient.ingredientId + '-' + index}>
+          selectedIngredients.map(selectedIngredient => {
+            return <tr key={'result-ingredient-' + selectedIngredient.id}>
               <td>{selectedIngredient.ingredient.name}</td>
               <td>{selectedIngredient.serving} {selectedIngredient.unit.symbol}</td>
               <td> {selectedIngredient.totalCalories}</td>
+              <td><img
+                src='delete.png'
+                className='remove'
+                alt='Remove'
+                onClick={doRemoveIngredient}
+                id={'' + selectedIngredient.id} /></td>
             </tr>;
           })
         }
@@ -34,6 +51,7 @@ export const CaloriesCalculatorOutput = (props: OutputProps) => {
           <th>Total</th>
           <th></th>
           <th>{totalCalories}</th>
+          <th></th>
         </tr>
       </tfoot>
     </table>

@@ -26,6 +26,7 @@ export type Ingredient = {
 };
 
 export type SelectedIngredient = {
+  id: number,
   ingredient: Ingredient,
   unit: Unit,
   serving: number,

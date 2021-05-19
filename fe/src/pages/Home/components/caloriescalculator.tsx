@@ -14,13 +14,23 @@ export const CaloriesCalculator = () => {
     setTotalCalories(calculateAllCalories(newIngredients));
   };
 
+  const removeIngredient = (selectedIngredient: SelectedIngredient) => {
+    const newIngredients = ingredients.filter(ingredient => ingredient.id !== selectedIngredient.id);
+    setIngredients(newIngredients);
+    setTotalCalories(calculateAllCalories(newIngredients));
+  };
+
   return (
     <>
       <span>This is the calories calculator. Add the ingredients and quantity or volume and it
     will show you the resulting number of calories per overall volume.</span>
       <section id='calculator'>
         <CaloriesCalculatorInput selectIngredient={setSelectedIngredient} />
-        <CaloriesCalculatorOutput selectedIngredients={ingredients} totalCalories={totalCalories} />
+        <CaloriesCalculatorOutput
+          selectedIngredients={ingredients}
+          totalCalories={totalCalories}
+          removeIngredient={removeIngredient}
+        />
       </section>
     </>
   );

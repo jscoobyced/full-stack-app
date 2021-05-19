@@ -36,6 +36,7 @@ describe('Main component', () => {
 
   it('can set the options', async () => {
     const expected: SelectedIngredient = {
+      id: 0,
       ingredient: mockIngredients[1],
       serving: 10,
       unit: mockUnits[1],
@@ -62,6 +63,7 @@ describe('Main component', () => {
 
   it('can select unknown ingredient', async () => {
     const expected: SelectedIngredient = {
+      id: 1,
       ingredient: mockIngredients[1],
       serving: 10,
       unit: mockUnits[1],
@@ -83,6 +85,7 @@ describe('Main component', () => {
 
   it('can select ingredient with no conversion', async () => {
     const expected: SelectedIngredient = {
+      id: 1,
       ingredient: mockIngredients[1],
       serving: 10,
       unit: mockUnits[1],
@@ -105,12 +108,14 @@ describe('Main component', () => {
 
   it('can select ingredient with no unit found', async () => {
     const selectedIngredient: SelectedIngredient = {
+      id: 0,
       ingredient: mockIngredients[1],
       serving: 10,
       unit: mockUnits[1],
       totalCalories: 3660,
     };
     const expectedIngredient: SelectedIngredient = {
+      id: 0,
       ingredient: mockIngredients[1],
       serving: 10,
       unit: {} as Unit,
