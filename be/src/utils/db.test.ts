@@ -29,7 +29,7 @@ describe('DB Utils', () => {
   });
 
   it('returns empty rows when data is undefined', () => {
-    const rows = db_rows((undefined as unknown) as RowDataPacket[][]);
+    const rows = db_rows(undefined as unknown as RowDataPacket[][]);
     expect(rows).toBeDefined();
     expect(rows.length).toEqual(0);
   });

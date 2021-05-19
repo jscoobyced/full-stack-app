@@ -10,7 +10,7 @@ export const getUsers = async (): Promise<Ingredient[]> => {
     .then(([result]) => {
       const rows = db_rows(result);
       const ingredients = rows.map((row) => {
-        return ({} as unknown) as Ingredient;
+        return {} as unknown as Ingredient;
       });
       return ingredients;
     });
