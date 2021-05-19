@@ -15,7 +15,7 @@ services:
       DB_NAME: my_app
       BACK_END_API_PORT: 3001
       FRONT_END_API_HOST: rochefolle.org
-      FRONT_END_API_PORT: 443
+      FRONT_END_API_PORT: ''
       FRONT_END_API_SCHEME: https
 
   fe:
