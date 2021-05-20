@@ -109,7 +109,7 @@ describe('Main component', () => {
       unit: mockUnits[1],
       totalCalories: 3660,
     };
-    const expectedIngredient: SelectedIngredient = {
+    const _expectedIngredient: SelectedIngredient = {
       id: 0,
       ingredient: mockIngredients[1],
       serving: 10,
@@ -131,7 +131,7 @@ describe('Main component', () => {
     fireEvent.change(quantity, { target: { value: 10 } });
     const button = screen.getByRole('button');
     fireEvent.click(button);
-    expect(selectIngredient).toHaveBeenCalledWith(expectedIngredient);
+    expect(selectIngredient).toHaveBeenCalledWith(_expectedIngredient);
     unmount();
   });
 });
