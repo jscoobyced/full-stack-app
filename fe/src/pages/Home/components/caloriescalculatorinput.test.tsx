@@ -109,13 +109,6 @@ describe('Main component', () => {
       unit: mockUnits[1],
       totalCalories: 3660,
     };
-    const _expectedIngredient: SelectedIngredient = {
-      id: 0,
-      ingredient: mockIngredients[1],
-      serving: 10,
-      unit: {} as Unit,
-      totalCalories: 0,
-    };
     const selectIngredient = jest.fn().mockImplementation(() => _selectedIngredient);
     const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration }}>
       <CaloriesCalculatorInput selectIngredient={selectIngredient} />
@@ -131,7 +124,7 @@ describe('Main component', () => {
     fireEvent.change(quantity, { target: { value: 10 } });
     const button = screen.getByRole('button');
     fireEvent.click(button);
-    expect(selectIngredient).toHaveBeenCalledWith(_expectedIngredient);
+    expect(selectIngredient).toHaveBeenCalledTimes(0);
     unmount();
   });
 });

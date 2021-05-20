@@ -6,6 +6,10 @@ export const calculateCalories = (selectedIngredient: SelectedIngredient): numbe
   }
   const { ingredient, unit, serving: quantity } = selectedIngredient;
   let multiplier = 0;
+  if (!ingredient.baseCalorie || !ingredient.baseCalorie.unit || quantity === 0) {
+    return 0;
+  }
+
   if (ingredient.baseCalorie.unit === unit) {
     multiplier = 1;
   } else {

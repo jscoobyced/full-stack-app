@@ -19,7 +19,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
   const [unitList, setUnitList] = useState([] as Unit[]);
   const [unit, setUnit] = useState({} as Unit);
   const [unitData, setUnitData] = useState([] as JSX.Element[]);
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [counter, setCounter] = useState(0);
 
   const { ingredientService } = useContext(ServiceContext);
@@ -103,8 +103,8 @@ const CaloriesCalculatorInput = (props: InputProps) => {
       serving: quantity,
       totalCalories: 0,
     };
-    setCounter(counter + 1);
     selectedIngredient.totalCalories = calculateCalories(selectedIngredient);
+    setCounter(counter + 1);
     selectIngredient(selectedIngredient);
   }
 
@@ -126,9 +126,9 @@ const CaloriesCalculatorInput = (props: InputProps) => {
         aria-label='quantity'
         onChange={onSelectQuantity}
         className='input-quantity'
-        step={0.01}
-        size={5}></input>
+        step={0.1} size={5} value={quantity}></input>
       <button className='button-add'
+        disabled={!unit.id || quantity <= 0}
         onClick={addIngredient}>Add</button>
     </div>
   );
