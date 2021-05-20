@@ -3,6 +3,11 @@
 This is all you need to build a full website using ReactJS and NodeJS.
 
 [![codecov](https://codecov.io/gh/jscoobyced/full-stack-app/branch/main/graph/badge.svg)](https://codecov.io/gh/jscoobyced/full-stack-app)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jscoobyced_full-stack-app&metric=alert_status)](https://sonarcloud.io/dashboard?id=jscoobyced_full-stack-app)
+
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=jscoobyced_full-stack-app&metric=bugs)](https://sonarcloud.io/dashboard?id=jscoobyced_full-stack-app)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=jscoobyced_full-stack-app&metric=code_smells)](https://sonarcloud.io/dashboard?id=jscoobyced_full-stack-app)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=jscoobyced_full-stack-app&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=jscoobyced_full-stack-app)
 
 
 ## Quick Start
