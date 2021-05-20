@@ -1,5 +1,6 @@
 import { SelectedIngredient } from "../../../../services";
 import { mockIngredients, mockUnits } from "../../../../services/Ingredient/mock-data";
+import { randomNumber } from "../../../../utils/crypto";
 
 const CaloriesCalculatorInput = (props: {
   selectIngredient: (selectedIngredient: SelectedIngredient) => void
@@ -9,7 +10,7 @@ const CaloriesCalculatorInput = (props: {
   const onButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     selectIngredient({
-      id: Math.round(Math.random() * 10000),
+      id: randomNumber(10000),
       ingredient: mockIngredients[0],
       unit: mockUnits[0],
       serving: 0,
