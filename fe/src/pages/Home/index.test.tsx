@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { App } from '.';
 import { AUTHOR, COPYRIGHT, RELEASE_YEAR, TITLE } from '../../config/constants';
-import dateUtil from '../../utils/date';
+import dateUtil from '../../utils/dateUtil';
 
 jest.mock('./components/caloriescalculatorinput', () => () => 'mocked');
 
@@ -21,7 +21,7 @@ describe('Main component', () => {
     const footerText = footer.innerHTML;
     expect(footerText).toBeDefined();
     expect(footerText.indexOf(COPYRIGHT) === 0).toBeTruthy();
-    expect(footerText.indexOf('' + RELEASE_YEAR) > 0).toBeTruthy();
+    expect(footerText.indexOf(`${RELEASE_YEAR}`) > 0).toBeTruthy();
     expect(footerText.indexOf(AUTHOR) > 0).toBeTruthy();
     unmount();
   });
@@ -36,7 +36,7 @@ describe('Main component', () => {
     expect(footer).toBeInTheDocument();
     const footerText = footer.innerHTML;
     expect(footerText).toBeDefined();
-    expect(footerText.indexOf(RELEASE_YEAR + '-' + nextTenYear) > 0).toBeTruthy();
+    expect(footerText.indexOf(`${RELEASE_YEAR}-${nextTenYear}`) > 0).toBeTruthy();
     unmount();
   });
 

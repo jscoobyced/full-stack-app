@@ -13,9 +13,9 @@ export const CaloriesCalculatorOutput = (props: OutputProps) => {
   const doRemoveIngredient = (event: React.MouseEvent<HTMLImageElement>) => {
     event.preventDefault();
     const id = +(event.target as HTMLSpanElement).id;
-    const ingredient = selectedIngredients.filter(ingredient => ingredient.id === id);
-    if (!!ingredient && ingredient.length === 1) {
-      removeIngredient(ingredient[0]);
+    const ingredients = selectedIngredients.filter(_ingredient => _ingredient.id === id);
+    if (!!ingredients && ingredients.length === 1) {
+      removeIngredient(ingredients[0]);
     }
   }
 
@@ -31,8 +31,8 @@ export const CaloriesCalculatorOutput = (props: OutputProps) => {
       </thead>
       <tbody>
         {
-          selectedIngredients.map(selectedIngredient => {
-            return <tr key={'result-ingredient-' + selectedIngredient.id}>
+          selectedIngredients.map((selectedIngredient, index) => {
+            return <tr key={'result-ingredient-' + selectedIngredient.id + '-' + index}>
               <td>{selectedIngredient.ingredient.name}</td>
               <td>{selectedIngredient.serving} {selectedIngredient.unit.symbol}</td>
               <td> {selectedIngredient.totalCalories}</td>

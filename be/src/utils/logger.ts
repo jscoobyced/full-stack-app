@@ -12,9 +12,9 @@ const formatMessage = (message: string): string => {
   return `${yyyymmdd} ${hhmmssms} - ${message}`;
 };
 
-const error = (message: string, error?: Error): void => {
+const error = (message: string, _error?: Error): void => {
   console.error(formatMessage(message));
-  console.error(error);
+  console.error(_error);
 };
 
 const info = (message: string): void => {

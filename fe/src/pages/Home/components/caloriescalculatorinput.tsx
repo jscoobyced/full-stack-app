@@ -1,6 +1,5 @@
-import React from 'react';
 import { useContext, useEffect, useState } from 'react';
-import { Ingredient, Category, SelectedIngredient, Unit } from '../../../services';
+import { Ingredient, SelectedIngredient, Unit } from '../../../services';
 import { calculateCalories } from '../../../services/Calories';
 import { ServiceContext } from '../../../services/Context';
 import { getUniqueCategories } from '../../../utils/category';
@@ -38,8 +37,8 @@ const CaloriesCalculatorInput = (props: InputProps) => {
       return <optgroup key={'ingredient-category-' + category.categoryId}
         label={category.name}>
         {
-          ingredients.filter(ingredient => {
-            return ingredient.category.categoryId === category.categoryId
+          ingredients.filter(_ingredient => {
+            return _ingredient.category.categoryId === category.categoryId
           }).map(ingredient => {
             return <option value={ingredient.id}
               key={'ingredient-' + ingredient.id}>{ingredient.name}</option>
@@ -55,8 +54,8 @@ const CaloriesCalculatorInput = (props: InputProps) => {
       return <optgroup key={'unit-category-' + category.categoryId}
         label={category.name}>
         {
-          units.filter(unit => {
-            return unit.category.categoryId === category.categoryId
+          units.filter(_unit => {
+            return _unit.category.categoryId === category.categoryId
           }).map(unit => {
             return <option value={unit.id}
               key={'unit-' + unit.id}>{unit.name} ({unit.symbol})</option>
@@ -69,7 +68,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
   const onSelectIngredient = (event: React.ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
     const selectedOption = +event.target.value;
-    const selectedIngredient = ingredientList.find(ingredient => ingredient.id === selectedOption);
+    const selectedIngredient = ingredientList.find(_ingredient => _ingredient.id === selectedOption);
     if (selectedIngredient) {
       setIngredient(selectedIngredient)
       const units = selectedIngredient.conversions?.flatMap(conversion => conversion.fromUnit) || [];
@@ -83,7 +82,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
   const onSelectUnit = (event: React.ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
     const selectedOption = +event.target.value;
-    const selectedUnit = unitList.find(unit => unit.id === selectedOption);
+    const selectedUnit = unitList.find(_unit => _unit.id === selectedOption);
     if (selectedUnit) {
       setUnit(selectedUnit);
     }

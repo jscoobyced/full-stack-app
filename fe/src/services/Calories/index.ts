@@ -1,7 +1,9 @@
 import { SelectedIngredient } from "..";
 
 export const calculateCalories = (selectedIngredient: SelectedIngredient): number => {
-  if (!selectedIngredient) return 0;
+  if (!selectedIngredient) {
+    return 0;
+  }
   const { ingredient, unit, serving: quantity } = selectedIngredient;
   let multiplier = 0;
   if (ingredient.baseCalorie.unit === unit) {
@@ -16,7 +18,9 @@ export const calculateCalories = (selectedIngredient: SelectedIngredient): numbe
 }
 
 export const calculateAllCalories = (selectedIngredients: SelectedIngredient[]): number => {
-  if (!selectedIngredients || selectedIngredients.length === 0) return 0;
+  if (!selectedIngredients || selectedIngredients.length === 0) {
+    return 0;
+  }
   let totalCalories = 0;
   selectedIngredients.forEach(selectedIngredient => {
     totalCalories += calculateCalories(selectedIngredient);

@@ -7,7 +7,9 @@ export const allowedOrigins = (): string => {
 
   const scheme = process.env.FRONT_END_API_SCHEME || 'http';
   const port = () => {
-    if (process.env.FRONT_END_API_PORT === 'none') return '';
+    if (process.env.FRONT_END_API_PORT === 'none') {
+      return '';
+    }
     if (!!process.env.FRONT_END_API_PORT) {
       return `:${process.env.FRONT_END_API_PORT}`;
     }
