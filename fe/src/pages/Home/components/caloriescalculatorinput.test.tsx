@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { Ingredient, SelectedIngredient, Unit } from '../../../services';
+import { Ingredient, SelectedIngredient } from '../../../services';
 import { IIngredientService } from '../../../services/Ingredient';
 import { ServiceContext } from '../../../services/Context';
 import CaloriesCalculatorInput from './caloriescalculatorinput';

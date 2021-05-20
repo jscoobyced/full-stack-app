@@ -28,6 +28,10 @@ label {
   display: block;
 }
 
+.button-add:disabled {
+  color: rgb(64, 128, 255)
+}
+
 section {
   display: flex;
   flex-direction: row;

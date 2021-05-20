@@ -110,12 +110,12 @@ const CaloriesCalculatorInput = (props: InputProps) => {
 
   return (
     <div className='select-ingredient'>
-      <label htmlFor='ingredient'>Ingredient: </label>
+      <label htmlFor='ingredient'>Ingredient*</label>
       <select id='ingredient' onChange={onSelectIngredient}>
         <option value='-1'>-- Select --</option>
         {ingredientData}
       </select>
-      <label htmlFor='unit'>Unit: </label>
+      <label htmlFor='unit'>Unit*</label>
       <select id='unit' onChange={onSelectUnit} disabled={unitData.length === 0}>
         <option value='-1'>-- Select --</option>
         {unitData}
