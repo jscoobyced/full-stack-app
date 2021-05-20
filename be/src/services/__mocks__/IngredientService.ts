@@ -1,7 +1,7 @@
 import { ServiceResponse } from '../../models/common';
-import { Ingredient, IngredientCategory, Unit, UnitCategory } from '../../models/ingredients';
+import { Ingredient, Category, Unit } from '../../models/ingredients';
 
-const mockIngredientCategories: IngredientCategory[] = [
+const mockIngredientCategories: Category[] = [
   {
     categoryId: 0,
     name: 'Powder',
@@ -12,7 +12,7 @@ const mockIngredientCategories: IngredientCategory[] = [
   },
 ];
 
-const mockUnitCategories: UnitCategory[] = [
+const mockUnitCategories: Category[] = [
   {
     categoryId: 1,
     name: 'Volume',
@@ -25,49 +25,49 @@ const mockUnitCategories: UnitCategory[] = [
 
 export const mockUnits: Unit[] = [
   {
-    unitId: 1,
+    id: 1,
     name: 'Milliliter',
     symbol: 'mL',
     category: mockUnitCategories[0],
   },
   {
-    unitId: 2,
+    id: 2,
     name: 'Cup',
     symbol: 'cup',
     category: mockUnitCategories[0],
   },
   {
-    unitId: 3,
+    id: 3,
     name: 'Table spoon',
     symbol: 'tbsp',
     category: mockUnitCategories[0],
   },
   {
-    unitId: 4,
+    id: 4,
     name: 'Tea spoon',
     symbol: 'tsp',
     category: mockUnitCategories[0],
   },
   {
-    unitId: 5,
+    id: 5,
     name: 'Milligram',
     symbol: 'mg',
     category: mockUnitCategories[1],
   },
   {
-    unitId: 6,
+    id: 6,
     name: 'Gram',
     symbol: 'g',
     category: mockUnitCategories[1],
   },
   {
-    unitId: 7,
+    id: 7,
     name: 'Pound',
     symbol: 'lb',
     category: mockUnitCategories[1],
   },
   {
-    unitId: 8,
+    id: 8,
     name: 'piece',
     symbol: 'p',
     category: mockUnitCategories[1],
@@ -76,7 +76,7 @@ export const mockUnits: Unit[] = [
 
 export const mockIngredients: Ingredient[] = [
   {
-    ingredientId: 1,
+    id: 1,
     name: 'Wheat Flour',
     category: mockIngredientCategories[0],
     baseCalorie: {
@@ -96,7 +96,7 @@ export const mockIngredients: Ingredient[] = [
     ],
   },
   {
-    ingredientId: 2,
+    id: 2,
     name: 'Rice Flour',
     category: mockIngredientCategories[0],
     baseCalorie: {
@@ -116,7 +116,7 @@ export const mockIngredients: Ingredient[] = [
     ],
   },
   {
-    ingredientId: 3,
+    id: 3,
     name: 'Milk',
     category: mockIngredientCategories[1],
     baseCalorie: {
@@ -144,7 +144,7 @@ export const mockUnit = {
   },
   name: 'Cup',
   symbol: 'cup',
-  unitId: 0,
+  id: 0,
 };
 
 export const mockSecondUnit = {
@@ -154,7 +154,7 @@ export const mockSecondUnit = {
   },
   name: 'Gram',
   symbol: 'gram',
-  unitId: 1,
+  id: 1,
 };
 
 export const mockThirdUnit = {
@@ -164,11 +164,11 @@ export const mockThirdUnit = {
   },
   name: 'Glop',
   symbol: 'glop',
-  unitId: 2,
+  id: 2,
 };
 
 export const mockIngredientWithoutConversion = {
-  ingredientId: 0,
+  id: 0,
   name: 'Ingredient X',
   category: {
     categoryId: 0,
@@ -182,7 +182,7 @@ export const mockIngredientWithoutConversion = {
 };
 
 export const mockIngredientWithConversion = {
-  ingredientId: 0,
+  id: 0,
   name: 'Ingredient X',
   category: {
     categoryId: 0,

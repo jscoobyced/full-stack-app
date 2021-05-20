@@ -1,6 +1,9 @@
+// Base
+export type Category = { categoryId: number; name: string };
+export type BaseModel = { id: number; name: string; category: Category };
+
 // Unit
-export type UnitCategory = { categoryId: number; name: string; }
-export type Unit = { unitId: number; category: UnitCategory; name: string; symbol: string };
+export type Unit = BaseModel & { symbol: string };
 
 // Calories and Conversions
 export type Calorie = {
@@ -12,25 +15,20 @@ export type Calorie = {
 export type Conversion = {
   fromUnit: Unit;
   multiplier: number;
-}
+};
 
 // Ingredients
-export type IngredientCategory = { categoryId: number; name: string; }
-
-export type Ingredient = {
-  ingredientId: number;
-  category: IngredientCategory;
-  name: string;
+export type Ingredient = BaseModel & {
   baseCalorie: Calorie;
-  conversions?: Conversion[]
+  conversions?: Conversion[];
 };
 
 export type SelectedIngredient = {
-  id: number,
-  ingredient: Ingredient,
-  unit: Unit,
-  serving: number,
-  totalCalories: number,
+  id: number;
+  ingredient: Ingredient;
+  unit: Unit;
+  serving: number;
+  totalCalories: number;
 };
 
 export type IngredientTypes = Ingredient | Ingredient[] | undefined;
