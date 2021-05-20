@@ -18,6 +18,15 @@ const configurationWithoutConversion = (): IIngredientService => {
   };
 };
 
+const expectedIngredient: SelectedIngredient = {
+  id: 0,
+  ingredient: mockIngredients[1],
+  serving: 10,
+  unit: mockUnits[1],
+  totalCalories: 3660,
+};
+
+
 describe('Main component', () => {
   it('can render the options', async () => {
     const selectIngredient = jest.fn();
@@ -35,14 +44,7 @@ describe('Main component', () => {
   });
 
   it('can set the options', async () => {
-    const expected: SelectedIngredient = {
-      id: 0,
-      ingredient: mockIngredients[1],
-      serving: 10,
-      unit: mockUnits[1],
-      totalCalories: 3660,
-    };
-    const selectIngredient = jest.fn().mockImplementation(() => expected);
+    const selectIngredient = jest.fn().mockImplementation(() => expectedIngredient);
     const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration }}>
       <CaloriesCalculatorInput selectIngredient={selectIngredient} />
     </ServiceContext.Provider>);
@@ -57,19 +59,12 @@ describe('Main component', () => {
     fireEvent.change(quantity, { target: { value: 10 } });
     const button = screen.getByRole('button');
     fireEvent.click(button);
-    expect(selectIngredient).toHaveBeenCalledWith(expected);
+    expect(selectIngredient).toHaveBeenCalledWith(expectedIngredient);
     unmount();
   });
 
   it('can select unknown ingredient', async () => {
-    const expected: SelectedIngredient = {
-      id: 1,
-      ingredient: mockIngredients[1],
-      serving: 10,
-      unit: mockUnits[1],
-      totalCalories: 3660,
-    };
-    const selectIngredient = jest.fn().mockImplementation(() => expected);
+    const selectIngredient = jest.fn().mockImplementation(() => expectedIngredient);
     const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration }}>
       <CaloriesCalculatorInput selectIngredient={selectIngredient} />
     </ServiceContext.Provider>);
@@ -107,21 +102,21 @@ describe('Main component', () => {
   });
 
   it('can select ingredient with no unit found', async () => {
-    const selectedIngredient: SelectedIngredient = {
+    const _selectedIngredient: SelectedIngredient = {
       id: 0,
       ingredient: mockIngredients[1],
       serving: 10,
       unit: mockUnits[1],
       totalCalories: 3660,
     };
-    const expectedIngredient: SelectedIngredient = {
+    const _expectedIngredient: SelectedIngredient = {
       id: 0,
       ingredient: mockIngredients[1],
       serving: 10,
       unit: {} as Unit,
       totalCalories: 0,
     };
-    const selectIngredient = jest.fn().mockImplementation(() => selectedIngredient);
+    const selectIngredient = jest.fn().mockImplementation(() => _selectedIngredient);
     const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration }}>
       <CaloriesCalculatorInput selectIngredient={selectIngredient} />
     </ServiceContext.Provider>);
@@ -136,7 +131,7 @@ describe('Main component', () => {
     fireEvent.change(quantity, { target: { value: 10 } });
     const button = screen.getByRole('button');
     fireEvent.click(button);
-    expect(selectIngredient).toHaveBeenCalledWith(expectedIngredient);
+    expect(selectIngredient).toHaveBeenCalledWith(_expectedIngredient);
     unmount();
   });
 });

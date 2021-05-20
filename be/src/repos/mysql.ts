@@ -13,7 +13,9 @@ const configuration = {
 };
 
 export const createPool = (): void => {
-  if (!!pool) return;
+  if (!!pool) {
+    return;
+  }
   logger.info('Creating database connection pool.');
   pool = mysql.createPool(configuration);
 };

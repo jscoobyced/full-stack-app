@@ -1,4 +1,4 @@
-import dateUtil from "./date";
+import dateUtil from "./dateUtil";
 
 test('rgets current date', () => {
   const currentDate = dateUtil.getCurrentDate();

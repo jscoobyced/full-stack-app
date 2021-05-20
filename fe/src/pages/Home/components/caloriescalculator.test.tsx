@@ -25,7 +25,7 @@ describe('CaloriesCalculator component', () => {
     const { unmount } = render(
       <CaloriesCalculator />);
       const button = screen.getByRole('button') as HTMLButtonElement;
-      fireEvent.click(button);  
+      fireEvent.click(button);
       const removeButton = screen.getByRole('img');
       fireEvent.click(removeButton);
       unmount();

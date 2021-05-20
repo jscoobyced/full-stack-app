@@ -5,7 +5,6 @@ input {
   font-size: 0.8em;
   border-radius: 5px;
   background-color: white;
-  ;
 }
 
 label {
@@ -55,11 +54,6 @@ section .ingredient-calories-summary {
   border-bottom: 1px solid gray;
 }
 
-.ingredient-calories-summary td:last-of-type,
-.ingredient-calories-summary th:last-of-type {
-  text-align: center;
-}
-
 .ingredient-calories-summary td,
 .ingredient-calories-summary th {
   border-left: 1px solid gray;
@@ -68,6 +62,7 @@ section .ingredient-calories-summary {
 
 .ingredient-calories-summary td:last-of-type,
 .ingredient-calories-summary th:last-of-type {
+  text-align: center;
   border-right: 1px solid gray;
 }
 

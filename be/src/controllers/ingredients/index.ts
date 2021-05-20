@@ -17,6 +17,8 @@ export const getIngredients: Handler = async (req, res) => {
         code: API_ERROR_CODES.NO_INGREDIENT_FOUND,
       };
       res.status(404).send(response);
-    } else res.send(result);
+    } else {
+      res.send(result);
+    }
   });
 };

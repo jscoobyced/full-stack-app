@@ -1,8 +1,8 @@
-import React from 'react';
 import { useContext, useEffect, useState } from 'react';
-import { Ingredient, IngredientCategory, SelectedIngredient, Unit } from '../../../services';
+import { Ingredient, SelectedIngredient, Unit } from '../../../services';
 import { calculateCalories } from '../../../services/Calories';
 import { ServiceContext } from '../../../services/Context';
+import { getUniqueCategories } from '../../../utils/category';
 import './caloriescalculator.css';
 
 type InputProps = {
@@ -32,28 +32,16 @@ const CaloriesCalculatorInput = (props: InputProps) => {
   }, [ingredientService]);
 
   const buildIngredientList = (ingredients: Ingredient[]) => {
-    const rawIngredientCategories = ingredients.flatMap(ingredient => ingredient.category);
-    const ingredientCategories: IngredientCategory[] = [];
-    // Need to do manually because data coming from API
-    // can't dedupe using ES6 'Set'
-    rawIngredientCategories.forEach(category => {
-      let found = false;
-      ingredientCategories.forEach(existing => {
-        if (category.categoryId === existing.categoryId) {
-          found = true;
-        }
-      });
-      if (!found) ingredientCategories.push(category);
-    });
+    const ingredientCategories = getUniqueCategories(ingredients);
     return ingredientCategories.map(category => {
       return <optgroup key={'ingredient-category-' + category.categoryId}
         label={category.name}>
         {
-          ingredients.filter(ingredient => {
-            return ingredient.category.categoryId === category.categoryId
+          ingredients.filter(_ingredient => {
+            return _ingredient.category.categoryId === category.categoryId
           }).map(ingredient => {
-            return <option value={ingredient.ingredientId}
-              key={'ingredient-' + ingredient.ingredientId}>{ingredient.name}</option>
+            return <option value={ingredient.id}
+              key={'ingredient-' + ingredient.id}>{ingredient.name}</option>
           })
         }
       </optgroup>
@@ -61,17 +49,16 @@ const CaloriesCalculatorInput = (props: InputProps) => {
   };
 
   const buildUnitList = (units: Unit[]) => {
-    const rawUnitCategories = units.flatMap(unit => unit.category);
-    const unitCategories = Array.from(new Set(rawUnitCategories));
+    const unitCategories = getUniqueCategories(units);
     return unitCategories.map(category => {
       return <optgroup key={'unit-category-' + category.categoryId}
         label={category.name}>
         {
-          units.filter(unit => {
-            return unit.category.categoryId === category.categoryId
+          units.filter(_unit => {
+            return _unit.category.categoryId === category.categoryId
           }).map(unit => {
-            return <option value={unit.unitId}
-              key={'unit-' + unit.unitId}>{unit.name} ({unit.symbol})</option>
+            return <option value={unit.id}
+              key={'unit-' + unit.id}>{unit.name} ({unit.symbol})</option>
           })
         }
       </optgroup>
@@ -81,7 +68,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
   const onSelectIngredient = (event: React.ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
     const selectedOption = +event.target.value;
-    const selectedIngredient = ingredientList.find(ingredient => ingredient.ingredientId === selectedOption);
+    const selectedIngredient = ingredientList.find(_ingredient => _ingredient.id === selectedOption);
     if (selectedIngredient) {
       setIngredient(selectedIngredient)
       const units = selectedIngredient.conversions?.flatMap(conversion => conversion.fromUnit) || [];
@@ -95,7 +82,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
   const onSelectUnit = (event: React.ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
     const selectedOption = +event.target.value;
-    const selectedUnit = unitList.find(unit => unit.unitId === selectedOption);
+    const selectedUnit = unitList.find(_unit => _unit.id === selectedOption);
     if (selectedUnit) {
       setUnit(selectedUnit);
     }

@@ -9,7 +9,7 @@ const CaloriesCalculatorInput = (props: {
   const onButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     selectIngredient({
-      id: Math.round(Math.random() * 10000),
+      id: Math.round(new Date().getTime() % 10000),
       ingredient: mockIngredients[0],
       unit: mockUnits[0],
       serving: 0,

@@ -1,7 +1,7 @@
 import { BrowserRouter, Link, Switch, Route } from 'react-router-dom';
 import './index.css';
 import { AUTHOR, COPYRIGHT, RELEASE_YEAR, TITLE } from '../../config/constants';
-import dateUtil from '../../utils/date';
+import dateUtil from '../../utils/dateUtil';
 import { CaloriesCalculator } from './components/caloriescalculator';
 
 export const App = () => {

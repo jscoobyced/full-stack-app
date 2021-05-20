@@ -1,6 +1,9 @@
+// Base
+export type Category = { categoryId: number; name: string };
+export type BaseModel = { id: number; name: string; category: Category };
+
 // Unit
-export type UnitCategory = { categoryId: number; name: string };
-export type Unit = { unitId: number; category: UnitCategory; name: string; symbol: string };
+export type Unit = BaseModel & { symbol: string };
 
 // Calories and Conversions
 export type Calorie = {
@@ -15,17 +18,13 @@ export type Conversion = {
 };
 
 // Ingredients
-export type IngredientCategory = { categoryId: number; name: string };
-
-export type Ingredient = {
-  ingredientId: number;
-  category: IngredientCategory;
-  name: string;
+export type Ingredient = BaseModel & {
   baseCalorie: Calorie;
   conversions?: Conversion[];
 };
 
 export type SelectedIngredient = {
+  id: number;
   ingredient: Ingredient;
   unit: Unit;
   serving: number;
@@ -33,3 +32,11 @@ export type SelectedIngredient = {
 };
 
 export type IngredientTypes = Ingredient | Ingredient[] | undefined;
+
+type ServiceType = void | number | string | IngredientTypes;
+
+export type ErrorData = { code?: number; message?: string } | undefined;
+
+export type ServiceResponse = { data: ServiceType; error?: ErrorData };
+
+export type ControllerResponse = { data?: unknown; error?: ErrorData };

@@ -18,6 +18,8 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.disable('x-powered-by');
+
 const extended = process.env.NODE_ENV === 'test';
 app.use(express.json());
 app.use(express.urlencoded({ extended }));

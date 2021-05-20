@@ -46,14 +46,14 @@ describe('Ingredient Controller - getIngredients', () => {
 
   it('does not find user with empty data', async () => {
     const { mockRequest, mockResponse } = createDefaultMock();
-    mockData = () => <Ingredient[]>[];
+    mockData = () => [] as Ingredient[];
     await IngredientController.getIngredients(mockRequest, mockResponse);
     expect(mockResponse.send).toHaveBeenCalledTimes(0);
     expect(mockResponse.status).toHaveBeenCalledTimes(1);
     expect(mockResponse.status).toHaveBeenCalledWith(404);
   });
 
-  it('returns users list', async () => {
+  it('returns ingredient list', async () => {
     const { mockRequest, mockResponse } = createDefaultMock();
     mockData = () => mockIngredients;
     await IngredientController.getIngredients(mockRequest, mockResponse);
