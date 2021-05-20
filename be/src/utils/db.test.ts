@@ -21,9 +21,7 @@ describe('DB Utils', () => {
   });
 
   it('returns empty rows when no data', () => {
-    const empty = { ...data };
-    empty[0].pop();
-    const rows = dbRows(empty);
+    const rows = dbRows([]);
     expect(rows).toBeDefined();
     expect(rows.length).toEqual(0);
   });
