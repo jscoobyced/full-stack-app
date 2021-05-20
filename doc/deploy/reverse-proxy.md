@@ -16,11 +16,19 @@ server {
         proxy_set_header   X-Forwarded-Proto $scheme;
     }
 
+    add_header   Strict-Transport-Security 'max-age=31536000; includeSubDomains';
+    add_header   Content-Security-Policy 'default-src * data: blob: \'self\'; script-src \'unsafe-inline\' blob: data: \'self\'; style-src data: blob: \'unsafe-inline\' *;block-all-mixed-content;upgrade-insecure-requests';
+    add_header   X-Frame-Options SAMEORIGIN;
+    add_header   X-Content-Type-Options nosniff;
+    add_header   Referrer-Policy strict-origin-when-cross-origin;
+
     access_log /var/log/nginx/my-server-access.log;
     error_log /var/log/nginx/my-server-error.log;
 }
 ```
-and for the APIs
+The above includes some safe practice of secure HTTP Headers.
+
+For the APIs
 ```
 server {
     server_name   api.my-server.tld;

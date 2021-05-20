@@ -1,6 +1,7 @@
 import express from 'express';
 import { routes } from './routes/routes';
 import cors from 'cors';
+import helmet from 'helmet';
 import { allowedOrigins } from './utils/cors';
 import * as dotenv from 'dotenv';
 import { startMySQL, stopMySQL } from './repos';
@@ -18,6 +19,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(helmet());
 app.disable('x-powered-by');
 
 const extended = process.env.NODE_ENV === 'test';
