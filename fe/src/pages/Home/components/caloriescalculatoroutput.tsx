@@ -32,7 +32,7 @@ export const CaloriesCalculatorOutput = (props: OutputProps) => {
       <tbody>
         {
           selectedIngredients.map((selectedIngredient, index) => {
-            return <tr key={'result-ingredient-' + selectedIngredient.id + '-' + index}>
+            return <tr key={`result-ingredient-${selectedIngredient.id}-${index}`}>
               <td>{selectedIngredient.ingredient.name}</td>
               <td>{selectedIngredient.serving} {selectedIngredient.unit.symbol}</td>
               <td> {selectedIngredient.totalCalories}</td>

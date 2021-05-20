@@ -102,7 +102,7 @@ describe('Main component', () => {
   });
 
   it('can select ingredient with no unit found', async () => {
-    const selectedIngredient: SelectedIngredient = {
+    const _selectedIngredient: SelectedIngredient = {
       id: 0,
       ingredient: mockIngredients[1],
       serving: 10,
@@ -116,7 +116,7 @@ describe('Main component', () => {
       unit: {} as Unit,
       totalCalories: 0,
     };
-    const selectIngredient = jest.fn().mockImplementation(() => selectedIngredient);
+    const selectIngredient = jest.fn().mockImplementation(() => _selectedIngredient);
     const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration }}>
       <CaloriesCalculatorInput selectIngredient={selectIngredient} />
     </ServiceContext.Provider>);
