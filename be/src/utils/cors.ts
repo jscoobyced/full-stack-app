@@ -3,7 +3,9 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 export const allowedOrigins = (): string => {
-  if (process.env.FRONT_END_API_HOST === '*') return '*';
+  if (process.env.FRONT_END_API_HOST === '*') {
+    return '*';
+  }
 
   const scheme = process.env.FRONT_END_API_SCHEME || 'http';
   const port = () => {

@@ -39,9 +39,9 @@ const CaloriesCalculatorInput = (props: InputProps) => {
         {
           ingredients.filter(_ingredient => {
             return _ingredient.category.categoryId === category.categoryId
-          }).map(ingredient => {
-            return <option value={ingredient.id}
-              key={'ingredient-' + ingredient.id}>{ingredient.name}</option>
+          }).map(_ingredient => {
+            return <option value={_ingredient.id}
+              key={'ingredient-' + _ingredient.id}>{_ingredient.name}</option>
           })
         }
       </optgroup>
@@ -56,9 +56,9 @@ const CaloriesCalculatorInput = (props: InputProps) => {
         {
           units.filter(_unit => {
             return _unit.category.categoryId === category.categoryId
-          }).map(unit => {
-            return <option value={unit.id}
-              key={'unit-' + unit.id}>{unit.name} ({unit.symbol})</option>
+          }).map(_unit => {
+            return <option value={_unit.id}
+              key={'unit-' + _unit.id}>{_unit.name} ({_unit.symbol})</option>
           })
         }
       </optgroup>
