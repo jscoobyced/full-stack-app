@@ -1,4 +1,4 @@
-import { SelectedIngredient } from "..";
+import { SelectedIngredient } from "../../models/ingredients";
 
 export const calculateCalories = (selectedIngredient: SelectedIngredient): number => {
   if (!selectedIngredient) {

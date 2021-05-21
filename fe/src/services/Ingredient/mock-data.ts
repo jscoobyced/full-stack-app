@@ -1,21 +1,21 @@
-import { Ingredient, Unit, Category } from "..";
+import { Ingredient, Unit, Category } from "../../models/ingredients";
 
 const mockIngredientCategories: Category[] = [{
-  categoryId: 0,
+  id: 0,
   name: 'Powder'
 }, {
-  categoryId: 1,
+  id: 1,
   name: 'Liquid'
 }];
 
 
 const mockUnitCategories: Category[] = [
   {
-    categoryId: 1,
+    id: 1,
     name: 'Volume',
   },
   {
-    categoryId: 2,
+    id: 2,
     name: 'Mass',
   },
 ];
@@ -133,7 +133,7 @@ export const mockIngredients: Ingredient[] = [
 
 export const mockUnit = {
   category: {
-    categoryId: 0,
+    id: 0,
     name: 'Volume'
   },
   name: 'Cup',
@@ -143,7 +143,7 @@ export const mockUnit = {
 
 export const mockSecondUnit = {
   category: {
-    categoryId: 1,
+    id: 1,
     name: 'Mass'
   },
   name: 'Gram',
@@ -153,7 +153,7 @@ export const mockSecondUnit = {
 
 export const mockThirdUnit = {
   category: {
-    categoryId: 2,
+    id: 2,
     name: 'Weird'
   },
   name: 'Glop',
@@ -161,11 +161,11 @@ export const mockThirdUnit = {
   id: 2,
 };
 
-export const mockIngredientWithoutConversion = {
+export const mockIngredientWithoutConversion: Ingredient = {
   id: 0,
   name: 'Ingredient X',
   category: {
-    categoryId: 0,
+    id: 0,
     name: 'Solid',
   },
   baseCalorie: {
@@ -175,11 +175,11 @@ export const mockIngredientWithoutConversion = {
   },
 };
 
-export const mockIngredientWithConversion = {
+export const mockIngredientWithConversion: Ingredient = {
   id: 0,
   name: 'Ingredient X',
   category: {
-    categoryId: 0,
+    id: 0,
     name: 'Solid',
   },
   baseCalorie: {

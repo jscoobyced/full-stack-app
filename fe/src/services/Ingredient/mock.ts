@@ -1,5 +1,5 @@
 import { IIngredientService } from ".";
-import { Ingredient } from "..";
+import { Ingredient } from "../../models/ingredients";
 import { mockIngredients } from "./mock-data";
 
 

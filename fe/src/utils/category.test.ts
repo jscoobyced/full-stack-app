@@ -1,4 +1,4 @@
-import { BaseModel } from "../services";
+import { EntityWithCategory } from "../models/common";
 import { mockIngredients } from "../services/Ingredient/mock-data";
 import { getUniqueCategories } from "./category";
 
@@ -10,7 +10,7 @@ describe('getUniqueCategories', () => {
   });
 
   it('gets empty list for undefined input', () => {
-    const unique = getUniqueCategories(undefined as unknown as BaseModel[]);
+    const unique = getUniqueCategories(undefined as unknown as EntityWithCategory[]);
     expect(unique.length).toEqual(0);
   });
 

@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { SelectedIngredient } from '../../../services';
+import { SelectedIngredient } from '../../../models/ingredients';
 import { mockIngredients, mockUnits } from '../../../services/Ingredient/mock-data';
 import { CaloriesCalculatorOutput } from './caloriescalculatoroutput';
 
