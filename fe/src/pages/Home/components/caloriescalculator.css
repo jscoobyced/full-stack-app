@@ -29,7 +29,7 @@ label {
 }
 
 .button-add:disabled {
-  color: rgb(64, 128, 255)
+  color: gray;
 }
 
 section {
@@ -91,6 +91,6 @@ section .ingredient-calories-summary {
   }
 
   section .ingredient-calories-summary {
-    margin-top: 15px;
+    margin: 15px 0;
   }
 }

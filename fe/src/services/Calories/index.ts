@@ -10,7 +10,7 @@ export const calculateCalories = (selectedIngredient: SelectedIngredient): numbe
     return 0;
   }
 
-  if (ingredient.baseCalorie.unit === unit) {
+  if (ingredient.baseCalorie.unit.id === unit.id) {
     multiplier = 1;
   } else {
     const conversionUnits = ingredient.conversions?.filter(conversion => conversion.fromUnit === unit);

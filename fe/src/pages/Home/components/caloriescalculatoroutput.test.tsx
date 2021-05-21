@@ -6,7 +6,7 @@ import { CaloriesCalculatorOutput } from './caloriescalculatoroutput';
 const removeIngredient = jest.fn();
 
 beforeEach(() => {
-  jest.resetAllMocks();
+  jest.restoreAllMocks();
 })
 
 describe('CaloriesCalculatorOutput component', () => {

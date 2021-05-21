@@ -11,11 +11,16 @@ CREATE TABLE `unit` (
   id INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(32) NOT NULL,
   symbol VARCHAR(8),
+  category INT,
   created DATETIME,
   updated DATETIME,
   active BOOLEAN,
   PRIMARY KEY (id)
 );
+
+ALTER TABLE `unit`
+ADD CONSTRAINT FK_category_unit
+FOREIGN KEY (category) REFERENCES `category`(id);
 
 CREATE TABLE `calorie` (
   id INT NOT NULL AUTO_INCREMENT,

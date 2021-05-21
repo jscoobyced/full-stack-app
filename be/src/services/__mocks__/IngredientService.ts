@@ -210,6 +210,6 @@ export const mockIngredientWithConversion = {
   ],
 };
 
-export const getIngredients = async (): Promise<ServiceResponse> => {
+export const getAllIngredients = async (): Promise<ServiceResponse> => {
   return Promise.resolve({ data: mockIngredients });
 };

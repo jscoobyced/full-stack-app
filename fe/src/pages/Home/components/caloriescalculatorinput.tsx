@@ -73,7 +73,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
       setIngredient(selectedIngredient)
       const units = selectedIngredient.conversions?.flatMap(conversion => conversion.fromUnit) || [];
       units.push(selectedIngredient.baseCalorie.unit);
-      units.sort();
+      units.sort((unit1: Unit, unit2: Unit) => unit1.name.localeCompare(unit2.name));
       setUnitList(units);
       setUnitData(buildUnitList(units));
     }

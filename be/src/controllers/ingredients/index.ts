@@ -1,12 +1,12 @@
-import * as IngredientService from '../../services/IngredientService';
 import { Handler } from '../../models/route';
 import { API_ERROR_CODES } from '../../config/constants';
 import { ControllerResponse } from '../../models/common';
 import { Ingredient } from '../../models/ingredients';
+import { getAllIngredients } from '../../services/IngredientService';
 
 export const getIngredients: Handler = async (req, res) => {
   const response: ControllerResponse = {};
-  const result = await IngredientService.getIngredients();
+  const result = await getAllIngredients();
   if (!!result.error) {
     response.error = {
       message: result.error.message,
