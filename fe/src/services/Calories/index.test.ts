@@ -1,5 +1,5 @@
 import { calculateAllCalories, calculateCalories } from ".";
-import { SelectedIngredient } from "..";
+import { SelectedIngredient } from "../../models/ingredients";
 import { mockIngredientWithConversion, mockIngredientWithoutConversion, mockSecondUnit, mockThirdUnit, mockUnit } from "../Ingredient/mock-data";
 
 

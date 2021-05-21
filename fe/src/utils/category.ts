@@ -1,6 +1,6 @@
-import { BaseModel, Category } from "../services";
+import { EntityWithCategory, Category } from "../models/common";
 
-export const getUniqueCategories = (data: BaseModel[]) => {
+export const getUniqueCategories = (data: EntityWithCategory[]) => {
   if (!data) {
     return [];
   }
@@ -9,7 +9,7 @@ export const getUniqueCategories = (data: BaseModel[]) => {
   // can't dedupe using ES6 'Set'
   const categories = [] as Category[];
   rowCategories.forEach(category => {
-    const filtered = categories.filter(existing => category.categoryId === existing.categoryId);
+    const filtered = categories.filter(existing => category.id === existing.id);
     if (!filtered || filtered.length === 0) {
       categories.push(category);
     }

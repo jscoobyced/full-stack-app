@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SelectedIngredient } from "../../../services";
+import { SelectedIngredient } from "../../../models/ingredients";
 import { calculateAllCalories } from "../../../services/Calories";
 import CaloriesCalculatorInput from "./caloriescalculatorinput";
 import { CaloriesCalculatorOutput } from "./caloriescalculatoroutput";

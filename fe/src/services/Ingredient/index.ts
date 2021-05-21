@@ -1,5 +1,5 @@
-import { Ingredient } from "..";
 import { BACK_END_SERVICES_ENDPOINTS, BACK_END_URL } from "../../config/constants";
+import { Ingredient } from "../../models/ingredients";
 
 export interface IIngredientService {
   getIngredients: () => Promise<Ingredient[]>

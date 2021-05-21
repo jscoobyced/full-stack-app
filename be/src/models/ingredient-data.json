@@ -1,0 +1,314 @@
+{
+  "ingredients": [
+    {
+      "id": 1,
+      "name": "Bread Flour",
+      "category": {
+        "id": 1,
+        "name": "Solids"
+      },
+      "baseCalorie": {
+        "id": 1,
+        "serving": 1,
+        "calories": 361,
+        "unit": {
+          "id": 1,
+          "name": "Cup",
+          "symbol": "cup",
+          "category": {
+            "id": 3,
+            "name": "Volume"
+          }
+        }
+      },
+      "conversions": [
+        {
+          "id": 1,
+          "fromUnit": {
+            "id": 5,
+            "name": "Gram",
+            "symbol": "g",
+            "category": {
+              "id": 4,
+              "name": "Mass"
+            }
+          },
+          "multiplier": 0.006666666
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Bread Flour",
+      "category": {
+        "id": 1,
+        "name": "Solids"
+      },
+      "baseCalorie": {
+        "id": 1,
+        "serving": 1,
+        "calories": 361,
+        "unit": {
+          "id": 1,
+          "name": "Cup",
+          "symbol": "cup",
+          "category": {
+            "id": 3,
+            "name": "Volume"
+          }
+        }
+      },
+      "conversions": [
+        {
+          "id": 2,
+          "fromUnit": {
+            "id": 2,
+            "name": "Table Spoon",
+            "symbol": "tbsp",
+            "category": {
+              "id": 3,
+              "name": "Volume"
+            }
+          },
+          "multiplier": 0.0625
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Whole Wheat Flour",
+      "category": {
+        "id": 1,
+        "name": "Solids"
+      },
+      "baseCalorie": {
+        "id": 2,
+        "serving": 1,
+        "calories": 340,
+        "unit": {
+          "id": 1,
+          "name": "Cup",
+          "symbol": "cup",
+          "category": {
+            "id": 3,
+            "name": "Volume"
+          }
+        }
+      },
+      "conversions": [
+        {
+          "id": 3,
+          "fromUnit": {
+            "id": 5,
+            "name": "Gram",
+            "symbol": "g",
+            "category": {
+              "id": 4,
+              "name": "Mass"
+            }
+          },
+          "multiplier": 0.008333333
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Whole Wheat Flour",
+      "category": {
+        "id": 1,
+        "name": "Solids"
+      },
+      "baseCalorie": {
+        "id": 2,
+        "serving": 1,
+        "calories": 340,
+        "unit": {
+          "id": 1,
+          "name": "Cup",
+          "symbol": "cup",
+          "category": {
+            "id": 3,
+            "name": "Volume"
+          }
+        }
+      },
+      "conversions": [
+        {
+          "id": 4,
+          "fromUnit": {
+            "id": 2,
+            "name": "Table Spoon",
+            "symbol": "tbsp",
+            "category": {
+              "id": 3,
+              "name": "Volume"
+            }
+          },
+          "multiplier": 0.0625
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Oat",
+      "category": {
+        "id": 1,
+        "name": "Solids"
+      },
+      "baseCalorie": {
+        "id": 3,
+        "serving": 1,
+        "calories": 308,
+        "unit": {
+          "id": 1,
+          "name": "Cup",
+          "symbol": "cup",
+          "category": {
+            "id": 3,
+            "name": "Volume"
+          }
+        }
+      },
+      "conversions": [
+        {
+          "id": 5,
+          "fromUnit": {
+            "id": 5,
+            "name": "Gram",
+            "symbol": "g",
+            "category": {
+              "id": 4,
+              "name": "Mass"
+            }
+          },
+          "multiplier": 0.011111111
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Oat",
+      "category": {
+        "id": 1,
+        "name": "Solids"
+      },
+      "baseCalorie": {
+        "id": 3,
+        "serving": 1,
+        "calories": 308,
+        "unit": {
+          "id": 1,
+          "name": "Cup",
+          "symbol": "cup",
+          "category": {
+            "id": 3,
+            "name": "Volume"
+          }
+        }
+      },
+      "conversions": [
+        {
+          "id": 6,
+          "fromUnit": {
+            "id": 2,
+            "name": "Table Spoon",
+            "symbol": "tbsp",
+            "category": {
+              "id": 3,
+              "name": "Volume"
+            }
+          },
+          "multiplier": 0.0625
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Flaxseed",
+      "category": {
+        "id": 1,
+        "name": "Solids"
+      },
+      "baseCalorie": {
+        "id": 4,
+        "serving": 1,
+        "calories": 37,
+        "unit": {
+          "id": 2,
+          "name": "Table Spoon",
+          "symbol": "tbsp",
+          "category": {
+            "id": 3,
+            "name": "Volume"
+          }
+        }
+      }
+    },
+    {
+      "id": 5,
+      "name": "Yeast",
+      "category": {
+        "id": 1,
+        "name": "Solids"
+      },
+      "baseCalorie": {
+        "id": 5,
+        "serving": 1,
+        "calories": 13,
+        "unit": {
+          "id": 3,
+          "name": "Tea Spoon",
+          "symbol": "tsp",
+          "category": {
+            "id": 3,
+            "name": "Volume"
+          }
+        }
+      }
+    },
+    {
+      "id": 6,
+      "name": "Honey",
+      "category": {
+        "id": 2,
+        "name": "Liquids"
+      },
+      "baseCalorie": {
+        "id": 6,
+        "serving": 1,
+        "calories": 64,
+        "unit": {
+          "id": 2,
+          "name": "Table Spoon",
+          "symbol": "tbsp",
+          "category": {
+            "id": 3,
+            "name": "Volume"
+          }
+        }
+      }
+    },
+    {
+      "id": 7,
+      "name": "Water",
+      "category": {
+        "id": 2,
+        "name": "Liquids"
+      },
+      "baseCalorie": {
+        "id": 7,
+        "serving": 1,
+        "calories": 0,
+        "unit": {
+          "id": 1,
+          "name": "Cup",
+          "symbol": "cup",
+          "category": {
+            "id": 3,
+            "name": "Volume"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import { SelectedIngredient } from "../../../../services";
+import { SelectedIngredient } from "../../../../models/ingredients";
 import { mockIngredients, mockUnits } from "../../../../services/Ingredient/mock-data";
 
 const CaloriesCalculatorInput = (props: {

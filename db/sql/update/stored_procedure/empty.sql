@@ -1,1 +1,0 @@
--- Allows keeping folder in git repository

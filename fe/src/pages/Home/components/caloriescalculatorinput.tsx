@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Ingredient, SelectedIngredient, Unit } from '../../../services';
+import { Ingredient, SelectedIngredient, Unit } from '../../../models/ingredients';
 import { calculateCalories } from '../../../services/Calories';
 import { ServiceContext } from '../../../services/Context';
 import { getUniqueCategories } from '../../../utils/category';
@@ -34,11 +34,11 @@ const CaloriesCalculatorInput = (props: InputProps) => {
   const buildIngredientList = (ingredients: Ingredient[]) => {
     const ingredientCategories = getUniqueCategories(ingredients);
     return ingredientCategories.map(category => {
-      return <optgroup key={'ingredient-category-' + category.categoryId}
+      return <optgroup key={'ingredient-category-' + category.id}
         label={category.name}>
         {
           ingredients.filter(_ingredient => {
-            return _ingredient.category.categoryId === category.categoryId
+            return _ingredient.category.id === category.id
           }).map(_ingredient => {
             return <option value={_ingredient.id}
               key={'ingredient-' + _ingredient.id}>{_ingredient.name}</option>
@@ -51,11 +51,11 @@ const CaloriesCalculatorInput = (props: InputProps) => {
   const buildUnitList = (units: Unit[]) => {
     const unitCategories = getUniqueCategories(units);
     return unitCategories.map(category => {
-      return <optgroup key={'unit-category-' + category.categoryId}
+      return <optgroup key={'unit-category-' + category.id}
         label={category.name}>
         {
           units.filter(_unit => {
-            return _unit.category.categoryId === category.categoryId
+            return _unit.category.id === category.id
           }).map(_unit => {
             return <option value={_unit.id}
               key={'unit-' + _unit.id}>{_unit.name} ({_unit.symbol})</option>
@@ -73,7 +73,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
       setIngredient(selectedIngredient)
       const units = selectedIngredient.conversions?.flatMap(conversion => conversion.fromUnit) || [];
       units.push(selectedIngredient.baseCalorie.unit);
-      units.sort();
+      units.sort((unit1: Unit, unit2: Unit) => unit1.name.localeCompare(unit2.name));
       setUnitList(units);
       setUnitData(buildUnitList(units));
     }
@@ -103,7 +103,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
       serving: quantity,
       totalCalories: 0,
     };
-    selectedIngredient.totalCalories = calculateCalories(selectedIngredient);
+    calculateCalories(selectedIngredient);
     setCounter(counter + 1);
     selectIngredient(selectedIngredient);
   }

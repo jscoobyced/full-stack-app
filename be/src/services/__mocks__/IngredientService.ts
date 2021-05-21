@@ -3,22 +3,22 @@ import { Ingredient, Category, Unit } from '../../models/ingredients';
 
 const mockIngredientCategories: Category[] = [
   {
-    categoryId: 0,
+    id: 0,
     name: 'Powder',
   },
   {
-    categoryId: 1,
+    id: 1,
     name: 'Liquid',
   },
 ];
 
 const mockUnitCategories: Category[] = [
   {
-    categoryId: 1,
+    id: 1,
     name: 'Volume',
   },
   {
-    categoryId: 2,
+    id: 2,
     name: 'Mass',
   },
 ];
@@ -80,16 +80,19 @@ export const mockIngredients: Ingredient[] = [
     name: 'Wheat Flour',
     category: mockIngredientCategories[0],
     baseCalorie: {
+      id: 1,
       unit: mockUnits[1],
       serving: 1,
       calories: 364,
     },
     conversions: [
       {
+        id: 1,
         fromUnit: mockUnits[2],
         multiplier: 1 / 16,
       },
       {
+        id: 2,
         fromUnit: mockUnits[5],
         multiplier: 1 / 120,
       },
@@ -100,16 +103,19 @@ export const mockIngredients: Ingredient[] = [
     name: 'Rice Flour',
     category: mockIngredientCategories[0],
     baseCalorie: {
+      id: 1,
       unit: mockUnits[1],
       serving: 1,
       calories: 366,
     },
     conversions: [
       {
+        id: 1,
         fromUnit: mockUnits[2],
         multiplier: 1 / 16,
       },
       {
+        id: 2,
         fromUnit: mockUnits[5],
         multiplier: 1 / 120,
       },
@@ -120,16 +126,19 @@ export const mockIngredients: Ingredient[] = [
     name: 'Milk',
     category: mockIngredientCategories[1],
     baseCalorie: {
+      id: 1,
       unit: mockUnits[0],
       serving: 1,
       calories: 0.44,
     },
     conversions: [
       {
+        id: 1,
         fromUnit: mockUnits[1],
         multiplier: 237,
       },
       {
+        id: 2,
         fromUnit: mockUnits[5],
         multiplier: 1,
       },
@@ -139,7 +148,7 @@ export const mockIngredients: Ingredient[] = [
 
 export const mockUnit = {
   category: {
-    categoryId: 0,
+    id: 0,
     name: 'Volume',
   },
   name: 'Cup',
@@ -149,7 +158,7 @@ export const mockUnit = {
 
 export const mockSecondUnit = {
   category: {
-    categoryId: 1,
+    id: 1,
     name: 'Mass',
   },
   name: 'Gram',
@@ -159,7 +168,7 @@ export const mockSecondUnit = {
 
 export const mockThirdUnit = {
   category: {
-    categoryId: 2,
+    id: 2,
     name: 'Weird',
   },
   name: 'Glop',
@@ -171,7 +180,7 @@ export const mockIngredientWithoutConversion = {
   id: 0,
   name: 'Ingredient X',
   category: {
-    categoryId: 0,
+    id: 0,
     name: 'Solid',
   },
   baseCalorie: {
@@ -185,7 +194,7 @@ export const mockIngredientWithConversion = {
   id: 0,
   name: 'Ingredient X',
   category: {
-    categoryId: 0,
+    id: 0,
     name: 'Solid',
   },
   baseCalorie: {
@@ -201,6 +210,6 @@ export const mockIngredientWithConversion = {
   ],
 };
 
-export const getIngredients = async (): Promise<ServiceResponse> => {
+export const getAllIngredients = async (): Promise<ServiceResponse> => {
   return Promise.resolve({ data: mockIngredients });
 };
