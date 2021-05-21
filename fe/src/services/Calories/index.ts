@@ -13,12 +13,13 @@ export const calculateCalories = (selectedIngredient: SelectedIngredient): numbe
   if (ingredient.baseCalorie.unit.id === unit.id) {
     multiplier = 1;
   } else {
-    const conversionUnits = ingredient.conversions?.filter(conversion => conversion.fromUnit === unit);
+    const conversionUnits = ingredient.conversions?.filter(conversion => conversion.fromUnit.id === unit.id);
     if (!!conversionUnits && conversionUnits.length === 1) {
       multiplier = conversionUnits[0].multiplier;
     }
   }
-  return Math.round(multiplier * ingredient.baseCalorie.calories * quantity / ingredient.baseCalorie.serving);
+  selectedIngredient.totalCalories = Math.round(multiplier * ingredient.baseCalorie.calories * quantity / ingredient.baseCalorie.serving);
+  return selectedIngredient.totalCalories;
 }
 
 export const calculateAllCalories = (selectedIngredients: SelectedIngredient[]): number => {

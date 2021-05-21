@@ -103,7 +103,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
       serving: quantity,
       totalCalories: 0,
     };
-    selectedIngredient.totalCalories = calculateCalories(selectedIngredient);
+    calculateCalories(selectedIngredient);
     setCounter(counter + 1);
     selectIngredient(selectedIngredient);
   }
