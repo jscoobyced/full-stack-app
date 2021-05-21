@@ -1,19 +1,19 @@
-import { BaseEntity, EntityWithCategory } from './common';
+import { BaseEntity, BaseEntityWithName, EntityWithCategory } from './common';
 
 // Category
-export type Category = BaseEntity;
+export type Category = BaseEntityWithName;
 
 // Unit
 export type Unit = EntityWithCategory & { symbol: string };
 
 // Calories and Conversions
-export type Calorie = {
+export type Calorie = BaseEntity & {
   unit: Unit;
   serving: number;
   calories: number;
 };
 
-export type Conversion = {
+export type Conversion = BaseEntity & {
   fromUnit: Unit;
   multiplier: number;
 };

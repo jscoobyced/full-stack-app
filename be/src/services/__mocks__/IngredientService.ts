@@ -80,16 +80,19 @@ export const mockIngredients: Ingredient[] = [
     name: 'Wheat Flour',
     category: mockIngredientCategories[0],
     baseCalorie: {
+      id: 1,
       unit: mockUnits[1],
       serving: 1,
       calories: 364,
     },
     conversions: [
       {
+        id: 1,
         fromUnit: mockUnits[2],
         multiplier: 1 / 16,
       },
       {
+        id: 2,
         fromUnit: mockUnits[5],
         multiplier: 1 / 120,
       },
@@ -100,16 +103,19 @@ export const mockIngredients: Ingredient[] = [
     name: 'Rice Flour',
     category: mockIngredientCategories[0],
     baseCalorie: {
+      id: 1,
       unit: mockUnits[1],
       serving: 1,
       calories: 366,
     },
     conversions: [
       {
+        id: 1,
         fromUnit: mockUnits[2],
         multiplier: 1 / 16,
       },
       {
+        id: 2,
         fromUnit: mockUnits[5],
         multiplier: 1 / 120,
       },
@@ -120,16 +126,19 @@ export const mockIngredients: Ingredient[] = [
     name: 'Milk',
     category: mockIngredientCategories[1],
     baseCalorie: {
+      id: 1,
       unit: mockUnits[0],
       serving: 1,
       calories: 0.44,
     },
     conversions: [
       {
+        id: 1,
         fromUnit: mockUnits[1],
         multiplier: 237,
       },
       {
+        id: 2,
         fromUnit: mockUnits[5],
         multiplier: 1,
       },

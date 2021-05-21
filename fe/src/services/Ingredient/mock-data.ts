@@ -75,16 +75,19 @@ export const mockIngredients: Ingredient[] = [
     name: 'Wheat Flour',
     category: mockIngredientCategories[0],
     baseCalorie: {
+      id: 0,
       unit: mockUnits[1],
       serving: 1,
       calories: 364
     },
     conversions: [
       {
+        id: 0,
         fromUnit: mockUnits[2],
         multiplier: 1 / 16,
       },
       {
+        id: 1,
         fromUnit: mockUnits[5],
         multiplier: 1 / 120,
       },
@@ -95,16 +98,19 @@ export const mockIngredients: Ingredient[] = [
     name: 'Rice Flour',
     category: mockIngredientCategories[0],
     baseCalorie: {
+      id: 0,
       unit: mockUnits[1],
       serving: 1,
       calories: 366
     },
     conversions: [
       {
+        id: 0,
         fromUnit: mockUnits[2],
         multiplier: 1 / 16,
       },
       {
+        id: 1,
         fromUnit: mockUnits[5],
         multiplier: 1 / 120,
       },
@@ -114,16 +120,19 @@ export const mockIngredients: Ingredient[] = [
     name: 'Milk',
     category: mockIngredientCategories[1],
     baseCalorie: {
+      id: 0,
       unit: mockUnits[0],
       serving: 1,
       calories: 0.44
     },
     conversions: [
       {
+        id: 0,
         fromUnit: mockUnits[1],
         multiplier: 237,
       },
       {
+        id: 1,
         fromUnit: mockUnits[5],
         multiplier: 1,
       },
@@ -169,6 +178,7 @@ export const mockIngredientWithoutConversion: Ingredient = {
     name: 'Solid',
   },
   baseCalorie: {
+    id: 0,
     calories: 10,
     serving: 2,
     unit: mockUnit,
@@ -183,11 +193,13 @@ export const mockIngredientWithConversion: Ingredient = {
     name: 'Solid',
   },
   baseCalorie: {
+    id: 0,
     calories: 10,
     serving: 1,
     unit: mockUnit,
   },
   conversions: [{
+    id: 0,
     fromUnit: mockSecondUnit,
     multiplier: 1.5,
   }],

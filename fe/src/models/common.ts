@@ -1,8 +1,9 @@
 import { IngredientTypes } from './ingredients';
 
-export type BaseEntity = { id: number; name: string; created?: Date; updated?: Date; isActive?: boolean };
-export type Category = BaseEntity;
-export type EntityWithCategory = BaseEntity & { category: Category };
+export type BaseEntity = { id: number; created?: Date; updated?: Date; isActive?: boolean };
+export type BaseEntityWithName = BaseEntity & { name: string };
+export type Category = BaseEntityWithName;
+export type EntityWithCategory = BaseEntityWithName & { category: Category };
 
 type ServiceType = void | number | string | IngredientTypes;
 
