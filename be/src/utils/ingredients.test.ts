@@ -9,7 +9,7 @@ describe('Ingredients', () => {
     const head = ingredients.pop();
     const mergedIngredients = mergeAllIngredients([], ingredients, head);
     expect(mergedIngredients.length).toEqual(7);
-    expect(mergedIngredients[6].conversions?.length).toEqual(2);
+    expect(mergedIngredients[0].conversions?.length).toEqual(2);
   });
 
   it('can merge ingredients when there is no in destination conversion', () => {
@@ -19,7 +19,7 @@ describe('Ingredients', () => {
     const head = ingredients.pop();
     const mergedIngredients = mergeAllIngredients([], ingredients, head);
     expect(mergedIngredients.length).toEqual(7);
-    expect(mergedIngredients[6].conversions?.length).toEqual(1);
+    expect(mergedIngredients[0].conversions?.length).toEqual(1);
   });
 
   it('can merge ingredients when there is no in source conversion', () => {
@@ -29,6 +29,6 @@ describe('Ingredients', () => {
     const head = ingredients.pop();
     const mergedIngredients = mergeAllIngredients([], ingredients, head);
     expect(mergedIngredients.length).toEqual(7);
-    expect(mergedIngredients[6].conversions?.length).toEqual(1);
+    expect(mergedIngredients[0].conversions?.length).toEqual(1);
   });
 });
