@@ -83,8 +83,8 @@ VALUES
   (8, 'Milk', 2, 8, NOW(), NOW(), 1),
   (9, 'Egg', 2, 9, NOW(), NOW(), 1),
   (10, 'Sugar', 1, 10, NOW(), NOW(), 1),
-  (11, 'Coconut Oil', 1, 11, NOW(), NOW(), 1),
-  (12, 'Vegetable Oil', 1, 12, NOW(), NOW(), 1);
+  (11, 'Coconut Oil', 2, 11, NOW(), NOW(), 1),
+  (12, 'Vegetable Oil', 2, 12, NOW(), NOW(), 1);
 
 INSERT INTO
   `conversion` (
