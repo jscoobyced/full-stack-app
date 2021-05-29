@@ -28,6 +28,6 @@ docker -H "ssh://${1}@${2}" exec full-stack-app_db_1 sh -c \
 
 echo "Inserting data"
 docker -H "ssh://${1}@${2}" exec full-stack-app_db_1 sh -c \
-  "mysql --host=localhost --port=3306 --protocol=tcp -u \"${DBUSER}\" -p\"${DBPASS}\" \"${DBNAME}\" < ${DOCKER_UPDATE_FOLDER}/production.sql"
+  "mysql --host=localhost --port=3306 --protocol=tcp -u \"${DBUSER}\" -p\"${DBPASS}\" \"${DBNAME}\" < ${DOCKER_UPDATE_FOLDER}/data.sql"
 
 rm -Rf "${HOME}/.ssh"
