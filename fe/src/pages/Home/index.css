@@ -9,6 +9,7 @@ header {
   flex: 2;
   flex-direction: column;
   padding-top: 5px;
+  background: url('owls.png') no-repeat;
 }
 
 header span {
@@ -55,8 +56,4 @@ main>span {
 
 span.loading {
   padding-left: 2em;
-}
-
-footer {
-  flex: 1;
 }

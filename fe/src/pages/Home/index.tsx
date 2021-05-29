@@ -1,17 +1,10 @@
 import { BrowserRouter, Link, Switch, Route } from 'react-router-dom';
-import './index.css';
-import { AUTHOR, COPYRIGHT, RELEASE_YEAR, TITLE } from '../../config/constants';
-import dateUtil from '../../utils/dateUtil';
 import { CaloriesCalculator } from './components/caloriescalculator';
+import { TITLE } from '../../config/constants';
+import { Footer } from '../components/footer';
+import './index.css';
 
 export const App = () => {
-
-  const currentYear = dateUtil.getCurrentDate().getFullYear();
-
-  const copyrightYear = (currentYear === RELEASE_YEAR ? '' : `-${currentYear}`);
-  const copyright = <>
-    {COPYRIGHT} &copy; {AUTHOR} - {RELEASE_YEAR}{copyrightYear}
-  </>
 
   return (
     <BrowserRouter>
@@ -29,16 +22,13 @@ export const App = () => {
         </nav>
       </header>
       <main>
-      <Switch>
-        <Route path="/" exact={true}>
-          <CaloriesCalculator />
-        </Route>
-      </Switch>
+        <Switch>
+          <Route path="/" exact={true}>
+            <CaloriesCalculator />
+          </Route>
+        </Switch>
       </main>
-      <footer>
-        {copyright}
-      </footer>
-
+      <Footer></Footer>
     </BrowserRouter>
   );
 }

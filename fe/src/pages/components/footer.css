@@ -1,0 +1,14 @@
+footer {
+  flex: 1;
+  flex-direction: row;
+}
+
+footer span {
+  margin-top: auto;
+  margin-left: auto;
+}
+
+footer img {
+  margin-left: auto;
+  padding-right: 5px;
+}
