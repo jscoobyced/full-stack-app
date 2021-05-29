@@ -56,7 +56,11 @@ VALUES
   -- Egg
   (9, 8, 1, 78, NOW(), NOW(), 1),
   -- Sugar
-  (10, 1, 1, 773, NOW(), NOW(), 1);
+  (10, 1, 1, 773, NOW(), NOW(), 1),
+  -- Coconut Oil
+  (11, 1, 1, 1600, NOW(), NOW(), 1),
+  -- Vegetable Oil
+  (12, 1, 1, 2080, NOW(), NOW(), 1);
 
 INSERT INTO
   `ingredient` (
@@ -78,10 +82,19 @@ VALUES
   (7, 'Water', 2, 7, NOW(), NOW(), 1),
   (8, 'Milk', 2, 8, NOW(), NOW(), 1),
   (9, 'Egg', 2, 9, NOW(), NOW(), 1),
-  (10, 'Sugar', 1, 10, NOW(), NOW(), 1);
+  (10, 'Sugar', 1, 10, NOW(), NOW(), 1),
+  (11, 'Coconut Oil', 1, 11, NOW(), NOW(), 1),
+  (12, 'Vegetable Oil', 1, 12, NOW(), NOW(), 1);
 
 INSERT INTO
-  `conversion` (id, from_unit, multiplier, created, updated, active)
+  `conversion` (
+    id,
+    from_unit,
+    multiplier,
+    created,
+    updated,
+    active
+  )
 VALUES
   -- Bread Flour from Gram
   (1, 5, 1 / 150, NOW(), NOW(), 1),
@@ -110,7 +123,19 @@ VALUES
   -- Sugar from Table Spoon
   (13, 2, 1 / 16, NOW(), NOW(), 1),
   -- Sugar from Tea Spoon
-  (14, 3, 1 / 48, NOW(), NOW(), 1);
+  (14, 3, 1 / 48, NOW(), NOW(), 1),
+  -- Coconut Oil from Tablespoon
+  (15, 2, 1 / 16, NOW(), NOW(), 1),
+  -- Coconut Oil from Tea Spoon
+  (16, 3, 1 / 48, NOW(), NOW(), 1),
+  -- Coconut Oil from milliliter
+  (17, 4, 1 / 236.5, NOW(), NOW(), 1),
+  -- Vegetable Oil from Tablespoon
+  (18, 2, 1 / 16, NOW(), NOW(), 1),
+  -- Vegetable Oil from Tea Spoon
+  (19, 3, 1 / 48, NOW(), NOW(), 1),
+  -- Vegetable Oil from milliliter
+  (20, 4, 1 / 236.5, NOW(), NOW(), 1);
 
 INSERT INTO
   `ingredient_conversion`
@@ -128,5 +153,10 @@ VALUES
   (8, 11),
   (10, 12),
   (10, 13),
-  (10, 14);
-  
+  (10, 14),
+  (11, 15),
+  (11, 16),
+  (11, 17),
+  (12, 18),
+  (12, 19),
+  (12, 20);
