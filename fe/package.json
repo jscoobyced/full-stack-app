@@ -1,6 +1,6 @@
 {
   "name": "fe",
-  "version": "0.1.0",
+  "version": "JSCVERSION",
   "private": true,
   "main": "index.js",
   "dependencies": {
