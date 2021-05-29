@@ -7,7 +7,7 @@ UPDATE_FOLDER="~/db/updates/${DTFMT}"
 DOCKER_UPDATE_FOLDER="/home/${DTFMT}"
 ssh "$1@$2" "mkdir -p ${UPDATE_FOLDER}"
 scp ./db/sql/update/update.sql "$1@$2:${UPDATE_FOLDER}/"
-scp ./db/sql/data/production.sql "$1@$2:${UPDATE_FOLDER}/"
+scp ./db/sql/update/data.sql "$1@$2:${UPDATE_FOLDER}/"
 cat ./db/sql/update/stored_procedure/*.sql > stored_procedures.sql
 scp stored_procedures.sql "$1@$2:${UPDATE_FOLDER}/"
 
