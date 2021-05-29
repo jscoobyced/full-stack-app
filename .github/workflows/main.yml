@@ -138,7 +138,7 @@ jobs:
       - name: Remote deploy
         run: |
           chmod u+x "${GITHUB_WORKSPACE}/.github/docker-deploy.sh"
-          "${GITHUB_WORKSPACE}/.github/docker-deploy.sh" "${{ secrets.SERVER_DB_PASSWORD }}" "${{ secrets.DEPLOY_KEY }}" "${{ secrets.DEPLOY_KNOWN_HOST }}" "${{ secrets.DEPLOY_USERNAME }}" "${{ secrets.DEPLOY_SERVER }}"
+          "${GITHUB_WORKSPACE}/.github/docker-deploy.sh" "${{ secrets.SERVER_DB_PASSWORD }}" "${{ secrets.DEPLOY_KEY }}" "${{ secrets.DEPLOY_KNOWN_HOST }}" "${{ secrets.DEPLOY_USERNAME }}" "${{ secrets.DEPLOY_SERVER }}" "${{ env.DOCKER_TAG }}"
 
       - name: Deploy database
         run: |

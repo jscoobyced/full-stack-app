@@ -3,7 +3,7 @@ version: "3.7"
 services:
 
   be:
-    image: jscdroiddev/full-stack-app-be:latest
+    image: jscdroiddev/full-stack-app-be:JSCVERSION
     restart: unless-stopped
     ports:
       - "127.0.0.1:3001:3001"
@@ -19,7 +19,7 @@ services:
       FRONT_END_API_SCHEME: https
 
   fe:
-    image: jscdroiddev/full-stack-app-fe:latest
+    image: jscdroiddev/full-stack-app-fe:JSCVERSION
     restart: unless-stopped
     ports:
       - "127.0.0.1:3000:80"
