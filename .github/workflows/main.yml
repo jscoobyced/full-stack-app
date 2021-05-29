@@ -75,9 +75,7 @@ jobs:
       - name: Create docker tag variable
         run: |
           chmod u+x "${GITHUB_WORKSPACE}/.github/docker-tag.sh"
-          "${GITHUB_WORKSPACE}/.github/docker-tag.sh"
-          JSCVERSION="${{ env.DOCKER_TAG }}"
-          sed -i "s/JSCVERSION/${JSCVERSION}/" "${GITHUB_WORKSPACE}/fe/package.json"
+          "${GITHUB_WORKSPACE}/.github/docker-tag.sh" "${GITHUB_WORKSPACE}"
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
@@ -110,6 +108,7 @@ jobs:
         run: |
           chmod u+x "${GITHUB_WORKSPACE}/.github/docker-tag.sh"
           "${GITHUB_WORKSPACE}/.github/docker-tag.sh"
+          "${GITHUB_WORKSPACE}/.github/docker-tag.sh" "${GITHUB_WORKSPACE}"
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
