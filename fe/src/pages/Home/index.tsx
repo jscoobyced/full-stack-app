@@ -10,16 +10,9 @@ export const App = () => {
     <BrowserRouter>
       <header>
         <div>
-          <img src='cooking.png' alt='Cooking logo'></img>
           <span>{TITLE}</span>
+          <img src='cooking.png' alt='Cooking logo'></img>
         </div>
-        <nav>
-          <ul>
-            <li><Link to='/'>Calories Calculator</Link></li>
-            <li>|</li>
-            <li><Link to='/convert'>Unit conversion</Link></li>
-          </ul>
-        </nav>
       </header>
       <main>
         <Switch>

@@ -1,6 +1,7 @@
 footer {
   flex: 1;
   flex-direction: row;
+  font-size: medium;
 }
 
 footer span {
