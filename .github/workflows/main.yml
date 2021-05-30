@@ -135,6 +135,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Create docker tag variable
+        run: |
+          chmod u+x "${GITHUB_WORKSPACE}/.github/docker-tag.sh"
+          "${GITHUB_WORKSPACE}/.github/docker-tag.sh" "${GITHUB_WORKSPACE}"
+
       - name: Remote deploy
         run: |
           chmod u+x "${GITHUB_WORKSPACE}/.github/docker-deploy.sh"
