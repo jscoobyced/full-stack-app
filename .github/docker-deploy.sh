@@ -7,7 +7,7 @@ printf '%s\n' "$2" > "${HOME}/.ssh/id_rsa"
 chmod 600 "${HOME}/.ssh/id_rsa"
 printf '%s\n' "$3" > "${HOME}/.ssh/known_hosts"
 DOCKER_TAG="${6}"
-sed -i "s/JSCVERSION/${DOCKER_TAG}/" "${JSCWORKSPACE}/docker-compose.production.yml"
+sed -i "s/JSCVERSION/${DOCKER_TAG}/" docker-compose.production.yml
 
 WITH_DB=$(cat ./with_db)
 
