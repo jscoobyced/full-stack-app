@@ -28,6 +28,6 @@ export type SelectedIngredient = {
 export type IngredientTypes = Ingredient | Ingredient[] | undefined;
 
 export type IngredientResponse = {
-  ingredients: Ingredient[],
-  calories: Calorie[],
+  ingredients: Ingredient[];
+  calories: Calorie[];
 };

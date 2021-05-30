@@ -1,8 +1,8 @@
-import { ErrorData } from '../../models/common';
+import { ErrorData } from '../../models/service';
 import * as IngredientController from '.';
-import { Ingredient, IngredientTypes } from '../../models/ingredients';
+import { IngredientTypes } from '../../models/ingredients';
 import { createDefaultMock } from '../../testUtil';
-import { mockIngredients } from '../../services/__mocks__/IngredientService';
+import * as json from '../../models/ingredient-data.json';
 
 let mockData = (): IngredientTypes => undefined;
 let mockError = (): ErrorData => undefined;
@@ -36,7 +36,7 @@ describe('Ingredient Controller - getIngredients', () => {
     expect(mockResponse.status).toHaveBeenCalledWith(400);
   });
 
-  it('does not find user with undefined data', async () => {
+  it('does not find ingredient with undefined data', async () => {
     const { mockRequest, mockResponse } = createDefaultMock();
     await IngredientController.getIngredients(mockRequest, mockResponse);
     expect(mockResponse.send).toHaveBeenCalledTimes(0);
@@ -44,9 +44,13 @@ describe('Ingredient Controller - getIngredients', () => {
     expect(mockResponse.status).toHaveBeenCalledWith(404);
   });
 
-  it('does not find user with empty data', async () => {
+  it('does not find ingredient with empty data', async () => {
     const { mockRequest, mockResponse } = createDefaultMock();
-    mockData = () => [] as Ingredient[];
+    const ingredientResponse = {
+      ingredients: [],
+      calories: [],
+    };
+    mockData = () => ingredientResponse;
     await IngredientController.getIngredients(mockRequest, mockResponse);
     expect(mockResponse.send).toHaveBeenCalledTimes(0);
     expect(mockResponse.status).toHaveBeenCalledTimes(1);
@@ -55,7 +59,7 @@ describe('Ingredient Controller - getIngredients', () => {
 
   it('returns ingredient list', async () => {
     const { mockRequest, mockResponse } = createDefaultMock();
-    mockData = () => mockIngredients;
+    mockData = () => json;
     await IngredientController.getIngredients(mockRequest, mockResponse);
     expect(mockResponse.send).toHaveBeenCalledTimes(1);
     expect(mockResponse.status).toHaveBeenCalledTimes(0);
