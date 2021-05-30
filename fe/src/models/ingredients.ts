@@ -6,30 +6,28 @@ export type Category = BaseEntityWithName;
 // Unit
 export type Unit = EntityWithCategory & { symbol: string };
 
-// Calories and Conversions
+// Ingredients
+export type Ingredient = EntityWithCategory;
+
+// Calories
 export type Calorie = BaseEntity & {
+  ingredientId: number;
   unit: Unit;
   serving: number;
   calories: number;
 };
 
-export type Conversion = BaseEntity & {
-  fromUnit: Unit;
-  multiplier: number;
-};
-
-// Ingredients
-export type Ingredient = EntityWithCategory & {
-  baseCalorie: Calorie;
-  conversions?: Conversion[];
-};
-
 export type SelectedIngredient = {
   id: number;
   ingredient: Ingredient;
-  unit: Unit;
   serving: number;
+  calorie: Calorie;
   totalCalories: number;
 };
 
 export type IngredientTypes = Ingredient | Ingredient[] | undefined;
+
+export type IngredientResponse = {
+  ingredients: Ingredient[],
+  calories: Calorie[],
+};

@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { SelectedIngredient } from '../../../models/ingredients';
-import { mockIngredients, mockUnits } from '../../../services/Ingredient/mock-data';
+import { mockCalories, mockIngredients } from '../../../services/Ingredient/mock-data';
 import { CaloriesCalculatorOutput } from './caloriescalculatoroutput';
 
 const removeIngredient = jest.fn();
@@ -25,13 +25,13 @@ describe('CaloriesCalculatorOutput component', () => {
     const ingredients: SelectedIngredient[] = [{
       id: 1,
       ingredient: mockIngredients[0],
-      unit: mockUnits[0],
+      calorie: mockCalories[0],
       serving: 5,
-      totalCalories: 0
+      totalCalories: 0,
     }, {
       id: 2,
       ingredient: mockIngredients[2],
-      unit: mockUnits[1],
+      calorie: mockCalories[4],
       serving: 10,
       totalCalories: 0,
     },]
@@ -49,13 +49,13 @@ describe('CaloriesCalculatorOutput component', () => {
     const ingredients: SelectedIngredient[] = [{
       id: 1,
       ingredient: mockIngredients[0],
-      unit: mockUnits[0],
+      calorie: mockCalories[0],
       serving: 5,
-      totalCalories: 0
+      totalCalories: 0,
     }, {
       id: 2,
       ingredient: mockIngredients[2],
-      unit: mockUnits[1],
+      calorie: mockCalories[4],
       serving: 10,
       totalCalories: 0,
     },]
@@ -75,13 +75,13 @@ describe('CaloriesCalculatorOutput component', () => {
     const ingredients: SelectedIngredient[] = [{
       id: 1,
       ingredient: mockIngredients[0],
-      unit: mockUnits[0],
+      calorie: mockCalories[0],
       serving: 5,
-      totalCalories: 0
+      totalCalories: 0,
     }, {
       id: 1,
       ingredient: mockIngredients[2],
-      unit: mockUnits[1],
+      calorie: mockCalories[4],
       serving: 10,
       totalCalories: 0,
     },]

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { SelectedIngredient } from "../../../models/ingredients";
-import { calculateAllCalories } from "../../../services/Calories";
 import CaloriesCalculatorInput from "./caloriescalculatorinput";
 import { CaloriesCalculatorOutput } from "./caloriescalculatoroutput";
 
@@ -8,16 +7,26 @@ export const CaloriesCalculator = () => {
   const [ingredients, setIngredients] = useState([] as SelectedIngredient[]);
   const [totalCalories, setTotalCalories] = useState(0);
 
-  const setSelectedIngredient = (selectedIngredient: SelectedIngredient) => {
-    const newIngredients = ingredients.concat([selectedIngredient]);
+  const updateIngredients = (newIngredients: SelectedIngredient[]) => {
     setIngredients(newIngredients);
-    setTotalCalories(calculateAllCalories(newIngredients));
+    if (newIngredients.length > 1) {
+      setTotalCalories(newIngredients.map(ingredient => ingredient.totalCalories).reduce((a, b) => a + b));
+    } else if (newIngredients.length === 1) {
+      setTotalCalories(newIngredients[0].totalCalories);
+    }
+  }
+
+  const setSelectedIngredient = (selectedIngredient: SelectedIngredient) => {
+    if (!!selectedIngredient) {
+      updateIngredients(ingredients.concat([selectedIngredient]));
+    }
   };
 
   const removeIngredient = (selectedIngredient: SelectedIngredient) => {
-    const newIngredients = ingredients.filter(ingredient => ingredient.id !== selectedIngredient.id);
-    setIngredients(newIngredients);
-    setTotalCalories(calculateAllCalories(newIngredients));
+    /* istanbul ignore next */
+    if (!!selectedIngredient) {
+      updateIngredients(ingredients.filter(ingredient => ingredient.id !== selectedIngredient.id));
+    }
   };
 
   return (
