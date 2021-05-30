@@ -34,7 +34,7 @@ export const CaloriesCalculatorOutput = (props: OutputProps) => {
           selectedIngredients.map((selectedIngredient, index) => {
             return <tr key={`result-ingredient-${selectedIngredient.id}-${index}`}>
               <td>{selectedIngredient.ingredient.name}</td>
-              <td>{selectedIngredient.serving} {selectedIngredient.unit.symbol}</td>
+              <td>{selectedIngredient.serving} {selectedIngredient.calorie.unit.symbol}</td>
               <td> {selectedIngredient.totalCalories}</td>
               <td><img
                 src='delete.png'

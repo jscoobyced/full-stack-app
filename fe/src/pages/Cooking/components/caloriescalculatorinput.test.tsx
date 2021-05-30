@@ -1,29 +1,18 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { Ingredient, SelectedIngredient } from '../../../models/ingredients';
-import { IIngredientService } from '../../../services/Ingredient';
+import { SelectedIngredient } from '../../../models/ingredients';
 import { ServiceContext } from '../../../services/Context';
 import CaloriesCalculatorInput from './caloriescalculatorinput';
-import { mockIngredients, mockIngredientWithoutConversion, mockUnits } from '../../../services/Ingredient/mock-data';
+import { mockCalories, mockIngredients } from '../../../services/Ingredient/mock-data';
 import { MockIngredientService } from '../../../services/Ingredient/mock';
 
 const configuration = MockIngredientService();
 
-const configurationWithoutConversion = (): IIngredientService => {
-  const getIngredients = async (): Promise<Ingredient[]> => {
-    return Promise.resolve([mockIngredientWithoutConversion]);
-  };
-
-  return {
-    getIngredients
-  };
-};
-
 const expectedIngredient: SelectedIngredient = {
   id: 0,
   ingredient: mockIngredients[1],
+  calorie: mockCalories[2],
   serving: 10,
-  unit: mockUnits[1],
-  totalCalories: 3660,
+  totalCalories: 200,
 };
 
 
@@ -40,7 +29,6 @@ describe('Main component', () => {
     const unitSelect = getByRole('combobox', { name: /unit/i }) as HTMLSelectElement;
     expect(unitSelect.options.length).toEqual(1);
     unmount();
-
   });
 
   it('can set the options', async () => {
@@ -54,7 +42,7 @@ describe('Main component', () => {
     }, { interval: 100, timeout: 1000 });
     fireEvent.change(ingredientSelect, { target: { value: 2 } });
     const unitSelect = screen.getByRole('combobox', { name: /unit/i }) as HTMLSelectElement;
-    fireEvent.change(unitSelect, { target: { value: 2 } });
+    fireEvent.change(unitSelect, { target: { value: 3 } });
     const quantity = screen.getByLabelText('quantity') as HTMLInputElement;
     fireEvent.change(quantity, { target: { value: 10 } });
     const button = screen.getByRole('button');
@@ -78,36 +66,13 @@ describe('Main component', () => {
     unmount();
   });
 
-  it('can select ingredient with no conversion', async () => {
-    const expected: SelectedIngredient = {
-      id: 1,
-      ingredient: mockIngredients[1],
-      serving: 10,
-      unit: mockUnits[1],
-      totalCalories: 3660,
-    };
-    const selectIngredient = jest.fn().mockImplementation(() => expected);
-    const noConversionConfiguration = configurationWithoutConversion();
-    const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: noConversionConfiguration }}>
-      <CaloriesCalculatorInput selectIngredient={selectIngredient} />
-    </ServiceContext.Provider>);
-    let ingredientSelect = {} as HTMLSelectElement;
-    await waitFor(() => {
-      ingredientSelect = screen.getByRole('combobox', { name: /ingredient/i }) as HTMLSelectElement;
-    }, { interval: 100, timeout: 1000 });
-    fireEvent.change(ingredientSelect, { target: { value: 0 } });
-    const unitSelect = screen.getByRole('combobox', { name: /unit/i }) as HTMLSelectElement;
-    expect(unitSelect).toBeEnabled();
-    unmount();
-  });
-
   it('can select ingredient with no unit found', async () => {
     const _selectedIngredient: SelectedIngredient = {
       id: 0,
       ingredient: mockIngredients[1],
+      calorie: mockCalories[1],
       serving: 10,
-      unit: mockUnits[1],
-      totalCalories: 3660,
+      totalCalories: 200,
     };
     const selectIngredient = jest.fn().mockImplementation(() => _selectedIngredient);
     const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration }}>

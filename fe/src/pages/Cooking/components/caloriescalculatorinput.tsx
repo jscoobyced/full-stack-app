@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
-import { Ingredient, SelectedIngredient, Unit } from '../../../models/ingredients';
-import { calculateCalories } from '../../../services/Calories';
+import { Calorie, Ingredient, SelectedIngredient, Unit } from '../../../models/ingredients';
 import { ServiceContext } from '../../../services/Context';
 import { getUniqueCategories } from '../../../utils/category';
+import { sortIngredients } from '../../../utils/ingredients';
 import './caloriescalculator.css';
 
 type InputProps = {
@@ -15,6 +15,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
 
   const [ingredientData, setIngredientData] = useState([] as JSX.Element[]);
   const [ingredientList, setIngredientList] = useState([] as Ingredient[]);
+  const [calorieList, setCalorieList] = useState([] as Calorie[]);
   const [ingredient, setIngredient] = useState({} as Ingredient);
   const [unitList, setUnitList] = useState([] as Unit[]);
   const [unit, setUnit] = useState({} as Unit);
@@ -25,9 +26,10 @@ const CaloriesCalculatorInput = (props: InputProps) => {
   const { ingredientService } = useContext(ServiceContext);
 
   useEffect(() => {
-    ingredientService.getIngredients().then(ingredients => {
-      setIngredientList(ingredients);
-      setIngredientData(buildIngredientList(ingredients));
+    ingredientService.getIngredients().then(response => {
+      setIngredientList(response.ingredients);
+      setCalorieList(response.calories);
+      setIngredientData(buildIngredientList(response.ingredients));
     });
   }, [ingredientService]);
 
@@ -39,10 +41,11 @@ const CaloriesCalculatorInput = (props: InputProps) => {
         {
           ingredients.filter(_ingredient => {
             return _ingredient.category.id === category.id
-          }).map(_ingredient => {
-            return <option value={_ingredient.id}
-              key={'ingredient-' + _ingredient.id}>{_ingredient.name}</option>
-          })
+          }).sort(sortIngredients)
+            .map(_ingredient => {
+              return <option value={_ingredient.id}
+                key={'ingredient-' + _ingredient.id}>{_ingredient.name}</option>
+            })
         }
       </optgroup>
     });
@@ -71,9 +74,10 @@ const CaloriesCalculatorInput = (props: InputProps) => {
     const selectedIngredient = ingredientList.find(_ingredient => _ingredient.id === selectedOption);
     if (selectedIngredient) {
       setIngredient(selectedIngredient)
-      const units = selectedIngredient.conversions?.flatMap(conversion => conversion.fromUnit) || [];
-      units.push(selectedIngredient.baseCalorie.unit);
-      units.sort((unit1: Unit, unit2: Unit) => unit1.name.localeCompare(unit2.name));
+      const units = calorieList
+        .filter(calorie => calorie.ingredientId === selectedIngredient.id)
+        .flatMap(calorie => calorie.unit)
+        .sort((unit1: Unit, unit2: Unit) => unit1.name.localeCompare(unit2.name));
       setUnitList(units);
       setUnitData(buildUnitList(units));
     }
@@ -96,16 +100,20 @@ const CaloriesCalculatorInput = (props: InputProps) => {
 
   const addIngredient = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const selectedIngredient: SelectedIngredient = {
-      id: counter,
-      ingredient,
-      unit,
-      serving: quantity,
-      totalCalories: 0,
-    };
-    calculateCalories(selectedIngredient);
-    setCounter(counter + 1);
-    selectIngredient(selectedIngredient);
+    const calorie = calorieList
+      .find(calorie => calorie.ingredientId === ingredient.id && calorie.unit.id === unit.id);
+    /* istanbul ignore next */
+    if (!!calorie) {
+      const selectedIngredient: SelectedIngredient = {
+        id: counter,
+        ingredient,
+        calorie,
+        serving: quantity,
+        totalCalories: Math.round(calorie.calories * quantity / calorie.serving)
+      };
+      setCounter(counter + 1);
+      selectIngredient(selectedIngredient);
+    }
   }
 
   return (

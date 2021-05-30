@@ -1,12 +1,21 @@
 import supertest from 'supertest';
 import app from '..';
 import { API_VERSION } from '../config/constants';
-import { ServiceResponse } from '../models/common';
-import { Ingredient } from '../models/ingredients';
+import { ServiceResponse } from '../models/service';
+import { IngredientResponse } from '../models/ingredients';
+import * as json from '../models/ingredient-data.json';
 
 const request = supertest.agent(app);
+const mockIngredients: ServiceResponse = {
+  data: json,
+};
 
-jest.mock('../services/IngredientService');
+jest.mock('../services/IngredientService', () => ({
+  getAllIngredients: jest.fn().mockImplementation(async () => {
+    return Promise.resolve(mockIngredients);
+  }),
+}));
+
 jest.mock('../utils/logger');
 
 describe('Default routes', () => {
@@ -21,9 +30,8 @@ describe('Default routes', () => {
   it(`GET ${API_VERSION.V1}/ingredients`, async (done) => {
     request.get(`${API_VERSION.V1}/ingredients`).then((response) => {
       const serviceResponse = response.body as ServiceResponse;
-      expect(Array.isArray(serviceResponse.data)).toBeTruthy();
-      const ingredients = serviceResponse.data as Ingredient[];
-      expect(ingredients.length).toEqual(3);
+      const data = serviceResponse.data as IngredientResponse;
+      expect(data.ingredients.length).toEqual(7);
       done();
     });
   });

@@ -1,7 +1,7 @@
 import { Handler } from '../../models/route';
 import { API_ERROR_CODES } from '../../config/constants';
-import { ControllerResponse } from '../../models/common';
-import { Ingredient } from '../../models/ingredients';
+import { ControllerResponse } from '../../models/service';
+import { IngredientResponse } from '../../models/ingredients';
 import { getAllIngredients } from '../../services/IngredientService';
 
 export const getIngredients: Handler = async (req, res) => {
@@ -12,7 +12,11 @@ export const getIngredients: Handler = async (req, res) => {
       message: result.error.message,
     };
     res.status(400).send(response);
-  } else if (!result.data || (result.data as Ingredient[]).length === 0) {
+  } else if (
+    !result.data ||
+    !(result.data as IngredientResponse).ingredients ||
+    (result.data as IngredientResponse).ingredients.length === 0
+  ) {
     response.error = {
       code: API_ERROR_CODES.NO_INGREDIENT_FOUND,
     };

@@ -1,11 +1,14 @@
 import { IIngredientService } from ".";
-import { Ingredient } from "../../models/ingredients";
-import { mockIngredients } from "./mock-data";
+import { IngredientResponse } from "../../models/ingredients";
+import { mockIngredients, mockCalories } from "./mock-data";
 
 
 export const MockIngredientService = (): IIngredientService => {
-  const getIngredients = async (): Promise<Ingredient[]> => {
-    return Promise.resolve(mockIngredients);
+  const getIngredients = async (): Promise<IngredientResponse> => {
+    return Promise.resolve({
+      ingredients: mockIngredients,
+      calories: mockCalories,
+    });
   };
 
   return {

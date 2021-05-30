@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './pages/Home';
+import { App } from './pages/Cooking';
 import { MockIngredientService } from './services/Ingredient/mock';
 import { ServiceContext } from './services/Context';
 import './index.css';

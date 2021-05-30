@@ -1,9 +1,12 @@
 import { IngredientService } from ".";
-import { mockIngredients } from "./mock-data";
+import { mockIngredients, mockCalories } from "./mock-data";
 
 const mockResponse = {
   json: () => Promise.resolve({
-    data: mockIngredients,
+    data: {
+      ingredients: mockIngredients,
+      calories: mockCalories,
+    },
   }),
 } as Response;
 
@@ -17,7 +20,8 @@ afterEach(() => {
 
 describe('Ingredient Service', () => {
   it('gets the ingredients from API', async () => {
-    const ingredients = await IngredientService().getIngredients();
-    expect(ingredients.length).toEqual(mockIngredients.length);
+    const response = await IngredientService().getIngredients();
+    expect(response.ingredients.length).toEqual(mockIngredients.length);
+    expect(response.calories.length).toEqual(mockCalories.length);
   });
 });

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './Poppins-Light.ttf';
 import './index.css';
-import { App } from './pages/Home';
+import { App } from './pages/Cooking';
 import { ServiceContext } from './services/Context';
 import { IngredientService } from './services/Ingredient';
 
