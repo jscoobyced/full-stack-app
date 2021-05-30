@@ -74,7 +74,7 @@
       "calories": 500
     },
     {
-      "id": 1,
+      "id": 2,
       "ingredientId": 1,
       "unit": {
         "id": 1,
@@ -89,7 +89,7 @@
       "calories": 500
     },
     {
-      "id": 1,
+      "id": 3,
       "ingredientId": 2,
       "unit": {
         "id": 1,
@@ -104,7 +104,7 @@
       "calories": 500
     },
     {
-      "id": 1,
+      "id": 4,
       "ingredientId": 3,
       "unit": {
         "id": 1,
@@ -119,7 +119,7 @@
       "calories": 500
     },
     {
-      "id": 1,
+      "id": 5,
       "ingredientId": 4,
       "unit": {
         "id": 1,
@@ -134,7 +134,7 @@
       "calories": 500
     },
     {
-      "id": 1,
+      "id": 6,
       "ingredientId": 5,
       "unit": {
         "id": 1,
@@ -149,7 +149,7 @@
       "calories": 500
     },
     {
-      "id": 1,
+      "id": 7,
       "ingredientId": 6,
       "unit": {
         "id": 1,
@@ -164,7 +164,7 @@
       "calories": 500
     },
     {
-      "id": 1,
+      "id": 8,
       "ingredientId": 7,
       "unit": {
         "id": 1,

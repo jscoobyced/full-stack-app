@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Calorie, Ingredient, SelectedIngredient, Unit } from '../../../models/ingredients';
 import { ServiceContext } from '../../../services/Context';
 import { getUniqueCategories } from '../../../utils/category';
+import { sortIngredients } from '../../../utils/ingredients';
 import './caloriescalculator.css';
 
 type InputProps = {
@@ -40,10 +41,11 @@ const CaloriesCalculatorInput = (props: InputProps) => {
         {
           ingredients.filter(_ingredient => {
             return _ingredient.category.id === category.id
-          }).map(_ingredient => {
-            return <option value={_ingredient.id}
-              key={'ingredient-' + _ingredient.id}>{_ingredient.name}</option>
-          })
+          }).sort(sortIngredients)
+            .map(_ingredient => {
+              return <option value={_ingredient.id}
+                key={'ingredient-' + _ingredient.id}>{_ingredient.name}</option>
+            })
         }
       </optgroup>
     });
@@ -107,7 +109,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
         ingredient,
         calorie,
         serving: quantity,
-        totalCalories: calorie.calories * quantity / calorie.serving
+        totalCalories: Math.round(calorie.calories * quantity / calorie.serving)
       };
       setCounter(counter + 1);
       selectIngredient(selectedIngredient);
