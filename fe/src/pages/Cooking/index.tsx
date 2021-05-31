@@ -1,7 +1,7 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { CaloriesCalculator } from './components/caloriescalculator';
 import { TITLE } from '../../config/constants';
-import { Footer } from '../components/footer';
+import { Footer } from '../components/Footer/footer';
 import './index.css';
 
 export const App = () => {

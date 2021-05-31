@@ -1,5 +1,5 @@
-import { AUTHOR, COPYRIGHT, RELEASE_YEAR } from '../../config/constants';
-import dateUtil from '../../utils/dateUtil';
+import { AUTHOR, COPYRIGHT, RELEASE_YEAR } from '../../../config/constants';
+import dateUtil from '../../../utils/dateUtil';
 import './footer.css';
 
 export const Footer = () => {

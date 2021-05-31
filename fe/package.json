@@ -50,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "@types/gapi.auth2": "^0.0.54",
     "@types/react-router-dom": "^5.1.7",
     "react-app-rewired": "^2.1.8"
   },
