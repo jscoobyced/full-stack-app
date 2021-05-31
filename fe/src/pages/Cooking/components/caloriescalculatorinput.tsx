@@ -101,7 +101,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
   const addIngredient = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const calorie = calorieList
-      .find(calorie => calorie.ingredientId === ingredient.id && calorie.unit.id === unit.id);
+      .find(_calorie => _calorie.ingredientId === ingredient.id && _calorie.unit.id === unit.id);
     /* istanbul ignore next */
     if (!!calorie) {
       const selectedIngredient: SelectedIngredient = {
