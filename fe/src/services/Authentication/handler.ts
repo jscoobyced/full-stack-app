@@ -1,7 +1,6 @@
 import { newSecureUser, SecureUser } from "../../models/user";
 
 export type AuthenticationProperties = {
-  isSignedIn: boolean;
   doSignIn: (user: SecureUser) => void;
   doSignOut: () => void;
   createUser: (user: any) => SecureUser;
@@ -17,6 +16,7 @@ export class AuthenticationHandler implements IAuthenticationHandler {
   private properties: AuthenticationProperties = {} as AuthenticationProperties;
 
   public init = (properties: AuthenticationProperties) => {
+    console.log('Calling init...', properties);
     this.properties = properties;
   }
 

@@ -27,7 +27,7 @@ export class GoogleAuthenticationHandler implements IAuthenticationHandler {
       const googleParams = getGoogleParams();
       gapi.auth2.init(googleParams).then(
         (response: gapi.auth2.GoogleAuth) => {
-          if (this.properties.isSignedIn || response.isSignedIn.get()) {
+          if (response.isSignedIn.get()) {
             this.properties.doSignIn(this.properties.createUser(response.currentUser.get()));
           }
         },
@@ -55,7 +55,9 @@ export class GoogleAuthenticationHandler implements IAuthenticationHandler {
     if (gapi && gapi.auth2) {
       const auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(
-        auth2.disconnect().then(this.properties.doSignOut()),
+        auth2.disconnect().then(() => {
+          this.properties.doSignOut();
+        }),
       );
     }
   };

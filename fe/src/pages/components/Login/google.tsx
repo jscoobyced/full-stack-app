@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { newSecureUser, SecureUser } from "../../../models/user";
 import { IAuthenticationHandler } from "../../../services/Authentication/handler";
+import './google.css';
 
 const SignInButton = (properties: {
   signInText: string,
@@ -20,27 +21,26 @@ const SignInButton = (properties: {
     setSignedIn(buttonSignedIn);
   };
 
-  const handlerProps = {
-    isSignedIn,
-    doSignIn: (user: SecureUser) => {
-      updateButton(true, signOutText);
-      setUser(user);
-    },
-    doSignOut: () => {
-      setUser(newSecureUser());
-      updateButton(false, signInText);
-    },
-    createUser,
-  };
-  const { signIn, signOut, init } = handler;
+  const { signIn, signOut } = handler;
 
   useEffect(() => {
+    const handlerProps = {
+      doSignIn: (user: SecureUser) => {
+        updateButton(true, signOutText);
+        setUser(user);
+      },
+      doSignOut: () => {
+        setUser(newSecureUser());
+        updateButton(false, signInText);
+      },
+      createUser,
+    };
+    const { init } = handler;
     init(handlerProps);
-  });
+  }, [createUser, handler, setUser, signInText, signOutText]);
 
   return (
     <span
-      role="none"
       className={`signin-button signed-in_${isSignedIn}`}
       onClick={isSignedIn ? signOut : signIn}
     >
