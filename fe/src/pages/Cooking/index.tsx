@@ -25,7 +25,7 @@ export const App = () => {
             createUser={createUser}
             handler={handler}
           />
-          {user && user.user && user.user.name}
+          {user && user.user && user.user.firstName}
         </div>
       </header>
       <main>

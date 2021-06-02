@@ -1,6 +1,8 @@
 export type User = {
   id: number;
   name: string;
+  firstName?: string;
+  lastName?: string;
   email?: string;
   referenceId?: string;
 }
@@ -23,10 +25,12 @@ export const toSecureUser = (id: number,
   referenceId: string,
   accessToken: string,
   scope: string,
+  firstName?: string,
+  lastName?: string,
   expiresIn?: number,
   expiresAt?: number): SecureUser => ({
     user: {
-      id, name, email, referenceId
+      id, name, firstName, lastName, email, referenceId
     },
     authToken: {
       accessToken, scope, expiresIn, expiresAt
@@ -34,5 +38,5 @@ export const toSecureUser = (id: number,
   });
 
 export const newSecureUser = (): SecureUser => toSecureUser(
-  0, '', '', '', '', '', 0, 0,
+  0, '', '', '', '', '', '', '', 0, 0,
 );

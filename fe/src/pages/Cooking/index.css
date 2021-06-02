@@ -24,6 +24,11 @@ header img {
   margin-right: auto;
 }
 
+header div {
+  margin-right: 10px;
+  text-align: center;
+}
+
 main {
   flex: 20;
   flex-direction: column;

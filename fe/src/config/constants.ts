@@ -8,6 +8,7 @@ export const BACK_END_SERVICES_ENDPOINTS = {
   getIngredients: 'v1/ingredients',
 }
 
+/* istanbul ignore next */
 export const getGoogleParams = () => ({
   client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
   scope: process.env.REACT_APP_GOOGLE_SCOPE,

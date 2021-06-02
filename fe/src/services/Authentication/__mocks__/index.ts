@@ -9,6 +9,8 @@ export default class UserServiceMock implements UserService {
     '123456789',
     'blebleble',
     '',
+    '',
+    '',
     0,
     0,
   );

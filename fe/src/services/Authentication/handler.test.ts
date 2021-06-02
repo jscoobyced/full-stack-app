@@ -6,7 +6,6 @@ describe('AuthenticationHandler', () => {
     const doSignIn = jest.fn();
     const doSignOut = jest.fn();
     const properties: AuthenticationProperties = {
-      isSignedIn: true,
       doSignIn,
       doSignOut,
       createUser: (user: any) => newSecureUser(),

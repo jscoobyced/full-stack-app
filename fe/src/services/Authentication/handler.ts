@@ -16,7 +16,6 @@ export class AuthenticationHandler implements IAuthenticationHandler {
   private properties: AuthenticationProperties = {} as AuthenticationProperties;
 
   public init = (properties: AuthenticationProperties) => {
-    console.log('Calling init...', properties);
     this.properties = properties;
   }
 

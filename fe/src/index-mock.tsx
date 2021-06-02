@@ -1,22 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from './pages/Cooking';
-import { MockIngredientService } from './services/Ingredient/mock';
 import { ServiceContext } from './services/Context';
-import { AuthenticationHandler } from './services/Authentication/handler';
-import { newSecureUser } from './models/user';
+import { mockContext } from './services/Context/mock';
 import './index.css';
 
-const ingredientService = MockIngredientService();
-const handler = new AuthenticationHandler();
-const userService = {
-  createUser: (user: any) => {
-    const newUser = newSecureUser();
-    newUser.user.name = 'Test User';
-    return newUser;
-  },
-};
-const { createUser } = userService;
+const { ingredientService, handler, createUser } = mockContext();
 
 ReactDOM.render(
   <React.StrictMode>

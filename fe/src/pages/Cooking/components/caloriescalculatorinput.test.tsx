@@ -4,8 +4,10 @@ import { ServiceContext } from '../../../services/Context';
 import CaloriesCalculatorInput from './caloriescalculatorinput';
 import { mockCalories, mockIngredients } from '../../../services/Ingredient/mock-data';
 import { MockIngredientService } from '../../../services/Ingredient/mock';
+import { mockContext } from '../../../services/Context/mock';
 
 const configuration = MockIngredientService();
+const { handler, createUser } = mockContext();
 
 const expectedIngredient: SelectedIngredient = {
   id: 0,
@@ -19,7 +21,7 @@ const expectedIngredient: SelectedIngredient = {
 describe('Main component', () => {
   it('can render the options', async () => {
     const selectIngredient = jest.fn();
-    const { unmount, getByRole } = render(<ServiceContext.Provider value={{ ingredientService: configuration }}>
+    const { unmount, getByRole } = render(<ServiceContext.Provider value={{ ingredientService: configuration, createUser, handler }}>
       <CaloriesCalculatorInput selectIngredient={selectIngredient} />
     </ServiceContext.Provider>);
     await waitFor(() => {
@@ -33,7 +35,7 @@ describe('Main component', () => {
 
   it('can set the options', async () => {
     const selectIngredient = jest.fn().mockImplementation(() => expectedIngredient);
-    const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration }}>
+    const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration, createUser, handler }}>
       <CaloriesCalculatorInput selectIngredient={selectIngredient} />
     </ServiceContext.Provider>);
     let ingredientSelect = {} as HTMLSelectElement;
@@ -53,7 +55,7 @@ describe('Main component', () => {
 
   it('can select unknown ingredient', async () => {
     const selectIngredient = jest.fn().mockImplementation(() => expectedIngredient);
-    const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration }}>
+    const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration, createUser, handler }}>
       <CaloriesCalculatorInput selectIngredient={selectIngredient} />
     </ServiceContext.Provider>);
     let ingredientSelect = {} as HTMLSelectElement;
@@ -75,7 +77,7 @@ describe('Main component', () => {
       totalCalories: 200,
     };
     const selectIngredient = jest.fn().mockImplementation(() => _selectedIngredient);
-    const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration }}>
+    const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration, createUser, handler }}>
       <CaloriesCalculatorInput selectIngredient={selectIngredient} />
     </ServiceContext.Provider>);
     let ingredientSelect = {} as HTMLSelectElement;
