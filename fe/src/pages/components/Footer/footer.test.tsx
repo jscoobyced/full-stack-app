@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
-import { AUTHOR, COPYRIGHT, RELEASE_YEAR } from '../../config/constants';
-import dateUtil from '../../utils/dateUtil';
+import { AUTHOR, COPYRIGHT, RELEASE_YEAR } from '../../../config/constants';
+import dateUtil from '../../../utils/dateUtil';
 import { Footer } from './footer';
 
 describe('Footer', () => {

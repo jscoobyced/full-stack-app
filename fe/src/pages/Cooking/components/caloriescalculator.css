@@ -39,7 +39,7 @@ section {
 
 section .ingredient-calories-summary {
   flex: 6;
-  padding: 0;
+  padding-top: 20px;
   margin: 0;
   border-spacing: 0;
 }
@@ -91,6 +91,10 @@ section .ingredient-calories-summary {
   }
 
   section .ingredient-calories-summary {
-    margin: 15px 0;
+    font-size: medium;
+  }
+
+  .ingredient-calories-summary img.remove {
+    width: 16px;
   }
 }

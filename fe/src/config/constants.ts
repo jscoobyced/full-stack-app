@@ -7,3 +7,12 @@ export const BACK_END_URL = `${process.env.REACT_APP_BACK_END_API_SCHEME}://${pr
 export const BACK_END_SERVICES_ENDPOINTS = {
   getIngredients: 'v1/ingredients',
 }
+
+/* istanbul ignore next */
+export const getGoogleParams = () => ({
+  client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+  scope: process.env.REACT_APP_GOOGLE_SCOPE,
+  accessType: process.env.REACT_APP_GOOGLE_ACCESS_TYPE,
+  cookiePolicy: process.env.REACT_APP_GOOGLE_COOKIE_POLICY,
+  fetchBasicProfile: process.env.REACT_APP_GOOGLE_FETCH_BASIC_PROFILE,
+});
