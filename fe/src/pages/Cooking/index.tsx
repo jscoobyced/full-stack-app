@@ -10,7 +10,7 @@ import './index.css';
 
 export const App = () => {
   const [user, setUser] = useState(newSecureUser());
-  const { createUser, handler } = useContext(ServiceContext);
+  const { userService, handler } = useContext(ServiceContext);
 
   return (
     <BrowserRouter>
@@ -30,7 +30,7 @@ export const App = () => {
             signInText={SIGNIN}
             signOutText={SIGNOUT}
             setUser={setUser}
-            createUser={createUser}
+            userService={userService}
             handler={handler}
           />
           <span>{user && user.user && user.user.firstName}</span>

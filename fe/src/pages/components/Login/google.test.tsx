@@ -1,16 +1,17 @@
-import { fireEvent, render } from "@testing-library/react"
+import { fireEvent, render, waitFor } from "@testing-library/react"
+import { act } from "react-dom/test-utils";
 import { mockContext } from "../../../services/Context/mock";
 import SignInButton from "./google"
 
 const signInText = 'Sign-In'
 const signOutText = 'Sign-Out';
-const { createUser, handler } = mockContext();
+const { userService, handler } = mockContext();
 
 describe('Google Sign-in button', () => {
-  it('can render button, sign-in and sign-out', () => {
+  it('can render button, sign-in and sign-out', async () => {
     const setUser = jest.fn();
     const { container, unmount } = render(<SignInButton
-      createUser={createUser}
+      userService={userService}
       handler={handler}
       setUser={setUser}
       signInText={signInText}
@@ -20,12 +21,20 @@ describe('Google Sign-in button', () => {
     expect(buttons.length).toEqual(1);
     const button = buttons[0];
     expect(button.innerHTML).toEqual(signInText);
-    fireEvent.click(button);
-    expect(button.innerHTML).toEqual(signOutText);
-    expect(setUser).toHaveBeenCalledTimes(1);
-    fireEvent.click(button);
-    expect(button.innerHTML).toEqual(signInText);
-    expect(setUser).toHaveBeenCalledTimes(2);
+    act(() => {
+      fireEvent.click(button);
+    });
+    await waitFor(() => {
+      expect(button.innerHTML).toEqual(signOutText);
+      expect(setUser).toHaveBeenCalledTimes(1);
+    });
+    act(() => {
+      fireEvent.click(button);
+    });
+    await waitFor(() => {
+      expect(button.innerHTML).toEqual(signInText);
+      expect(setUser).toHaveBeenCalledTimes(2);
+    });
     unmount();
   });
 })

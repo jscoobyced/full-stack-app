@@ -11,11 +11,10 @@ import GoogleUserService from './services/Authentication/Google';
 const ingredientService = IngredientService();
 const handler = new GoogleAuthenticationHandler();
 const userService = new GoogleUserService();
-const { createUser } = userService;
 
 ReactDOM.render(
   <React.StrictMode>
-    <ServiceContext.Provider value={{ ingredientService, createUser, handler }}>
+    <ServiceContext.Provider value={{ ingredientService, handler, userService }}>
       <App />
     </ServiceContext.Provider>
   </React.StrictMode>,

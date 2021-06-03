@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { newSecureUser, SecureUser } from "../../../models/user";
+import { IUserService } from "../../../services/Authentication";
 import { IAuthenticationHandler } from "../../../services/Authentication/handler";
 import './google.css';
 
@@ -7,12 +8,13 @@ const SignInButton = (properties: {
   signInText: string,
   signOutText: string,
   setUser: (user: SecureUser) => void,
-  createUser: (user: any) => SecureUser,
+  userService: IUserService,
   handler: IAuthenticationHandler;
 }) => {
   const {
-    signInText, signOutText, setUser, createUser, handler,
+    signInText, signOutText, setUser, handler, userService
   } = properties;
+  const { createUser, userLogin } = userService;
   const [buttonName, setButtonName] = useState(signInText);
   const [isSignedIn, setSignedIn] = useState(false);
 
@@ -34,10 +36,11 @@ const SignInButton = (properties: {
         updateButton(false, signInText);
       },
       createUser,
+      userLogin,
     };
     const { init } = handler;
     init(handlerProps);
-  }, [createUser, handler, setUser, signInText, signOutText]);
+  }, [createUser, handler, setUser, userLogin, signInText, signOutText]);
 
   return (
     <span

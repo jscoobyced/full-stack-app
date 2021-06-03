@@ -1,11 +1,11 @@
 import React from "react";
-import { SecureUser } from "../../models/user";
+import { IUserService } from "../Authentication";
 import { IAuthenticationHandler } from "../Authentication/handler";
 import { IIngredientService } from "../Ingredient";
 
 interface IServiceContext {
   ingredientService: IIngredientService;
-  createUser: (user: any) => SecureUser;
+  userService: IUserService;
   handler: IAuthenticationHandler;
 }
 
