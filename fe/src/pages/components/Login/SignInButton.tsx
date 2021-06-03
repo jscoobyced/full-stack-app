@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { newSecureUser, SecureUser } from "../../../models/user";
 import { IUserService } from "../../../services/Authentication";
 import { IAuthenticationHandler } from "../../../services/Authentication/handler";
-import './google.css';
+import './SignInButton.css';
 
 const SignInButton = (properties: {
   signInText: string,

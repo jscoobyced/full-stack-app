@@ -3,19 +3,19 @@ import { AuthenticationProperties, IAuthenticationHandler } from "../handler";
 import Loader from "./loader";
 
 export class GoogleAuthenticationHandler implements IAuthenticationHandler {
-  private loader = new Loader();
+  private readonly _loader = new Loader();
 
   private properties: AuthenticationProperties = {} as AuthenticationProperties;
 
   /* istanbul ignore next */
-  public init = (properties: AuthenticationProperties) => {
+  public readonly init = (properties: AuthenticationProperties) => {
     this.properties = properties;
-    this.loader.registerEvent('jsc', () => {
+    this._loader.registerEvent('jsc', () => {
       if (gapi) {
         gapi.load('client:auth2', this.initGoogle);
       }
     });
-    this.loader.load(document,
+    this._loader.load(document,
       'jsc-google-login',
       'https://apis.google.com/js/api.js?onload=jscGoogleApi',
       'jsc',

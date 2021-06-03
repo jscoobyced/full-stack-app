@@ -1,7 +1,7 @@
 import { fireEvent, render, waitFor } from "@testing-library/react"
 import { act } from "react-dom/test-utils";
 import { mockContext } from "../../../services/Context/mock";
-import SignInButton from "./google"
+import SignInButton from "./SignInButton"
 
 const signInText = 'Sign-In'
 const signOutText = 'Sign-Out';
@@ -37,4 +37,4 @@ describe('Google Sign-in button', () => {
     });
     unmount();
   });
-})
+});

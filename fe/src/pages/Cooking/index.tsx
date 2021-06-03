@@ -2,7 +2,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { CaloriesCalculator } from './components/caloriescalculator';
 import { SIGNIN, SIGNOUT, TITLE } from '../../config/constants';
 import { Footer } from '../components/Footer/footer';
-import SignInButton from '../components/Login/google';
+import SignInButton from '../components/Login/SignInButton';
 import { useContext, useState } from 'react';
 import { newSecureUser } from '../../models/user';
 import { ServiceContext } from '../../services/Context';

@@ -15,7 +15,7 @@ export const mockContext = () => {
     },
     userLogin: (user:any) => Promise.resolve(),
   };
-  
+
   return {
     ingredientService,
     handler,
