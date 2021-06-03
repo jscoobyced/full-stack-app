@@ -1,14 +1,16 @@
 footer {
-  flex: 1;
+  flex: 2;
   font-size: medium;
+  flex-direction: column;
+  background: url(../../../blue-line.png) repeat-x;
+  background-position: bottom;
 }
 
 footer span {
+  color: var(--on-secondary);
   margin-top: auto;
-  margin-left: auto;
 }
 
 footer img {
   margin-left: auto;
-  padding-right: 5px;
 }

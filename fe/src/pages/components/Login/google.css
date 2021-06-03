@@ -1,9 +1,9 @@
 .signin-button {
-  padding: 6px 10px 6px 10px;
+  padding: 5px 10px;
   cursor: pointer;
   font-size: medium;
-  display: block;
-  width: 100px;
-  background-color: white;
-  border-radius: 5px;;
+  border-radius: 5px;
+  border: 1px solid var(--secondary);
+  background-color: var(--primary-dark);
+  color: var(--on-secondary);
 }

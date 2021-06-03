@@ -1,3 +1,17 @@
+:root {
+  --primary: #F6FFFF;
+  --primary-light: #FFFFFF;
+  --primary-dark: #496fb7;
+  --secondary: #004487;
+  --secondary-light: #779bdf;
+  --secondary-dark: #001e59;
+  --surface: #1e3da3;
+  --on-primary: #004487;
+  --on-secondary: #FFFFFF;
+  --disabled: #F0F0F0;
+  --on-disabled: #606060;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,13 +19,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(220, 240, 255);
+  background: var(--primary) url(blue-line.png) repeat-x;
   font-size: 1.5em;
 }
 
 * {
   font-family: 'Poppins Light', cursive;
-  color: rgb(0, 0, 139);
+  color: var(--on-primary);
 }
 
 @font-face {
@@ -28,5 +42,5 @@ body {
 a,
 a:hover,
 a:visited {
-  color: #606060;
+  color: var(--on-primary);
 }

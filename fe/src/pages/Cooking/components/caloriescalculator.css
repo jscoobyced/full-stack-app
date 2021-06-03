@@ -1,19 +1,39 @@
-select,
-button,
-input {
-  padding: 2px;
-  font-size: 0.8em;
-  border-radius: 5px;
-  background-color: white;
+section#calculator {
+  display: flex;
+  flex-direction: column;
+  flex: 8;
 }
 
-label {
-  display: block;
+.select-ingredient select,
+.select-ingredient option,
+.select-ingredient optgroup,
+.select-ingredient button,
+.select-ingredient input {
+  padding: 3px 10px;
+  border-radius: 5px;
+  border: 1px solid var(--secondary);
+  background-color: var(--primary-dark);
+  color: var(--on-secondary);
+  font-size: large;
 }
 
 .select-ingredient {
+  display: inline-flex;
+  flex-flow: row wrap;
   padding-top: 20px;
-  flex: 4;
+  flex: 1;
+  color: var(--on-secondary);
+}
+
+.select-ingredient .select-ingredient-part {
+  display: flex;
+  flex: 5;
+  flex-direction: column;
+}
+
+.select-ingredient .select-ingredient-part select,
+.select-ingredient .select-ingredient-part button {
+  width: fit-content;
 }
 
 .input-quantity {
@@ -23,18 +43,14 @@ label {
 
 .button-add {
   padding: 2px 10px;
-  background-color: rgb(220, 220, 220);
+  background-color: var(--secondary);
   margin-top: 10px;
   display: block;
 }
 
 .button-add:disabled {
-  color: gray;
-}
-
-section {
-  display: flex;
-  flex-direction: row;
+  color: var(--on-disabled);
+  background-color: var(--disabled);
 }
 
 section .ingredient-calories-summary {
@@ -56,6 +72,7 @@ section .ingredient-calories-summary {
   text-align: left;
   border-top: 1px solid gray;
   border-bottom: 1px solid gray;
+  font-size: large;
 }
 
 .ingredient-calories-summary td,
@@ -71,12 +88,17 @@ section .ingredient-calories-summary {
 }
 
 .ingredient-calories-summary tr:nth-child(even) {
-  background-color: white;
+  background-color: var(--secondary-light);
+}
+
+.ingredient-calories-summary tr:nth-child(even) td,
+.ingredient-calories-summary tr th {
+  color: var(--on-secondary);
 }
 
 .ingredient-calories-summary thead,
 .ingredient-calories-summary tfoot {
-  background-color: lightskyblue;
+  background-color: var(--surface);
 }
 
 .ingredient-calories-summary img.remove {
