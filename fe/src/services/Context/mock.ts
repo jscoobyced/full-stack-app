@@ -11,14 +11,14 @@ export const mockContext = () => {
       newUser.user.name = 'Test User';
       newUser.user.firstName = 'John';
       newUser.user.lastName = 'Smith';
-      return newUser;
+      return Promise.resolve(newUser);
     },
+    userLogin: (user:any) => Promise.resolve(),
   };
-  const { createUser } = userService;
 
   return {
     ingredientService,
     handler,
-    createUser
+    userService,
   };
 }

@@ -3,19 +3,19 @@ import { AuthenticationProperties, IAuthenticationHandler } from "../handler";
 import Loader from "./loader";
 
 export class GoogleAuthenticationHandler implements IAuthenticationHandler {
-  private loader = new Loader();
+  private readonly _loader = new Loader();
 
   private properties: AuthenticationProperties = {} as AuthenticationProperties;
 
   /* istanbul ignore next */
-  public init = (properties: AuthenticationProperties) => {
+  public readonly init = (properties: AuthenticationProperties) => {
     this.properties = properties;
-    this.loader.registerEvent('jsc', () => {
+    this._loader.registerEvent('jsc', () => {
       if (gapi) {
         gapi.load('client:auth2', this.initGoogle);
       }
     });
-    this.loader.load(document,
+    this._loader.load(document,
       'jsc-google-login',
       'https://apis.google.com/js/api.js?onload=jscGoogleApi',
       'jsc',
@@ -26,9 +26,10 @@ export class GoogleAuthenticationHandler implements IAuthenticationHandler {
     if (gapi && gapi.auth2 && !gapi.auth2.getAuthInstance()) {
       const googleParams = getGoogleParams();
       gapi.auth2.init(googleParams).then(
-        (response: gapi.auth2.GoogleAuth) => {
+        async (response: gapi.auth2.GoogleAuth) => {
           if (response.isSignedIn.get()) {
-            this.properties.doSignIn(this.properties.createUser(response.currentUser.get()));
+            const user = await this.properties.createUser(response.currentUser.get());
+            this.properties.doSignIn(user);
           }
         },
         (error: any) => this.properties.doSignOut(),
@@ -42,7 +43,10 @@ export class GoogleAuthenticationHandler implements IAuthenticationHandler {
     }
     if (gapi && gapi.auth2) {
       gapi.auth2.getAuthInstance().signIn({}).then(
-        (response: gapi.auth2.GoogleUser) => this.properties.doSignIn(this.properties.createUser(response)),
+        async (response: gapi.auth2.GoogleUser) => {
+          const user = await this.properties.createUser(response);
+          this.properties.doSignIn(user);
+        },
         (error: any) => this.properties.doSignOut(),
       );
     }

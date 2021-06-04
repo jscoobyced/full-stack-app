@@ -37,7 +37,9 @@ export default class Loader {
   }
 
   registerEvent = (eventName: string, callback: () => any) => {
-    if (!eventName || eventName.length <= 0) return;
+    if (!eventName || eventName.length <= 0) {
+      return;
+    }
     if (typeof myWindow.addEventListener !== 'undefined') {
       myWindow.addEventListener(eventName, callback, false);
     } else if (typeof document.addEventListener !== 'undefined') {

@@ -19,24 +19,22 @@ export type SecureUser = {
   authToken: AuthToken;
 }
 
-export const toSecureUser = (id: number,
-  name: string,
-  email: string,
-  referenceId: string,
-  accessToken: string,
+export const toSecureUser = (user: User,
   scope: string,
-  firstName?: string,
-  lastName?: string,
+  accessToken: string,
   expiresIn?: number,
   expiresAt?: number): SecureUser => ({
-    user: {
-      id, name, firstName, lastName, email, referenceId
-    },
+    user,
     authToken: {
       accessToken, scope, expiresIn, expiresAt
     },
   });
 
-export const newSecureUser = (): SecureUser => toSecureUser(
-  0, '', '', '', '', '', '', '', 0, 0,
-);
+export const newSecureUser = (): SecureUser => toSecureUser({
+  id: 0,
+  name: '',
+  email: '',
+  firstName: '',
+  lastName: '',
+  referenceId: ''
+}, '', '', 0, 0);

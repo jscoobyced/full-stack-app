@@ -87,9 +87,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
     event.preventDefault();
     const selectedOption = +event.target.value;
     const selectedUnit = unitList.find(_unit => _unit.id === selectedOption);
-    if (selectedUnit) {
-      setUnit(selectedUnit);
-    }
+    setUnit(selectedUnit as Unit);
   }
 
   const onSelectQuantity = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,26 +116,29 @@ const CaloriesCalculatorInput = (props: InputProps) => {
 
   return (
     <div className='select-ingredient'>
-      <label htmlFor='ingredient'>Ingredient</label>
-      <select id='ingredient' onChange={onSelectIngredient}>
-        <option value='-1'>-- Select --</option>
-        {ingredientData}
-      </select>
-      <label htmlFor='unit'>Unit</label>
-      <select id='unit' onChange={onSelectUnit} disabled={unitData.length === 0}>
-        <option value='-1'>-- Select --</option>
-        {unitData}
-      </select>
-      <label htmlFor='quantity'>Quantity</label>
-      <input id='quantity'
-        type='number'
-        aria-label='quantity'
-        onChange={onSelectQuantity}
-        className='input-quantity'
-        step={0.1} size={5} value={quantity}></input>
-      <button className='button-add'
-        disabled={!unit.id || quantity <= 0}
-        onClick={addIngredient}>Add</button>
+      <div className='select-ingredient-part'>
+        <label htmlFor='ingredient'>Ingredient</label>
+        <select id='ingredient' onChange={onSelectIngredient}>
+          <option value='-1'>-- Select --</option>
+          {ingredientData}
+        </select>
+        <label htmlFor='unit'>Unit</label>
+        <select id='unit' onChange={onSelectUnit} disabled={unitData.length === 0}>
+          <option value='-1'>-- Select --</option>
+          {unitData}
+        </select>
+      </div>
+      <div className='select-ingredient-part'>
+        <label htmlFor='quantity'>Quantity</label>
+        <input id='quantity'
+          aria-label='quantity'
+          onChange={onSelectQuantity}
+          className='input-quantity'
+          step={0.1} size={5} value={quantity}></input>
+        <button className='button-add'
+          disabled={!unit || !unit.id || quantity <= 0}
+          onClick={addIngredient}>Add</button>
+      </div>
     </div>
   );
 }

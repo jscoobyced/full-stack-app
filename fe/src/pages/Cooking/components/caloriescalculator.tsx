@@ -31,9 +31,9 @@ export const CaloriesCalculator = () => {
 
   return (
     <>
-      <span>This is the calories calculator. Add the ingredients and quantity or volume and it
-    will show you the resulting number of calories per overall volume.</span>
       <section id='calculator'>
+        <span>This is the calories calculator. Add the ingredients and quantity or volume and it
+    will show you the resulting number of calories per overall volume.</span>
         <CaloriesCalculatorInput selectIngredient={setSelectedIngredient} />
         <CaloriesCalculatorOutput
           selectedIngredients={ingredients}

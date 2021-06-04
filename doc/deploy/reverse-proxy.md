@@ -17,7 +17,7 @@ server {
     }
 
     add_header   Strict-Transport-Security 'max-age=31536000; includeSubDomains';
-    add_header   Content-Security-Policy 'default-src * data: blob: \'self\'; script-src \'unsafe-inline\' blob: data: \'self\'; style-src data: blob: \'unsafe-inline\' *;block-all-mixed-content;upgrade-insecure-requests';
+    add_header   Content-Security-Policy 'default-src * data: blob: \'self\'; script-src \'unsafe-inline\' blob: data: \'self\'; script-src-elem apis.google.com \'self\' \'unsafe-inline\'; style-src data: blob: \'unsafe-inline\' *;block-all-mixed-content;upgrade-insecure-requests';
     add_header   X-Frame-Options SAMEORIGIN;
     add_header   X-Content-Type-Options nosniff;
     add_header   Referrer-Policy strict-origin-when-cross-origin;

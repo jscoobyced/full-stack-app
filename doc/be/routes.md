@@ -1,6 +1,6 @@
 # Routes
 
-Routes are used to declare the attached end-point of your controller/handlers. Additionally you can add middleware in order to add sme functionalities. You can read about [middleware](./middleware.md) document for more details.
+Routes are used to declare the attached end-point of your controller/handlers. Additionally you can add middleware in order to add some functionalities. You can read about [middleware](./middleware.md) document for more details.
 To add a new handler, follow these steps:
 
 1. Create a new file in `/be/src/routes`

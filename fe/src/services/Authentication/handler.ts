@@ -3,7 +3,8 @@ import { newSecureUser, SecureUser } from "../../models/user";
 export type AuthenticationProperties = {
   doSignIn: (user: SecureUser) => void;
   doSignOut: () => void;
-  createUser: (user: any) => SecureUser;
+  createUser: (user: any) => Promise<SecureUser>;
+  userLogin: (user: any) => Promise<void>;
 }
 
 export interface IAuthenticationHandler {
@@ -26,7 +27,10 @@ export class AuthenticationHandler implements IAuthenticationHandler {
     if (event) {
       event.preventDefault();
     }
-    this.properties.doSignIn(this.properties.createUser(newSecureUser()));
+    this.properties.createUser(newSecureUser()).then(user => {
+      this.properties.userLogin(user);
+      this.properties.doSignIn(user);
+    })
   });
 
   public signOut = ((event: any) => {

@@ -1,15 +1,14 @@
 header,
 footer {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
 header {
   flex: 4;
+  flex-direction: row;
   padding-top: 5px;
-  background: url('owls.png') no-repeat;
 }
 
 header .title {
@@ -17,31 +16,39 @@ header .title {
   margin-left: auto;
 }
 
-header img {
+header img.logo {
   width: 50px;
   padding-left: 20px;
   vertical-align: middle;
   margin-right: auto;
 }
 
-header div {
-  margin-right: 10px;
-  text-align: center;
+header img.owls {
+  padding-top: 20px;
+  vertical-align: middle;
 }
 
 main {
   flex: 20;
-  flex-direction: column;
+  flex-direction: row;
   display: flex;
-  width: 80%;
+  width: 70%;
   margin: 0 auto;
   padding-left: 1em;
+  z-index: 0;
+}
+
+main section.login {
+  font-size: medium;
+  flex: 2;
+}
+
+main section.login span {
+  margin-left: auto;
+  display: block;
+  width: fit-content;
 }
 
 main>span {
   margin-top: 1em;
-}
-
-span.loading {
-  padding-left: 2em;
 }
