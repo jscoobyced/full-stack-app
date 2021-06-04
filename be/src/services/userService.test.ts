@@ -28,7 +28,6 @@ describe('UserService - storeUserLogin', () => {
     const response = await UserService.userLogin('123');
     expect(response).toBeDefined();
     expect(response.error).toBeDefined();
-    const data = response.error as ErrorData;
-    expect(data?.code).toEqual(API_ERROR_CODES.CANNOT_INSERT_DATA);
+    expect(response.error?.code).toEqual(API_ERROR_CODES.CANNOT_INSERT_DATA);
   });
 });
