@@ -1,5 +1,4 @@
 import { API_ERROR_CODES } from '../config/constants';
-import { ErrorData } from '../models/service';
 import * as UserService from './userService';
 
 let mockResponse = () => true;
