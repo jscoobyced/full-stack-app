@@ -5,8 +5,8 @@ interface IRequestResponse {
   mockResponse: Response;
 }
 
-export const createDefaultMock = (): IRequestResponse => {
-  const mockRequest = jest.fn() as unknown as Request;
+export const createDefaultMock = (body?: unknown): IRequestResponse => {
+  const mockRequest = !!body ? ({ body } as unknown as Request) : (jest.fn() as unknown as Request);
   const mockResponse = jest.fn() as unknown as Response;
   mockResponse.send = jest.fn();
   mockResponse.status = jest.fn().mockImplementation(() => {
