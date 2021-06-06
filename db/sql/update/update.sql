@@ -1,7 +1,3 @@
-CREATE TABLE `user` (
-  `uid` VARCHAR(32) NOT NULL,
-  created DATETIME,
-  updated DATETIME,
-  active BOOLEAN,
-  PRIMARY KEY (`uid`)
-);
+ALTER TABLE `user`
+ADD COLUMN allowed TINYINT DEFAULT 0
+AFTER `uid`;

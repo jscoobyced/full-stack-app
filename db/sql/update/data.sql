@@ -1,0 +1,1 @@
+UPDATE `user` set allowed = 0;
