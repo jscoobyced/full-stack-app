@@ -39,7 +39,6 @@ main {
 }
 
 main section.login {
-  font-size: medium;
   flex: 2;
 }
 
@@ -51,4 +50,16 @@ main section.login span {
 
 main>span {
   margin-top: 1em;
+}
+
+@media only screen and (max-width: 700px) {
+  main {
+    width: 95%;
+    padding-left: 0;
+    flex-direction: column-reverse;
+  }
+
+  main section.login {
+    flex: 1;
+  }
 }

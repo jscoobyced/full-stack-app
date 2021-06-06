@@ -20,7 +20,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(--primary) url(blue-line.png) repeat-x;
-  font-size: 1.5em;
 }
 
 * {

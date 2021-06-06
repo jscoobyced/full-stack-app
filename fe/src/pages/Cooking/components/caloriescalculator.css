@@ -14,7 +14,6 @@ section#calculator {
   border: 1px solid var(--secondary);
   background-color: var(--primary-dark);
   color: var(--on-secondary);
-  font-size: large;
 }
 
 .select-ingredient {
@@ -72,7 +71,6 @@ section .ingredient-calories-summary {
   text-align: left;
   border-top: 1px solid gray;
   border-bottom: 1px solid gray;
-  font-size: large;
 }
 
 .ingredient-calories-summary td,
@@ -108,13 +106,6 @@ section .ingredient-calories-summary {
 }
 
 @media only screen and (max-width: 1000px) {
-  section {
-    flex-direction: column;
-  }
-
-  section .ingredient-calories-summary {
-    font-size: medium;
-  }
 
   .ingredient-calories-summary img.remove {
     width: 16px;
