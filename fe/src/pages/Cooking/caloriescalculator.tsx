@@ -23,12 +23,14 @@ export const CaloriesCalculator = () => {
   }
 
   const setSelectedIngredient = (selectedIngredient: SelectedIngredient) => {
+    setSaveStatus(0);
     if (!!selectedIngredient) {
       updateIngredients(ingredients.concat([selectedIngredient]));
     }
   };
 
   const removeIngredient = (selectedIngredient: SelectedIngredient) => {
+    setSaveStatus(0);
     /* istanbul ignore next */
     if (!!selectedIngredient) {
       updateIngredients(ingredients.filter(ingredient => ingredient.id !== selectedIngredient.id));
