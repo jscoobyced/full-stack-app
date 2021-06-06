@@ -22,7 +22,7 @@ export class GoogleAuthenticationHandler implements IAuthenticationHandler {
       'jscGoogleApi');
   }
 
-  private initGoogle = () => {
+  private readonly initGoogle = () => {
     if (gapi && gapi.auth2 && !gapi.auth2.getAuthInstance()) {
       const googleParams = getGoogleParams();
       gapi.auth2.init(googleParams).then(

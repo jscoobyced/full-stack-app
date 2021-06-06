@@ -21,7 +21,7 @@ const mockSelectedIngredients: SelectedIngredient[] = [{
 }];
 
 beforeEach(() => {
-  jest.spyOn(global, 'fetch').mockResolvedValue(Promise.resolve(mockResponse))
+  jest.spyOn(global, 'fetch').mockResolvedValue(Promise.resolve(mockResponse));
 });
 
 afterEach(() => {
@@ -47,6 +47,12 @@ describe('Ingredient Service', () => {
 
   it('can save the ingredients to API when undefined', async () => {
     const response = await IngredientService().saveIngredients(undefined as unknown as SelectedIngredient[]);
+    expect(response).toEqual(false);
+  });
+
+  it('fails to asve the ingredient due to API error', async () => {
+    jest.spyOn(global, 'fetch').mockResolvedValue(Promise.reject());
+    const response = await IngredientService().saveIngredients(mockSelectedIngredients);
     expect(response).toEqual(false);
   });
 });

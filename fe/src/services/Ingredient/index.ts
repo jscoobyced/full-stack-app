@@ -30,6 +30,8 @@ export const IngredientService = (): IIngredientService => {
       })
     }).then(response => {
       return response.status === 200;
+    }).catch(() => {
+      return Promise.resolve(false);
     });
 
     return Promise.resolve(result);

@@ -43,7 +43,6 @@ body {
 a,
 a:hover,
 a:visited {
-  color: var(--on-primary);
   text-decoration: none;
   color: var(--secondary-dark)
 }
