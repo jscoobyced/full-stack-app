@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import { App } from '.';
-import { TITLE } from '../../config/constants';
-import { ServiceContext } from '../../services/Context';
-import { mockContext } from '../../services/Context/mock';
+import { TITLE } from '../config/constants';
+import { ServiceContext } from '../services/Context';
+import { mockContext } from '../services/Context/mock';
 
-jest.mock('./components/caloriescalculatorinput', () => () => 'mocked');
+jest.mock('./Cooking/caloriescalculatorinput', () => () => 'mocked');
 
 const { ingredientService, handler, userService } = mockContext();
 

@@ -35,16 +35,17 @@ section#calculator {
   width: fit-content;
 }
 
+.select-ingredient .select-ingredient-part .buttons {
+  margin-top: 25px;
+}
+
 .input-quantity {
   width: 100px;
   padding-left: 10px;
 }
 
-.button-add {
-  padding: 2px 10px;
-  background-color: var(--secondary);
-  margin-top: 10px;
-  display: block;
+.button-save {
+  margin-left: 20px;
 }
 
 .button-add:disabled {

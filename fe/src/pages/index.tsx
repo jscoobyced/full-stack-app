@@ -1,12 +1,13 @@
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { CaloriesCalculator } from './components/caloriescalculator';
-import { SIGNIN, SIGNOUT, TITLE } from '../../config/constants';
-import { Footer } from '../components/Footer/footer';
-import SignInButton from '../components/Login/SignInButton';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { CaloriesCalculator } from './Cooking/caloriescalculator';
+import { SIGNIN, SIGNOUT, TITLE } from '../config/constants';
+import { Footer } from './components/Footer/footer';
+import SignInButton from './components/Login/SignInButton';
 import { useContext, useState } from 'react';
-import { newSecureUser } from '../../models/user';
-import { ServiceContext } from '../../services/Context';
+import { newSecureUser } from '../models/user';
+import { ServiceContext } from '../services/Context';
 import './index.css';
+import { Home } from './Home/home';
 
 export const App = () => {
   const [user, setUser] = useState(newSecureUser());
@@ -15,13 +16,19 @@ export const App = () => {
   return (
     <BrowserRouter>
       <header>
-        <img src='owls.png' className='owls' alt='Owls'></img>
-        <span className='title'>{TITLE}</span>
-        <img src='cooking.png' className='logo' alt='Cooking logo'></img>
+      <span className='title'>{TITLE}</span>
+      <nav>
+      <Link to='/'>Home</Link>
+      {' '}|{' '}
+      <Link to='/calc'>Calories Calculator</Link>
+        </nav>
       </header>
       <main>
         <Switch>
-          <Route path="/" exact={true}>
+        <Route path="/" exact={true}>
+            <Home />
+          </Route>
+          <Route path="/calc" exact={true}>
             <CaloriesCalculator />
           </Route>
         </Switch>

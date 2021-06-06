@@ -11,7 +11,12 @@ export const MockIngredientService = (): IIngredientService => {
     });
   };
 
+  const saveIngredients = async (): Promise<boolean> => {
+    return Promise.resolve(true);
+  };
+
   return {
-    getIngredients
+    getIngredients,
+    saveIngredients,
   };
 }

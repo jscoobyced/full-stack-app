@@ -1,4 +1,4 @@
-import { SelectedIngredient } from "../../../models/ingredients";
+import { SelectedIngredient } from "../../models/ingredients";
 
 type OutputProps = {
   selectedIngredients: SelectedIngredient[];

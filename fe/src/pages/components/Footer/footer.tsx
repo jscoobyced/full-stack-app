@@ -13,7 +13,6 @@ export const Footer = () => {
 
   return (
     <footer>
-      <img src='elephants.png' alt='Elephants couple'></img>
       {copyright}
     </footer>
   );

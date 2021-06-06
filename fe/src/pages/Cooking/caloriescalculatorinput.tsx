@@ -1,17 +1,19 @@
 import { useContext, useEffect, useState } from 'react';
-import { Calorie, Ingredient, SelectedIngredient, Unit } from '../../../models/ingredients';
-import { ServiceContext } from '../../../services/Context';
-import { getUniqueCategories } from '../../../utils/category';
-import { sortIngredients } from '../../../utils/ingredients';
+import { Calorie, Ingredient, SelectedIngredient, Unit } from '../../models/ingredients';
+import { ServiceContext } from '../../services/Context';
+import { getUniqueCategories } from '../../utils/category';
+import { sortIngredients } from '../../utils/ingredients';
 import './caloriescalculator.css';
 
 type InputProps = {
   selectIngredient: (selectedIngredient: SelectedIngredient) => void,
+  canSave: boolean,
+  saveIngredients: () => void,
 };
 
 const CaloriesCalculatorInput = (props: InputProps) => {
 
-  const { selectIngredient } = props;
+  const { selectIngredient, canSave, saveIngredients } = props;
 
   const [ingredientData, setIngredientData] = useState([] as JSX.Element[]);
   const [ingredientList, setIngredientList] = useState([] as Ingredient[]);
@@ -114,6 +116,15 @@ const CaloriesCalculatorInput = (props: InputProps) => {
     }
   }
 
+  const saveReceipe = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    saveIngredients();
+  }
+
+  const save = canSave ? (<button
+    className='button-save'
+    onClick={saveReceipe}>Save</button>) : (<></>);
+
   return (
     <div className='select-ingredient'>
       <div className='select-ingredient-part'>
@@ -135,9 +146,12 @@ const CaloriesCalculatorInput = (props: InputProps) => {
           onChange={onSelectQuantity}
           className='input-quantity'
           step={0.1} size={5} value={quantity}></input>
-        <button className='button-add'
-          disabled={!unit || !unit.id || quantity <= 0}
-          onClick={addIngredient}>Add</button>
+        <div className='buttons'>
+          <button className='button-add'
+            disabled={!unit || !unit.id || quantity <= 0}
+            onClick={addIngredient}>Add</button>
+          {save}
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './pages/Cooking';
+import { App } from './pages/';
 import { ServiceContext } from './services/Context';
 import { mockContext } from './services/Context/mock';
 import { GoogleAuthenticationHandler } from './services/Authentication/Google/google-handler';

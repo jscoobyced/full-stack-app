@@ -1,10 +1,10 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { SelectedIngredient } from '../../../models/ingredients';
-import { ServiceContext } from '../../../services/Context';
+import { SelectedIngredient } from '../../models/ingredients';
+import { ServiceContext } from '../../services/Context';
 import CaloriesCalculatorInput from './caloriescalculatorinput';
-import { mockCalories, mockIngredients } from '../../../services/Ingredient/mock-data';
-import { MockIngredientService } from '../../../services/Ingredient/mock';
-import { mockContext } from '../../../services/Context/mock';
+import { mockCalories, mockIngredients } from '../../services/Ingredient/mock-data';
+import { MockIngredientService } from '../../services/Ingredient/mock';
+import { mockContext } from '../../services/Context/mock';
 
 const configuration = MockIngredientService();
 const { handler, userService } = mockContext();
@@ -17,12 +17,16 @@ const expectedIngredient: SelectedIngredient = {
   totalCalories: 200,
 };
 
+const saveIngredients = jest.fn();
+const selectIngredient = jest.fn();
 
 describe('Main component', () => {
   it('can render the options', async () => {
-    const selectIngredient = jest.fn();
     const { unmount, getByRole } = render(<ServiceContext.Provider value={{ ingredientService: configuration, userService, handler }}>
-      <CaloriesCalculatorInput selectIngredient={selectIngredient} />
+      <CaloriesCalculatorInput
+        selectIngredient={selectIngredient}
+        canSave={false}
+        saveIngredients={saveIngredients} />
     </ServiceContext.Provider>);
     await waitFor(() => {
       const ingredientSelect = getByRole('combobox', { name: /ingredient/i }) as HTMLSelectElement;
@@ -34,9 +38,12 @@ describe('Main component', () => {
   });
 
   it('can set the options', async () => {
-    const selectIngredient = jest.fn().mockImplementation(() => expectedIngredient);
+    const _selectIngredient = jest.fn().mockImplementation(() => expectedIngredient);
     const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration, userService, handler }}>
-      <CaloriesCalculatorInput selectIngredient={selectIngredient} />
+      <CaloriesCalculatorInput
+        selectIngredient={_selectIngredient}
+        canSave={false}
+        saveIngredients={saveIngredients} />
     </ServiceContext.Provider>);
     let ingredientSelect = {} as HTMLSelectElement;
     await waitFor(() => {
@@ -49,14 +56,17 @@ describe('Main component', () => {
     fireEvent.change(quantity, { target: { value: 10 } });
     const button = screen.getByRole('button');
     fireEvent.click(button);
-    expect(selectIngredient).toHaveBeenCalledWith(expectedIngredient);
+    expect(_selectIngredient).toHaveBeenCalledWith(expectedIngredient);
     unmount();
   });
 
   it('can select unknown ingredient', async () => {
-    const selectIngredient = jest.fn().mockImplementation(() => expectedIngredient);
+    const _selectIngredient = jest.fn().mockImplementation(() => expectedIngredient);
     const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration, userService, handler }}>
-      <CaloriesCalculatorInput selectIngredient={selectIngredient} />
+      <CaloriesCalculatorInput
+        selectIngredient={_selectIngredient}
+        canSave={false}
+        saveIngredients={saveIngredients} />
     </ServiceContext.Provider>);
     let ingredientSelect = {} as HTMLSelectElement;
     await waitFor(() => {
@@ -76,9 +86,12 @@ describe('Main component', () => {
       serving: 10,
       totalCalories: 200,
     };
-    const selectIngredient = jest.fn().mockImplementation(() => _selectedIngredient);
+    const _selectIngredient = jest.fn().mockImplementation(() => _selectedIngredient);
     const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration, userService, handler }}>
-      <CaloriesCalculatorInput selectIngredient={selectIngredient} />
+      <CaloriesCalculatorInput
+        selectIngredient={_selectIngredient}
+        canSave={false}
+        saveIngredients={saveIngredients} />
     </ServiceContext.Provider>);
     let ingredientSelect = {} as HTMLSelectElement;
     await waitFor(() => {
@@ -91,7 +104,25 @@ describe('Main component', () => {
     fireEvent.change(quantity, { target: { value: 10 } });
     const button = screen.getByRole('button');
     fireEvent.click(button);
-    expect(selectIngredient).toHaveBeenCalledTimes(0);
+    expect(_selectIngredient).toHaveBeenCalledTimes(0);
     unmount();
   });
+
+  it('can show the save button', async () => {
+    const _saveIngredients = jest.fn();
+    const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration, userService, handler }}>
+      <CaloriesCalculatorInput
+        selectIngredient={selectIngredient}
+        canSave={true}
+        saveIngredients={_saveIngredients} />
+    </ServiceContext.Provider>);
+    let canSaveButton = {} as HTMLButtonElement;
+    await waitFor(() => {
+      canSaveButton = screen.getByRole('button', { name: /save/i }) as HTMLButtonElement;
+    });
+    expect(canSaveButton).toBeDefined();
+    fireEvent.click(canSaveButton);
+    expect(_saveIngredients).toHaveBeenCalledTimes(1);
+    unmount();
+  })
 });
