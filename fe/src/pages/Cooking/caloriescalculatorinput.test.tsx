@@ -20,6 +20,26 @@ const expectedIngredient: SelectedIngredient = {
 const saveIngredients = jest.fn();
 const selectIngredient = jest.fn();
 
+const setupTest = async (customSelectedIngredient?: SelectedIngredient) => {
+  const _selectIngredient = jest.fn().mockImplementation(() => customSelectedIngredient ?? expectedIngredient);
+  const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration, userService, handler }}>
+    <CaloriesCalculatorInput
+      selectIngredient={_selectIngredient}
+      canSave={false}
+      saveIngredients={saveIngredients} />
+  </ServiceContext.Provider>);
+  let ingredientSelect = {} as HTMLSelectElement;
+  await waitFor(() => {
+    ingredientSelect = screen.getByRole('combobox', { name: /ingredient/i }) as HTMLSelectElement;
+  }, { interval: 100, timeout: 1000 });
+
+  return {
+    _selectIngredient,
+    unmount,
+    ingredientSelect,
+  };
+};
+
 describe('Main component', () => {
   it('can render the options', async () => {
     const { unmount, getByRole } = render(<ServiceContext.Provider value={{ ingredientService: configuration, userService, handler }}>
@@ -38,17 +58,7 @@ describe('Main component', () => {
   });
 
   it('can set the options', async () => {
-    const _selectIngredient = jest.fn().mockImplementation(() => expectedIngredient);
-    const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration, userService, handler }}>
-      <CaloriesCalculatorInput
-        selectIngredient={_selectIngredient}
-        canSave={false}
-        saveIngredients={saveIngredients} />
-    </ServiceContext.Provider>);
-    let ingredientSelect = {} as HTMLSelectElement;
-    await waitFor(() => {
-      ingredientSelect = screen.getByRole('combobox', { name: /ingredient/i }) as HTMLSelectElement;
-    }, { interval: 100, timeout: 1000 });
+    const { unmount, ingredientSelect, _selectIngredient } = await setupTest();
     fireEvent.change(ingredientSelect, { target: { value: 2 } });
     const unitSelect = screen.getByRole('combobox', { name: /unit/i }) as HTMLSelectElement;
     fireEvent.change(unitSelect, { target: { value: 3 } });
@@ -61,17 +71,7 @@ describe('Main component', () => {
   });
 
   it('can select unknown ingredient', async () => {
-    const _selectIngredient = jest.fn().mockImplementation(() => expectedIngredient);
-    const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration, userService, handler }}>
-      <CaloriesCalculatorInput
-        selectIngredient={_selectIngredient}
-        canSave={false}
-        saveIngredients={saveIngredients} />
-    </ServiceContext.Provider>);
-    let ingredientSelect = {} as HTMLSelectElement;
-    await waitFor(() => {
-      ingredientSelect = screen.getByRole('combobox', { name: /ingredient/i }) as HTMLSelectElement;
-    }, { interval: 100, timeout: 1000 });
+    const { unmount, ingredientSelect } = await setupTest();
     fireEvent.change(ingredientSelect, { target: { value: 20 } });
     const unitSelect = screen.getByRole('combobox', { name: /unit/i }) as HTMLSelectElement;
     expect(unitSelect).toBeDisabled();
@@ -86,17 +86,7 @@ describe('Main component', () => {
       serving: 10,
       totalCalories: 200,
     };
-    const _selectIngredient = jest.fn().mockImplementation(() => _selectedIngredient);
-    const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration, userService, handler }}>
-      <CaloriesCalculatorInput
-        selectIngredient={_selectIngredient}
-        canSave={false}
-        saveIngredients={saveIngredients} />
-    </ServiceContext.Provider>);
-    let ingredientSelect = {} as HTMLSelectElement;
-    await waitFor(() => {
-      ingredientSelect = screen.getByRole('combobox', { name: /ingredient/i }) as HTMLSelectElement;
-    }, { interval: 100, timeout: 1000 });
+    const { unmount, ingredientSelect, _selectIngredient } = await setupTest(_selectedIngredient);
     fireEvent.change(ingredientSelect, { target: { value: 2 } });
     const unitSelect = screen.getByRole('combobox', { name: /unit/i }) as HTMLSelectElement;
     fireEvent.change(unitSelect, { target: { value: 20 } });

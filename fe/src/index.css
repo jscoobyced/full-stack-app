@@ -20,7 +20,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(--primary) url(blue-line.png) repeat-x;
-  background-size: auto 15px;;
+  background-size: auto 15px;
 }
 
 * {
@@ -44,5 +44,5 @@ a,
 a:hover,
 a:visited {
   text-decoration: none;
-  color: var(--secondary-dark)
+  color: var(--secondary-dark);
 }
