@@ -37,9 +37,9 @@ export const CaloriesCalculator = () => {
     }
   };
 
-  const saveIngredients = async () => {
+  const saveSelectedIngredients = async () => {
     setSaveStatus(1);
-    ingredientService.saveIngredients(ingredients).then(result => {
+    ingredientService.saveSelectedIngredients(ingredients).then(result => {
       if (result) {
         setSaveStatus(2);
       } else {
@@ -78,7 +78,7 @@ export const CaloriesCalculator = () => {
         <CaloriesCalculatorInput
           selectIngredient={setSelectedIngredient}
           canSave={canSave}
-          saveIngredients={saveIngredients} />
+          saveIngredients={saveSelectedIngredients} />
         <div>{savingMessage}</div>
         <CaloriesCalculatorOutput
           selectedIngredients={ingredients}
