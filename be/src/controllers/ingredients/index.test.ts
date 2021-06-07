@@ -1,10 +1,10 @@
 import { ErrorData } from '../../models/service';
 import * as IngredientController from '.';
-import { IngredientTypes, SelectedIngredient } from '../../models/ingredients';
+import { IngredientTypes } from '../../models/ingredients';
 import { createDefaultMock } from '../../testUtil';
 import * as json from '../../models/ingredient-data.json';
 
-let mockData = (): IngredientTypes => undefined;
+let mockData = (): unknown => undefined;
 let mockError = (): ErrorData => undefined;
 
 jest.mock('../../services/IngredientService', () => ({
@@ -21,6 +21,18 @@ jest.mock('../../services/IngredientService', () => ({
     });
   }),
 }));
+
+const dataBody = {
+  ingredients: [
+    {
+      calorie: json.calories[0],
+      id: 2,
+      ingredient: json.ingredients[0],
+      serving: 10,
+      totalCalories: 100,
+    },
+  ],
+};
 
 beforeEach(() => {
   mockData = (): IngredientTypes => undefined;
@@ -72,21 +84,27 @@ describe('Ingredient Controller - getIngredients', () => {
   });
 
   it('saves selected ingredients', async () => {
-    const body = {
-      ingredients: [
-        {
-          calorie: json.calories[0],
-          id: 2,
-          ingredient: json.ingredients[0],
-          serving: 10,
-          totalCalories: 100,
-        },
-      ],
+    mockData = () => {
+      return {
+        data: 3,
+      };
     };
-    const { mockRequest, mockResponse } = createDefaultMock(body);
+    const { mockRequest, mockResponse } = createDefaultMock(dataBody);
     await IngredientController.saveSelectedIngredients(mockRequest, mockResponse);
     expect(mockResponse.send).toHaveBeenCalledTimes(1);
     expect(mockResponse.status).toHaveBeenCalledTimes(0);
+  });
+
+  it('fails saving selected ingredients', async () => {
+    mockError = () => {
+      return {
+        code: 3,
+      };
+    };
+    const { mockRequest, mockResponse } = createDefaultMock(dataBody);
+    await IngredientController.saveSelectedIngredients(mockRequest, mockResponse);
+    expect(mockResponse.send).toHaveBeenCalledTimes(0);
+    expect(mockResponse.status).toHaveBeenCalledTimes(1);
   });
 
   it('returns error when no selected ingredients to save', async () => {
