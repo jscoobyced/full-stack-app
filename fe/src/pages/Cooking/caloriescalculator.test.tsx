@@ -99,7 +99,7 @@ describe('CaloriesCalculator component', () => {
 
   it('fails to save ingredients', async () => {
     const failed = jest.fn();
-    ingredientService.saveIngredients = (ingredients: SelectedIngredient[]): Promise<boolean> => {
+    ingredientService.saveSelectedIngredients = (ingredients: SelectedIngredient[]): Promise<boolean> => {
       failed();
       return Promise.resolve(false);
     }
