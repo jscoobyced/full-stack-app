@@ -4,17 +4,33 @@ import { IngredientTypes } from '../../models/ingredients';
 import { createDefaultMock } from '../../testUtil';
 import * as json from '../../models/ingredient-data.json';
 
-let mockData = (): IngredientTypes => undefined;
+let mockData = (): unknown => undefined;
 let mockError = (): ErrorData => undefined;
 
+const mockMocks = () => {
+  return Promise.resolve({
+    data: mockData(),
+    error: mockError(),
+  });
+};
+
 jest.mock('../../services/IngredientService', () => ({
-  getAllIngredients: jest.fn().mockImplementation(async () => {
-    return Promise.resolve({
-      data: mockData(),
-      error: mockError(),
-    });
-  }),
+  getAllIngredients: jest.fn().mockImplementation(async () => mockMocks()),
+  saveSelectedIngredients: jest.fn().mockImplementation(async () => mockMocks()),
 }));
+
+const dataBody = {
+  ingredients: [
+    {
+      calorie: json.calories[0],
+      id: 2,
+      ingredient: json.ingredients[0],
+      serving: 10,
+      totalCalories: 100,
+    },
+  ],
+  recipeName: 'My Recipe',
+};
 
 beforeEach(() => {
   mockData = (): IngredientTypes => undefined;
@@ -63,5 +79,56 @@ describe('Ingredient Controller - getIngredients', () => {
     await IngredientController.getIngredients(mockRequest, mockResponse);
     expect(mockResponse.send).toHaveBeenCalledTimes(1);
     expect(mockResponse.status).toHaveBeenCalledTimes(0);
+  });
+
+  it('saves selected ingredients', async () => {
+    mockData = () => {
+      return {
+        data: 3,
+      };
+    };
+    const { mockRequest, mockResponse } = createDefaultMock(dataBody);
+    await IngredientController.saveSelectedIngredients(mockRequest, mockResponse);
+    expect(mockResponse.send).toHaveBeenCalledTimes(1);
+    expect(mockResponse.status).toHaveBeenCalledTimes(0);
+  });
+
+  it('fails saving selected ingredients', async () => {
+    mockError = () => {
+      return {
+        code: 3,
+      };
+    };
+    const { mockRequest, mockResponse } = createDefaultMock(dataBody);
+    await IngredientController.saveSelectedIngredients(mockRequest, mockResponse);
+    expect(mockResponse.send).toHaveBeenCalledTimes(0);
+    expect(mockResponse.status).toHaveBeenCalledTimes(1);
+  });
+
+  it('returns error when no selected ingredients to save', async () => {
+    const body = {
+      ingredients: [],
+    };
+    const { mockRequest, mockResponse } = createDefaultMock(body);
+    await IngredientController.saveSelectedIngredients(mockRequest, mockResponse);
+    expect(mockResponse.send).toHaveBeenCalledTimes(0);
+    expect(mockResponse.status).toHaveBeenCalledTimes(1);
+  });
+
+  it('returns error when undefined selected ingredients to save', async () => {
+    const body = {
+      ingredients: undefined,
+    };
+    const { mockRequest, mockResponse } = createDefaultMock(body);
+    await IngredientController.saveSelectedIngredients(mockRequest, mockResponse);
+    expect(mockResponse.send).toHaveBeenCalledTimes(0);
+    expect(mockResponse.status).toHaveBeenCalledTimes(1);
+  });
+
+  it('returns error when undefined to save', async () => {
+    const { mockRequest, mockResponse } = createDefaultMock();
+    await IngredientController.saveSelectedIngredients(mockRequest, mockResponse);
+    expect(mockResponse.send).toHaveBeenCalledTimes(0);
+    expect(mockResponse.status).toHaveBeenCalledTimes(1);
   });
 });

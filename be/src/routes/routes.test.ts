@@ -3,7 +3,7 @@ import { routes } from './routes';
 test('all routes are valid', () => {
   const allRoutes = routes;
   expect(allRoutes).toBeDefined();
-  expect(allRoutes.length).toEqual(3);
+  expect(allRoutes.length).toEqual(4);
   allRoutes.forEach((route) => {
     expect(route.handler).toBeDefined();
     expect(route.method).toBeDefined();

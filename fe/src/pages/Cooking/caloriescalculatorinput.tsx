@@ -1,17 +1,19 @@
 import { useContext, useEffect, useState } from 'react';
-import { Calorie, Ingredient, SelectedIngredient, Unit } from '../../../models/ingredients';
-import { ServiceContext } from '../../../services/Context';
-import { getUniqueCategories } from '../../../utils/category';
-import { sortIngredients } from '../../../utils/ingredients';
+import { Calorie, Ingredient, SelectedIngredient, Unit } from '../../models/ingredients';
+import { ServiceContext } from '../../services/Context';
+import { getUniqueCategories } from '../../utils/category';
+import { sortIngredients } from '../../utils/ingredients';
 import './caloriescalculator.css';
 
 type InputProps = {
   selectIngredient: (selectedIngredient: SelectedIngredient) => void,
+  canSave: boolean,
+  saveIngredients: (recipeName: string) => void,
 };
 
 const CaloriesCalculatorInput = (props: InputProps) => {
 
-  const { selectIngredient } = props;
+  const { selectIngredient, canSave, saveIngredients } = props;
 
   const [ingredientData, setIngredientData] = useState([] as JSX.Element[]);
   const [ingredientList, setIngredientList] = useState([] as Ingredient[]);
@@ -22,6 +24,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
   const [unitData, setUnitData] = useState([] as JSX.Element[]);
   const [quantity, setQuantity] = useState(1);
   const [counter, setCounter] = useState(0);
+  const [recipeName, setRecipeName] = useState('');
 
   const { ingredientService } = useContext(ServiceContext);
 
@@ -96,6 +99,12 @@ const CaloriesCalculatorInput = (props: InputProps) => {
     setQuantity(selectedOption);
   }
 
+  const onInputRecipeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const _recipeName = event.target.value;
+    setRecipeName(_recipeName);
+  }
+
   const addIngredient = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const calorie = calorieList
@@ -113,6 +122,21 @@ const CaloriesCalculatorInput = (props: InputProps) => {
       selectIngredient(selectedIngredient);
     }
   }
+
+  const saveReceipe = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    saveIngredients(recipeName);
+  }
+
+  const save = canSave ? (<button
+    className='button-save'
+    onClick={saveReceipe}>Save</button>) : (<></>);
+
+  const recipeNameComponent = canSave ? (<input id='quantity'
+    aria-label='recipe-name'
+    onChange={onInputRecipeName}
+    className='input-recipe-name'
+    value={recipeName}></input>) : (<></>);
 
   return (
     <div className='select-ingredient'>
@@ -135,9 +159,13 @@ const CaloriesCalculatorInput = (props: InputProps) => {
           onChange={onSelectQuantity}
           className='input-quantity'
           step={0.1} size={5} value={quantity}></input>
-        <button className='button-add'
-          disabled={!unit || !unit.id || quantity <= 0}
-          onClick={addIngredient}>Add</button>
+        <div className='buttons'>
+          <button className='button-add'
+            disabled={!unit || !unit.id || quantity <= 0}
+            onClick={addIngredient}>Add</button>
+          {save}
+        </div>
+        {recipeNameComponent}
       </div>
     </div>
   );

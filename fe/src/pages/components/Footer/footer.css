@@ -1,5 +1,4 @@
 footer {
-  flex: 2;
   font-size: medium;
   flex-direction: column;
   background: url(../../../blue-line.png) repeat-x;
@@ -11,6 +10,16 @@ footer span {
   margin-top: auto;
 }
 
-footer img {
-  margin-left: auto;
+@media only screen and (max-width: 700px) {
+
+  footer span {
+    font-size: small;
+  }
+}
+
+@media only screen and (max-width: 430px) {
+
+  footer span {
+    font-size: x-small;
+  }
 }
