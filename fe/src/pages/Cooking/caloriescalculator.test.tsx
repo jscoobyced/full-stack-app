@@ -118,7 +118,7 @@ describe('CaloriesCalculator component', () => {
   });
 
   it('fail to save ingredients due to not logged-in', async () => {
-    const user: SecureUser = toSecureUser({
+    const _user: SecureUser = toSecureUser({
       id: 0,
       name: '',
       email: '',
@@ -137,7 +137,7 @@ describe('CaloriesCalculator component', () => {
     };
     const { unmount } = render(
       <ServiceContext.Provider value={{ ingredientService, userService, handler }}>
-        <CaloriesCalculator user={user} />
+        <CaloriesCalculator user={_user} />
       </ServiceContext.Provider>);
     let button = screen.getByRole('button', { name: /add/i }) as HTMLButtonElement;
     mockValue.mockReturnValueOnce(mockSelectedIngredient);

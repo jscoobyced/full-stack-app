@@ -38,18 +38,15 @@ export const IngredientService = (): IIngredientService => {
         ingredients,
         uid,
       })
-    }).then(response => {
-      switch (response.status) {
-        case 200:
-          controllerResponse.data = true;
-          break;
-        default:
-          response.json().then((data: ControllerResponse) => {
-            controllerResponse.error = {
-              message: data.error?.message,
-            };
-          })
-          break;
+    }).then(async (response) => {
+      if (response.status === 200) {
+        controllerResponse.data = true;
+      } else {
+        await response.json().then((data: ControllerResponse) => {
+          controllerResponse.error = {
+            message: data.error?.message,
+          };
+        });
       }
       return controllerResponse;
     }).catch(() => {

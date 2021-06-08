@@ -23,14 +23,14 @@ export const getUserByReferenceId = async (uid: string): Promise<User | undefine
     .then(([result]) => {
       const rows = dbRows(result);
       return rows.map((row) => {
-        const user: User = {
+        return {
           uid: row.UserUid,
           isAllowed: row.UserIsAllowed,
         };
-        return user;
       });
     });
   if (!!users && users.length === 1) {
     return users[0];
   }
+  return {} as unknown as User;
 };
