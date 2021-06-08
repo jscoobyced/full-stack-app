@@ -1,1 +1,1 @@
-UPDATE `user` set allowed = 0;
+DELETE FROM `user`;

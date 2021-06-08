@@ -16,20 +16,21 @@ export const App = () => {
   return (
     <BrowserRouter>
       <header>
-      <span className='title'>{TITLE}</span>
-      <nav>
-      <Link to='/'>Home</Link>
-      {' '}|{' '}
-      <Link to='/calc'>Calories Calculator</Link>
+        <span className='title'>{TITLE}</span>
+        <nav>
+          <Link to='/'>Home</Link>
+          {' '}|{' '}
+          <Link to='/calc'>Calories Calculator</Link>
         </nav>
       </header>
       <main>
         <Switch>
-        <Route path="/" exact={true}>
+          <Route path="/" exact={true}>
             <Home />
           </Route>
           <Route path="/calc" exact={true}>
-            <CaloriesCalculator />
+            <CaloriesCalculator
+              user={user} />
           </Route>
         </Switch>
         <section className='login'>

@@ -1,9 +1,10 @@
 import { BACK_END_SERVICES_ENDPOINTS, BACK_END_URL } from "../../config/constants";
+import { ControllerResponse } from "../../models/common";
 import { IngredientResponse, SelectedIngredient } from "../../models/ingredients";
 
 export interface IIngredientService {
   getIngredients: () => Promise<IngredientResponse>,
-  saveSelectedIngredients: (recipeName: string, ingredients: SelectedIngredient[]) => Promise<boolean>
+  saveSelectedIngredients: (uid: string, recipeName: string, ingredients: SelectedIngredient[]) => Promise<ControllerResponse>
 }
 
 export const IngredientService = (): IIngredientService => {
@@ -15,9 +16,16 @@ export const IngredientService = (): IIngredientService => {
     });
   }
 
-  const saveSelectedIngredients = async (recipeName: string, ingredients: SelectedIngredient[]): Promise<boolean> => {
+  const saveSelectedIngredients = async (
+    uid: string,
+    recipeName: string,
+    ingredients: SelectedIngredient[]): Promise<ControllerResponse> => {
+    const controllerResponse: ControllerResponse = {};
     if (!ingredients || !recipeName) {
-      return Promise.resolve(false);
+      controllerResponse.error = {
+        message: 'Need both ingredients and recipe name.',
+      }
+      return Promise.resolve(controllerResponse);
     }
     const result = await fetch(`${BACK_END_URL}${BACK_END_SERVICES_ENDPOINTS.saveSelectedIngredients}`, {
       method: "post",
@@ -28,11 +36,24 @@ export const IngredientService = (): IIngredientService => {
       body: JSON.stringify({
         recipeName,
         ingredients,
+        uid,
       })
-    }).then(response => {
-      return response.status === 200;
+    }).then(async (response) => {
+      if (response.status === 200) {
+        controllerResponse.data = true;
+      } else {
+        await response.json().then((data: ControllerResponse) => {
+          controllerResponse.error = {
+            message: data.error?.message,
+          };
+        });
+      }
+      return controllerResponse;
     }).catch(() => {
-      return Promise.resolve(false);
+      controllerResponse.error = {
+        message: 'Unexpected error occured.',
+      }
+      return controllerResponse;
     });
 
     return Promise.resolve(result);

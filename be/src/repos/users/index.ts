@@ -1,3 +1,5 @@
+import { User } from '../../models/common';
+import { dbRows } from '../../utils/db';
 import { getPool } from '../mysql';
 
 export const storeUserLogin = async (uid: string): Promise<boolean> => {
@@ -11,4 +13,24 @@ export const storeUserLogin = async (uid: string): Promise<boolean> => {
     .catch(() => {
       return false;
     });
+};
+
+export const getUserByReferenceId = async (uid: string): Promise<User | undefined> => {
+  const pool = getPool();
+  const users = await pool
+    .promise()
+    .query('CALL get_user_by_reference_id_v1(?, ?)', [uid, true])
+    .then(([result]) => {
+      const rows = dbRows(result);
+      return rows.map((row) => {
+        return {
+          uid: row.UserUid,
+          isAllowed: row.UserIsAllowed,
+        };
+      });
+    });
+  if (!!users && users.length === 1) {
+    return users[0];
+  }
+  return {} as unknown as User;
 };
