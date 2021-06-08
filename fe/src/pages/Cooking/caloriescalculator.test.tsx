@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
+import { ControllerResponse } from '../../models/common';
 import { SelectedIngredient } from '../../models/ingredients';
 import { newSecureUser, SecureUser, toSecureUser } from '../../models/user';
 import { ServiceContext } from '../../services/Context';
@@ -93,6 +94,14 @@ describe('CaloriesCalculator component', () => {
   });
 
   it('can save ingredients', async () => {
+    const success = jest.fn();
+    ingredientService.saveSelectedIngredients = (uid: string, _recipe: string, ingredients: SelectedIngredient[]): Promise<ControllerResponse> => {
+      success();
+      return Promise.resolve({
+        data: true,
+      });
+    };
+
     const { unmount } = render(
       <ServiceContext.Provider value={{ ingredientService, userService, handler }}>
         <CaloriesCalculator user={user} />
@@ -104,6 +113,7 @@ describe('CaloriesCalculator component', () => {
     await act(async () => {
       fireEvent.click(button);
     })
+    expect(success).toHaveBeenCalledTimes(1);
     unmount();
   });
 
@@ -117,10 +127,14 @@ describe('CaloriesCalculator component', () => {
       referenceId: undefined
     }, '', '', 0, 0);
     const failed = jest.fn();
-    ingredientService.saveSelectedIngredients = (recipe: string, ingredients: SelectedIngredient[]): Promise<boolean> => {
+    ingredientService.saveSelectedIngredients = (uid: string, _recipe: string, ingredients: SelectedIngredient[]): Promise<ControllerResponse> => {
       failed();
-      return Promise.resolve(false);
-    }
+      return Promise.resolve({
+        error: {
+          message: 'blabla',
+        }
+      });
+    };
     const { unmount } = render(
       <ServiceContext.Provider value={{ ingredientService, userService, handler }}>
         <CaloriesCalculator user={user} />
@@ -138,10 +152,35 @@ describe('CaloriesCalculator component', () => {
 
   it('fails to save ingredients', async () => {
     const failed = jest.fn();
-    ingredientService.saveSelectedIngredients = (recipe: string, ingredients: SelectedIngredient[]): Promise<boolean> => {
+    ingredientService.saveSelectedIngredients = (uid: string, _recipe: string, ingredients: SelectedIngredient[]): Promise<ControllerResponse> => {
       failed();
-      return Promise.resolve(false);
-    }
+      return Promise.resolve({
+        error: {
+          message: 'tototo',
+        }
+      });
+    };
+    const { unmount } = render(
+      <ServiceContext.Provider value={{ ingredientService, userService, handler }}>
+        <CaloriesCalculator user={user} />
+      </ServiceContext.Provider>);
+    let button = screen.getByRole('button', { name: /add/i }) as HTMLButtonElement;
+    mockValue.mockReturnValueOnce(mockSelectedIngredient);
+    fireEvent.click(button);
+    button = screen.getByRole('button', { name: /save/i }) as HTMLButtonElement;
+    await act(async () => {
+      fireEvent.click(button);
+    });
+    expect(failed).toHaveBeenCalledTimes(1);
+    unmount();
+  });
+
+  it('fails to save ingredients unexpectedly', async () => {
+    const failed = jest.fn();
+    ingredientService.saveSelectedIngredients = (uid: string, _recipe: string, ingredients: SelectedIngredient[]): Promise<ControllerResponse> => {
+      failed();
+      return Promise.resolve({});
+    };
     const { unmount } = render(
       <ServiceContext.Provider value={{ ingredientService, userService, handler }}>
         <CaloriesCalculator user={user} />

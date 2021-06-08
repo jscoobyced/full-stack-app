@@ -52,8 +52,10 @@ export const CaloriesCalculator = (props: CalorieCalculatorProps) => {
     setSaveStatus(1);
     const uid = user.user.referenceId + '';
     ingredientService.saveSelectedIngredients(uid, recipeName, ingredients).then(result => {
-      if (result) {
+      if (result && result.data) {
         setSaveStatus(2);
+      } else if (result && !!result.error?.message) {
+        setSavingMessage(result.error?.message);
       } else {
         setSaveStatus(3);
       }

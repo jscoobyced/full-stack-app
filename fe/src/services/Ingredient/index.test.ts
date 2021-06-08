@@ -40,27 +40,41 @@ describe('Ingredient Service', () => {
 
   it('can save the selected ingredients to API', async () => {
     const response = await IngredientService().saveSelectedIngredients(uid, recipeName, mockSelectedIngredients);
-    expect(response).toEqual(true);
+    expect(response.data).toEqual(true);
   });
 
   it('can save the selected ingredients to API when no ingredients', async () => {
     const response = await IngredientService().saveSelectedIngredients(uid, recipeName, []);
-    expect(response).toEqual(true);
+    expect(response.data).toEqual(true);
   });
 
   it('cannot save the selected ingredients to API when undefined', async () => {
     const response = await IngredientService().saveSelectedIngredients(uid, recipeName, undefined as unknown as SelectedIngredient[]);
-    expect(response).toEqual(false);
+    expect(response.error).toBeDefined();
   });
 
   it('cannot save the selected ingredients to API when no recipe name', async () => {
     const response = await IngredientService().saveSelectedIngredients(uid, undefined as unknown as string, undefined as unknown as SelectedIngredient[]);
-    expect(response).toEqual(false);
+    expect(response.error).toBeDefined();
   });
 
   it('fails to asve the selected ingredient due to API error', async () => {
     jest.spyOn(global, 'fetch').mockResolvedValue(Promise.reject());
     const response = await IngredientService().saveSelectedIngredients(uid, recipeName, mockSelectedIngredients);
-    expect(response).toEqual(false);
+    expect(response.error).toBeDefined();
+  });
+
+  it('fails to asve the selected ingredient due to unexpected error', async () => {
+    const mockErrorResponse = {
+      json: () => Promise.resolve({
+        error: {
+          message: 'blablabla'
+        },
+      }),
+      status: 401,
+    } as Response;
+    jest.spyOn(global, 'fetch').mockResolvedValue(Promise.resolve(mockErrorResponse));
+    const response = await IngredientService().saveSelectedIngredients(uid, recipeName, mockSelectedIngredients);
+    expect(response.error).toBeDefined();
   });
 });
