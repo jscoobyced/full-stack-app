@@ -9,6 +9,7 @@ export const API_VERSION = {
 export const API_ERROR_CODES = {
   NO_INGREDIENT_FOUND: 100,
   CANNOT_INSERT_DATA: 101,
+  UNAUTHORIZED: 102,
 };
 
 export const ERROR_CODES = {

@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { SelectedIngredient } from '../../models/ingredients';
+import { newSecureUser, SecureUser, toSecureUser } from '../../models/user';
 import { ServiceContext } from '../../services/Context';
 import { mockContext } from '../../services/Context/mock';
 import { mockCalories, mockIngredients } from '../../services/Ingredient/mock-data';
@@ -13,6 +14,15 @@ const mockSelectedIngredient: SelectedIngredient = {
   serving: 0,
   totalCalories: 10,
 };
+
+const user: SecureUser = toSecureUser({
+  id: 0,
+  name: '',
+  email: '',
+  firstName: '',
+  lastName: '',
+  referenceId: '123456'
+}, '', '', 0, 0);
 
 const mockValue = jest.fn();
 
@@ -50,7 +60,7 @@ describe('CaloriesCalculator component', () => {
   it('can render', async () => {
     const { unmount } = render(
       <ServiceContext.Provider value={{ ingredientService, userService, handler }}>
-        <CaloriesCalculator />
+        <CaloriesCalculator user={newSecureUser()} />
       </ServiceContext.Provider>);
     const listElement = screen.getByText(/This is the calories calculator/i);
     expect(listElement).toBeInTheDocument();
@@ -67,7 +77,7 @@ describe('CaloriesCalculator component', () => {
   it('can remove ingredients', async () => {
     const { unmount } = render(
       <ServiceContext.Provider value={{ ingredientService, userService, handler }}>
-        <CaloriesCalculator />
+        <CaloriesCalculator user={newSecureUser()} />
       </ServiceContext.Provider>);
     const button = screen.getByRole('button', { name: /add/i }) as HTMLButtonElement;
     mockValue.mockReturnValueOnce(mockSelectedIngredient);
@@ -85,7 +95,7 @@ describe('CaloriesCalculator component', () => {
   it('can save ingredients', async () => {
     const { unmount } = render(
       <ServiceContext.Provider value={{ ingredientService, userService, handler }}>
-        <CaloriesCalculator />
+        <CaloriesCalculator user={user} />
       </ServiceContext.Provider>);
     let button = screen.getByRole('button', { name: /add/i }) as HTMLButtonElement;
     mockValue.mockReturnValueOnce(mockSelectedIngredient);
@@ -97,15 +107,44 @@ describe('CaloriesCalculator component', () => {
     unmount();
   });
 
-  it('fails to save ingredients', async () => {
+  it('fail to save ingredients due to not logged-in', async () => {
+    const user: SecureUser = toSecureUser({
+      id: 0,
+      name: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+      referenceId: undefined
+    }, '', '', 0, 0);
     const failed = jest.fn();
-    ingredientService.saveSelectedIngredients = (ingredients: SelectedIngredient[]): Promise<boolean> => {
+    ingredientService.saveSelectedIngredients = (recipe: string, ingredients: SelectedIngredient[]): Promise<boolean> => {
       failed();
       return Promise.resolve(false);
     }
     const { unmount } = render(
       <ServiceContext.Provider value={{ ingredientService, userService, handler }}>
-        <CaloriesCalculator />
+        <CaloriesCalculator user={user} />
+      </ServiceContext.Provider>);
+    let button = screen.getByRole('button', { name: /add/i }) as HTMLButtonElement;
+    mockValue.mockReturnValueOnce(mockSelectedIngredient);
+    fireEvent.click(button);
+    button = screen.getByRole('button', { name: /save/i }) as HTMLButtonElement;
+    await act(async () => {
+      fireEvent.click(button);
+    });
+    expect(failed).toHaveBeenCalledTimes(0);
+    unmount();
+  });
+
+  it('fails to save ingredients', async () => {
+    const failed = jest.fn();
+    ingredientService.saveSelectedIngredients = (recipe: string, ingredients: SelectedIngredient[]): Promise<boolean> => {
+      failed();
+      return Promise.resolve(false);
+    }
+    const { unmount } = render(
+      <ServiceContext.Provider value={{ ingredientService, userService, handler }}>
+        <CaloriesCalculator user={user} />
       </ServiceContext.Provider>);
     let button = screen.getByRole('button', { name: /add/i }) as HTMLButtonElement;
     mockValue.mockReturnValueOnce(mockSelectedIngredient);

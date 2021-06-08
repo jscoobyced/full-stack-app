@@ -11,7 +11,7 @@ export const MockIngredientService = (): IIngredientService => {
     });
   };
 
-  const saveSelectedIngredients = async (recipeName: string, ingredients: SelectedIngredient[]): Promise<boolean> => {
+  const saveSelectedIngredients = async (uid: string, recipeName: string, ingredients: SelectedIngredient[]): Promise<boolean> => {
     return Promise.resolve(true);
   };
 

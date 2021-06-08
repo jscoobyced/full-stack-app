@@ -1,1 +1,3 @@
-UPDATE `user` set allowed = 0;
+DELETE FROM `user`;
+
+INSERT INTO `user` VALUES('110554770757972045369', 1, NOW(), NOW(), 1);

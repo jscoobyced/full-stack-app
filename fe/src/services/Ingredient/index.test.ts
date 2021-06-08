@@ -21,6 +21,7 @@ const mockSelectedIngredients: SelectedIngredient[] = [{
 }];
 
 const recipeName = 'Recipe #1';
+const uid = '1234567';
 
 beforeEach(() => {
   jest.spyOn(global, 'fetch').mockResolvedValue(Promise.resolve(mockResponse));
@@ -38,28 +39,28 @@ describe('Ingredient Service', () => {
   });
 
   it('can save the selected ingredients to API', async () => {
-    const response = await IngredientService().saveSelectedIngredients(recipeName, mockSelectedIngredients);
+    const response = await IngredientService().saveSelectedIngredients(uid, recipeName, mockSelectedIngredients);
     expect(response).toEqual(true);
   });
 
   it('can save the selected ingredients to API when no ingredients', async () => {
-    const response = await IngredientService().saveSelectedIngredients(recipeName, []);
+    const response = await IngredientService().saveSelectedIngredients(uid, recipeName, []);
     expect(response).toEqual(true);
   });
 
   it('cannot save the selected ingredients to API when undefined', async () => {
-    const response = await IngredientService().saveSelectedIngredients(recipeName, undefined as unknown as SelectedIngredient[]);
+    const response = await IngredientService().saveSelectedIngredients(uid, recipeName, undefined as unknown as SelectedIngredient[]);
     expect(response).toEqual(false);
   });
 
   it('cannot save the selected ingredients to API when no recipe name', async () => {
-    const response = await IngredientService().saveSelectedIngredients(undefined as unknown as string, undefined as unknown as SelectedIngredient[]);
+    const response = await IngredientService().saveSelectedIngredients(uid, undefined as unknown as string, undefined as unknown as SelectedIngredient[]);
     expect(response).toEqual(false);
   });
 
   it('fails to asve the selected ingredient due to API error', async () => {
     jest.spyOn(global, 'fetch').mockResolvedValue(Promise.reject());
-    const response = await IngredientService().saveSelectedIngredients(recipeName, mockSelectedIngredients);
+    const response = await IngredientService().saveSelectedIngredients(uid, recipeName, mockSelectedIngredients);
     expect(response).toEqual(false);
   });
 });

@@ -3,6 +3,7 @@ import * as IngredientController from '.';
 import { IngredientTypes } from '../../models/ingredients';
 import { createDefaultMock } from '../../testUtil';
 import * as json from '../../models/ingredient-data.json';
+import { API_ERROR_CODES } from '../../config/constants';
 
 let mockData = (): unknown => undefined;
 let mockError = (): ErrorData => undefined;
@@ -30,6 +31,7 @@ const dataBody = {
     },
   ],
   recipeName: 'My Recipe',
+  uid: '123456',
 };
 
 beforeEach(() => {
@@ -97,6 +99,18 @@ describe('Ingredient Controller - getIngredients', () => {
     mockError = () => {
       return {
         code: 3,
+      };
+    };
+    const { mockRequest, mockResponse } = createDefaultMock(dataBody);
+    await IngredientController.saveSelectedIngredients(mockRequest, mockResponse);
+    expect(mockResponse.send).toHaveBeenCalledTimes(0);
+    expect(mockResponse.status).toHaveBeenCalledTimes(1);
+  });
+
+  it('fails saving selected ingredients due to unauthorized', async () => {
+    mockError = () => {
+      return {
+        code: API_ERROR_CODES.UNAUTHORIZED,
       };
     };
     const { mockRequest, mockResponse } = createDefaultMock(dataBody);
