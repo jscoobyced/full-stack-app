@@ -51,7 +51,7 @@ describe('IngredientService - getIngredients', () => {
   });
 
   it('saves the selected ingredients', async () => {
-    const response = await IngredientRepo.saveSelectedIngredients(mockSelectedIngredients);
+    const response = await IngredientRepo.saveSelectedIngredients('recipe', mockSelectedIngredients);
     expect(response).toBeDefined();
     expect(response.data).toBeDefined();
     const data = response.data as number;

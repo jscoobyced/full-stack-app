@@ -28,8 +28,9 @@ export const getIngredients: Handler = async (req, res) => {
 
 export const saveSelectedIngredients: Handler = async (req, res) => {
   const response: ControllerResponse = {};
-  const data = req.body?.ingredients;
-  if (!data || (data as unknown[]).length === 0) {
+  const ingredients = req.body?.ingredients;
+  const recipeName = req.body?.recipeName;
+  if (!ingredients || (ingredients as unknown[]).length === 0 || !recipeName) {
     response.error = {
       code: API_ERROR_CODES.CANNOT_INSERT_DATA,
       message: 'No data to insert.',
@@ -37,8 +38,8 @@ export const saveSelectedIngredients: Handler = async (req, res) => {
     res.status(400).send(response);
     return;
   }
-  const selectedIngredients: SelectedIngredient[] = data as SelectedIngredient[];
-  const result = await IngredientService.saveSelectedIngredients(selectedIngredients);
+  const selectedIngredients: SelectedIngredient[] = ingredients as SelectedIngredient[];
+  const result = await IngredientService.saveSelectedIngredients(recipeName, selectedIngredients);
   if (!!result && !!result.data) {
     response.data = result.data;
     res.send(response);

@@ -44,6 +44,10 @@ section#calculator {
   padding-left: 10px;
 }
 
+.input-recipe-name {
+  margin-top: 5px;
+}
+
 .button-save {
   margin-left: 20px;
 }

@@ -37,9 +37,9 @@ export const CaloriesCalculator = () => {
     }
   };
 
-  const saveSelectedIngredients = async () => {
+  const saveSelectedIngredients = async (recipeName: string) => {
     setSaveStatus(1);
-    ingredientService.saveSelectedIngredients(ingredients).then(result => {
+    ingredientService.saveSelectedIngredients(recipeName, ingredients).then(result => {
       if (result) {
         setSaveStatus(2);
       } else {

@@ -7,19 +7,16 @@ import * as json from '../../models/ingredient-data.json';
 let mockData = (): unknown => undefined;
 let mockError = (): ErrorData => undefined;
 
+const mockMocks = () => {
+  return Promise.resolve({
+    data: mockData(),
+    error: mockError(),
+  });
+};
+
 jest.mock('../../services/IngredientService', () => ({
-  getAllIngredients: jest.fn().mockImplementation(async () => {
-    return Promise.resolve({
-      data: mockData(),
-      error: mockError(),
-    });
-  }),
-  saveSelectedIngredients: jest.fn().mockImplementation(async () => {
-    return Promise.resolve({
-      data: mockData(),
-      error: mockError(),
-    });
-  }),
+  getAllIngredients: jest.fn().mockImplementation(async () => mockMocks()),
+  saveSelectedIngredients: jest.fn().mockImplementation(async () => mockMocks()),
 }));
 
 const dataBody = {
@@ -32,6 +29,7 @@ const dataBody = {
       totalCalories: 100,
     },
   ],
+  recipeName: 'My Recipe',
 };
 
 beforeEach(() => {

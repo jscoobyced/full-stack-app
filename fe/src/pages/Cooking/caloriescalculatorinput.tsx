@@ -8,7 +8,7 @@ import './caloriescalculator.css';
 type InputProps = {
   selectIngredient: (selectedIngredient: SelectedIngredient) => void,
   canSave: boolean,
-  saveIngredients: () => void,
+  saveIngredients: (recipeName: string) => void,
 };
 
 const CaloriesCalculatorInput = (props: InputProps) => {
@@ -24,6 +24,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
   const [unitData, setUnitData] = useState([] as JSX.Element[]);
   const [quantity, setQuantity] = useState(1);
   const [counter, setCounter] = useState(0);
+  const [recipeName, setRecipeName] = useState('');
 
   const { ingredientService } = useContext(ServiceContext);
 
@@ -98,6 +99,12 @@ const CaloriesCalculatorInput = (props: InputProps) => {
     setQuantity(selectedOption);
   }
 
+  const onInputRecipeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const _recipeName = event.target.value;
+    setRecipeName(_recipeName);
+  }
+
   const addIngredient = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const calorie = calorieList
@@ -118,12 +125,18 @@ const CaloriesCalculatorInput = (props: InputProps) => {
 
   const saveReceipe = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    saveIngredients();
+    saveIngredients(recipeName);
   }
 
   const save = canSave ? (<button
     className='button-save'
     onClick={saveReceipe}>Save</button>) : (<></>);
+
+  const recipeNameComponent = canSave ? (<input id='quantity'
+    aria-label='recipe-name'
+    onChange={onInputRecipeName}
+    className='input-recipe-name'
+    value={recipeName}></input>) : (<></>);
 
   return (
     <div className='select-ingredient'>
@@ -152,6 +165,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
             onClick={addIngredient}>Add</button>
           {save}
         </div>
+        {recipeNameComponent}
       </div>
     </div>
   );

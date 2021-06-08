@@ -16,9 +16,12 @@ export const getAllIngredients = async (): Promise<ServiceResponse> => {
   });
 };
 
-export const saveSelectedIngredients = async (ingredients: SelectedIngredient[]): Promise<ServiceResponse> => {
+export const saveSelectedIngredients = async (
+  recipeName: string,
+  ingredients: SelectedIngredient[],
+): Promise<ServiceResponse> => {
   const response: ServiceResponse = {} as ServiceResponse;
-  const result = await IngredientRepo.saveSelectedIngredients(ingredients);
+  const result = await IngredientRepo.saveSelectedIngredients(recipeName, ingredients);
   response.data = result;
   return Promise.resolve(response);
 };

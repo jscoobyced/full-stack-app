@@ -110,9 +110,17 @@ describe('Main component', () => {
     await waitFor(() => {
       canSaveButton = screen.getByRole('button', { name: /save/i }) as HTMLButtonElement;
     });
+    let recipeName = {} as HTMLInputElement;
+    await waitFor(() => {
+      recipeName = screen.getByLabelText(/recipe-name/i) as HTMLInputElement;
+    });
+    expect(recipeName).toBeDefined();
+    const myRecipe = 'My recipe';
+    fireEvent.change(recipeName, { target: { value: myRecipe}});
     expect(canSaveButton).toBeDefined();
     fireEvent.click(canSaveButton);
     expect(_saveIngredients).toHaveBeenCalledTimes(1);
+    expect(_saveIngredients).toHaveBeenCalledWith(myRecipe);
     unmount();
   })
 });

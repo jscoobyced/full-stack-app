@@ -3,7 +3,7 @@ import { IngredientResponse, SelectedIngredient } from "../../models/ingredients
 
 export interface IIngredientService {
   getIngredients: () => Promise<IngredientResponse>,
-  saveSelectedIngredients: (ingredients: SelectedIngredient[]) => Promise<boolean>
+  saveSelectedIngredients: (recipeName: string, ingredients: SelectedIngredient[]) => Promise<boolean>
 }
 
 export const IngredientService = (): IIngredientService => {
@@ -15,8 +15,8 @@ export const IngredientService = (): IIngredientService => {
     });
   }
 
-  const saveSelectedIngredients = async (ingredients: SelectedIngredient[]): Promise<boolean> => {
-    if (!ingredients) {
+  const saveSelectedIngredients = async (recipeName: string, ingredients: SelectedIngredient[]): Promise<boolean> => {
+    if (!ingredients || !recipeName) {
       return Promise.resolve(false);
     }
     const result = await fetch(`${BACK_END_URL}${BACK_END_SERVICES_ENDPOINTS.saveSelectedIngredients}`, {
@@ -26,6 +26,7 @@ export const IngredientService = (): IIngredientService => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        recipeName,
         ingredients,
       })
     }).then(response => {

@@ -22,14 +22,17 @@ export const getIngredients = async (): Promise<Ingredient[]> => {
     });
 };
 
-export const saveSelectedIngredients = async (ingredients: SelectedIngredient[]): Promise<number> => {
-  if (!ingredients || ingredients.length === 0) {
+export const saveSelectedIngredients = async (
+  recipeName: string,
+  ingredients: SelectedIngredient[],
+): Promise<number> => {
+  if (!ingredients || ingredients.length === 0 || !recipeName) {
     return Promise.resolve(0);
   }
   const pool = getPool();
   const recipeIds = await pool
     .promise()
-    .query('CALL save_recipe_v1(?)', 'Recipe 1')
+    .query('CALL save_recipe_v1(?)', recipeName)
     .then(([result]) => {
       const rows = dbRows(result);
       return rows.map((row) => {

@@ -1,5 +1,5 @@
 import { IIngredientService } from ".";
-import { IngredientResponse } from "../../models/ingredients";
+import { IngredientResponse, SelectedIngredient } from "../../models/ingredients";
 import { mockIngredients, mockCalories } from "./mock-data";
 
 
@@ -11,7 +11,7 @@ export const MockIngredientService = (): IIngredientService => {
     });
   };
 
-  const saveSelectedIngredients = async (): Promise<boolean> => {
+  const saveSelectedIngredients = async (recipeName: string, ingredients: SelectedIngredient[]): Promise<boolean> => {
     return Promise.resolve(true);
   };
 

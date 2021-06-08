@@ -4,6 +4,19 @@ import { mockCalories, mockIngredients } from '../../services/Ingredient/mock-da
 import { CaloriesCalculatorOutput } from './caloriescalculatoroutput';
 
 const removeIngredient = jest.fn();
+const _mockIngredients : SelectedIngredient[] = [{
+  id: 1,
+  ingredient: mockIngredients[0],
+  calorie: mockCalories[0],
+  serving: 5,
+  totalCalories: 0,
+}, {
+  id: 2,
+  ingredient: mockIngredients[2],
+  calorie: mockCalories[4],
+  serving: 10,
+  totalCalories: 0,
+},]
 
 beforeEach(() => {
   jest.restoreAllMocks();
@@ -22,47 +35,22 @@ describe('CaloriesCalculatorOutput component', () => {
   });
 
   it('can render with some ingredient', () => {
-    const ingredients: SelectedIngredient[] = [{
-      id: 1,
-      ingredient: mockIngredients[0],
-      calorie: mockCalories[0],
-      serving: 5,
-      totalCalories: 0,
-    }, {
-      id: 2,
-      ingredient: mockIngredients[2],
-      calorie: mockCalories[4],
-      serving: 10,
-      totalCalories: 0,
-    },]
+
     const { unmount } = render(
       <CaloriesCalculatorOutput
         removeIngredient={removeIngredient}
-        selectedIngredients={ingredients} totalCalories={0}
+        selectedIngredients={_mockIngredients} totalCalories={0}
       />);
     const table = screen.getByRole('table');
-    expect(table.children.length).toEqual(ingredients.length + 1);
+    expect(table.children.length).toEqual(_mockIngredients.length + 1);
     unmount();
   });
 
   it('can remove ingredient', () => {
-    const ingredients: SelectedIngredient[] = [{
-      id: 1,
-      ingredient: mockIngredients[0],
-      calorie: mockCalories[0],
-      serving: 5,
-      totalCalories: 0,
-    }, {
-      id: 2,
-      ingredient: mockIngredients[2],
-      calorie: mockCalories[4],
-      serving: 10,
-      totalCalories: 0,
-    },]
     const { unmount } = render(
       <CaloriesCalculatorOutput
         removeIngredient={removeIngredient}
-        selectedIngredients={ingredients} totalCalories={0}
+        selectedIngredients={_mockIngredients} totalCalories={0}
       />);
     const removes = screen.getAllByRole('img');
     expect(removes.length).toEqual(2);
@@ -72,19 +60,8 @@ describe('CaloriesCalculatorOutput component', () => {
   });
 
   it('does not remove ingredient if more than 1 ingredient', () => {
-    const ingredients: SelectedIngredient[] = [{
-      id: 1,
-      ingredient: mockIngredients[0],
-      calorie: mockCalories[0],
-      serving: 5,
-      totalCalories: 0,
-    }, {
-      id: 1,
-      ingredient: mockIngredients[2],
-      calorie: mockCalories[4],
-      serving: 10,
-      totalCalories: 0,
-    },]
+    const ingredients: SelectedIngredient[] = _mockIngredients;
+    ingredients[1].id = 1;
     const { unmount } = render(
       <CaloriesCalculatorOutput
         removeIngredient={removeIngredient}
