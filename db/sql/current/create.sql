@@ -62,6 +62,7 @@ ADD
 
 CREATE TABLE `user` (
   `uid` VARCHAR(32) NOT NULL,
+  allowed TINYINT DEFAULT 0,
   created DATETIME,
   updated DATETIME,
   active BOOLEAN,

@@ -1,7 +1,3 @@
-ALTER TABLE `user`
-ADD COLUMN allowed TINYINT DEFAULT 0
-AFTER `uid`;
-
 CREATE TABLE `recipe` (
   id INT NOT NULL AUTO_INCREMENT,
   recipe_name VARCHAR(128),
