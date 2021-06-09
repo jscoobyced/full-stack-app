@@ -5,6 +5,8 @@ import CaloriesCalculatorInput from './caloriescalculatorinput';
 import { mockCalories, mockIngredients } from '../../services/Ingredient/mock-data';
 import { MockIngredientService } from '../../services/Ingredient/mock';
 import { mockContext } from '../../services/Context/mock';
+import { newSecureUser } from '../../models/user';
+import { IIngredientService } from '../../services/Ingredient';
 
 const configuration = MockIngredientService();
 const { handler, userService } = mockContext();
@@ -17,16 +19,21 @@ const expectedIngredient: SelectedIngredient = {
   totalCalories: 200,
 };
 
+const mockUser = newSecureUser().user;
+
 const saveIngredients = jest.fn();
 const selectIngredient = jest.fn();
+const replaceSelectedIngredients = jest.fn();
 
-const setupTest = async (customSelectedIngredient?: SelectedIngredient) => {
+const setupTest = async (customSelectedIngredient?: SelectedIngredient, ingredientService?: IIngredientService) => {
   const _selectIngredient = jest.fn().mockImplementation(() => customSelectedIngredient ?? expectedIngredient);
-  const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration, userService, handler }}>
+  const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: (ingredientService ?? configuration), userService, handler }}>
     <CaloriesCalculatorInput
       selectIngredient={_selectIngredient}
       canSave={false}
-      saveIngredients={saveIngredients} />
+      saveIngredients={saveIngredients}
+      user={mockUser}
+      replaceSelectedIngredients={replaceSelectedIngredients} />
   </ServiceContext.Provider>);
   let ingredientSelect = {} as HTMLSelectElement;
   await waitFor(() => {
@@ -40,13 +47,19 @@ const setupTest = async (customSelectedIngredient?: SelectedIngredient) => {
   };
 };
 
+afterEach(() => {
+  mockUser.referenceId = '123456';
+});
+
 describe('Main component', () => {
   it('can render the options', async () => {
     const { unmount, getByRole } = render(<ServiceContext.Provider value={{ ingredientService: configuration, userService, handler }}>
       <CaloriesCalculatorInput
         selectIngredient={selectIngredient}
         canSave={false}
-        saveIngredients={saveIngredients} />
+        saveIngredients={saveIngredients}
+        user={mockUser}
+        replaceSelectedIngredients={replaceSelectedIngredients} />
     </ServiceContext.Provider>);
     await waitFor(() => {
       const ingredientSelect = getByRole('combobox', { name: /ingredient/i }) as HTMLSelectElement;
@@ -104,7 +117,9 @@ describe('Main component', () => {
       <CaloriesCalculatorInput
         selectIngredient={selectIngredient}
         canSave={true}
-        saveIngredients={_saveIngredients} />
+        saveIngredients={_saveIngredients}
+        user={mockUser}
+        replaceSelectedIngredients={replaceSelectedIngredients} />
     </ServiceContext.Provider>);
     let canSaveButton = {} as HTMLButtonElement;
     await waitFor(() => {
@@ -116,11 +131,38 @@ describe('Main component', () => {
     });
     expect(recipeName).toBeDefined();
     const myRecipe = 'My recipe';
-    fireEvent.change(recipeName, { target: { value: myRecipe}});
+    fireEvent.change(recipeName, { target: { value: myRecipe } });
     expect(canSaveButton).toBeDefined();
     fireEvent.click(canSaveButton);
     expect(_saveIngredients).toHaveBeenCalledTimes(1);
     expect(_saveIngredients).toHaveBeenCalledWith(myRecipe);
     unmount();
-  })
+  });
+
+  it('can select recipe', async () => {
+    const { unmount, ingredientSelect } = await setupTest();
+    fireEvent.change(ingredientSelect, { target: { value: 20 } });
+    const recipeSelect = screen.getByRole('combobox', { name: /recipes/i }) as HTMLSelectElement;
+    fireEvent.change(recipeSelect, { target: { value: 1 } });
+    unmount();
+  });
+
+  it('does not enable recipe list when no recipe', async () => {
+    const { getIngredients, saveSelectedIngredients } = configuration;
+    const getRecipes = jest.fn().mockImplementation(() => {
+      return Promise.resolve([]);
+    });
+    const ingredientService: IIngredientService = {
+      getIngredients,
+      getRecipes,
+      saveSelectedIngredients
+    };
+    const { unmount, ingredientSelect } = await setupTest(undefined, ingredientService);
+    fireEvent.change(ingredientSelect, { target: { value: 20 } });
+    const recipeSelect = screen.getByRole('combobox', { name: /recipes/i }) as HTMLSelectElement;
+    fireEvent.change(recipeSelect, { target: { value: 1 } });
+    expect(recipeSelect).toBeDisabled();
+    unmount();
+  });
+
 });

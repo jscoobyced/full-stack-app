@@ -1,10 +1,11 @@
 import { BACK_END_SERVICES_ENDPOINTS, BACK_END_URL } from "../../config/constants";
 import { ControllerResponse } from "../../models/common";
-import { IngredientResponse, SelectedIngredient } from "../../models/ingredients";
+import { IngredientResponse, Recipe, SelectedIngredient } from "../../models/ingredients";
 
 export interface IIngredientService {
   getIngredients: () => Promise<IngredientResponse>,
-  saveSelectedIngredients: (uid: string, recipeName: string, ingredients: SelectedIngredient[]) => Promise<ControllerResponse>
+  saveSelectedIngredients: (uid: string, recipeName: string, ingredients: SelectedIngredient[]) => Promise<ControllerResponse>,
+  getRecipes: (uid: string) => Promise<Recipe[]>,
 }
 
 export const IngredientService = (): IIngredientService => {
@@ -59,8 +60,17 @@ export const IngredientService = (): IIngredientService => {
     return Promise.resolve(result);
   };
 
+  const getRecipes = (uid: string): Promise<Recipe[]> => {
+    return fetch(`${BACK_END_URL}${BACK_END_SERVICES_ENDPOINTS.saveSelectedIngredients}/?uid=${uid}`).then(data => {
+      return data.json().then(response => {
+        return response.data as Recipe[];
+      });
+    });
+  }
+
   return {
     getIngredients,
     saveSelectedIngredients,
+    getRecipes
   };
 }

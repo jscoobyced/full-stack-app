@@ -1,14 +1,18 @@
 section#calculator {
-  display: flex;
-  flex-direction: column;
   flex: 8;
+}
+
+section#calculator>span {
+  display: block;
 }
 
 .select-ingredient select,
 .select-ingredient option,
 .select-ingredient optgroup,
 .select-ingredient button,
-.select-ingredient input {
+.select-ingredient input,
+.select-recipe select,
+.select-recipe option {
   padding: 3px 10px;
   border-radius: 5px;
   border: 1px solid var(--secondary);
@@ -17,10 +21,9 @@ section#calculator {
 }
 
 .select-ingredient {
-  display: inline-flex;
+  display: flex;
   flex-flow: row wrap;
   padding-top: 20px;
-  flex: 1;
   color: var(--on-secondary);
 }
 
@@ -28,6 +31,16 @@ section#calculator {
   display: flex;
   flex: 5;
   flex-direction: column;
+}
+
+.select-recipe {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.select-recipe>* {
+  flex: 1;
 }
 
 .select-ingredient .select-ingredient-part select,
@@ -115,5 +128,12 @@ section .ingredient-calories-summary {
 
   .ingredient-calories-summary img.remove {
     width: 16px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+
+  .select-recipe {
+    flex-direction: column;
   }
 }

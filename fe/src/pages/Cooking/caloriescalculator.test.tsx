@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { ControllerResponse } from '../../models/common';
 import { SelectedIngredient } from '../../models/ingredients';
-import { newSecureUser, SecureUser, toSecureUser } from '../../models/user';
+import { newSecureUser, SecureUser, toSecureUser, User } from '../../models/user';
 import { ServiceContext } from '../../services/Context';
 import { mockContext } from '../../services/Context/mock';
 import { mockCalories, mockIngredients } from '../../services/Ingredient/mock-data';
@@ -26,26 +26,37 @@ const user: SecureUser = toSecureUser({
 }, '', '', 0, 0);
 
 const mockValue = jest.fn();
+const mockSelectRecipe = jest.fn();
 
 jest.mock('./caloriescalculatorinput', () => (props: {
   selectIngredient: (selectedIngredient: SelectedIngredient) => void,
   saveIngredients: () => void,
+  user: User,
+  replaceSelectedIngredients: (selectedIngredients: SelectedIngredient[]) => void,
 }) => {
-  const { selectIngredient, saveIngredients } = props;
+  const { selectIngredient, saveIngredients, replaceSelectedIngredients } = props;
 
   const onAddButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     selectIngredient(mockValue());
   }
+
   const onSaveButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     saveIngredients();
+  }
+
+  const onRecipeButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    mockSelectRecipe();
+    replaceSelectedIngredients([]);
   }
 
   return (
     <>
       <button onClick={onAddButtonClick} >Add</button>
       <button onClick={onSaveButtonClick} >Save</button>
+      <button onClick={onRecipeButtonClick} >Recipe</button>
     </>
   );
 });
@@ -193,6 +204,17 @@ describe('CaloriesCalculator component', () => {
       fireEvent.click(button);
     });
     expect(failed).toHaveBeenCalledTimes(1);
+    unmount();
+  });
+
+  it('can select recipe', async () => {
+    const { unmount } = render(
+      <ServiceContext.Provider value={{ ingredientService, userService, handler }}>
+        <CaloriesCalculator user={user} />
+      </ServiceContext.Provider>);
+    let button = screen.getByRole('button', { name: /recipe/i }) as HTMLButtonElement;
+    fireEvent.click(button);
+    expect(mockSelectRecipe).toHaveBeenCalledTimes(1);
     unmount();
   });
 
