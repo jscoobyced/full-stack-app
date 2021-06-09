@@ -35,7 +35,8 @@
     "coveragePathIgnorePatterns": [
       "<rootDir>/src/index.tsx",
       "<rootDir>/src/index-mock.tsx",
-      "<rootDir>/src/services/Authentication/Google/google-handler.ts"
+      "<rootDir>/src/services/Authentication/Google/google-handler.ts",
+      "<rootDir>/src/services/Ingredient/mock.ts"
     ]
   },
   "browserslist": {
