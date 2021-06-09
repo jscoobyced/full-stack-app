@@ -85,11 +85,11 @@ const CaloriesCalculatorInput = (props: InputProps) => {
     });
   };
 
-  const buildSavedRecipeList = (recipes: Recipe[]) => {
-    if (!recipes || recipes.length === 0) {
+  const buildSavedRecipeList = (savedRecipes: Recipe[]) => {
+    if (!savedRecipes || savedRecipes.length === 0) {
       return undefined;
     }
-    return recipes.map(recipe => {
+    return savedRecipes.map(recipe => {
       return (<option key={'recipe-' + recipe.id} value={recipe.id}>{recipe.recipeName}</option>);
     })
   }

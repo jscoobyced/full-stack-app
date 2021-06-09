@@ -212,7 +212,7 @@ describe('CaloriesCalculator component', () => {
       <ServiceContext.Provider value={{ ingredientService, userService, handler }}>
         <CaloriesCalculator user={user} />
       </ServiceContext.Provider>);
-    let button = screen.getByRole('button', { name: /recipe/i }) as HTMLButtonElement;
+    const button = screen.getByRole('button', { name: /recipe/i }) as HTMLButtonElement;
     fireEvent.click(button);
     expect(mockSelectRecipe).toHaveBeenCalledTimes(1);
     unmount();
