@@ -11,6 +11,7 @@ export const BACK_END_SERVICES_ENDPOINTS = {
   getIngredients: 'v1/ingredients',
   saveSelectedIngredients: 'v1/ingredients/selected',
   userLogin: 'v1/users/login',
+  getRecipes: 'v1/recipes',
 }
 
 /* istanbul ignore next */

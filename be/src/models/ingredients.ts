@@ -31,3 +31,10 @@ export type IngredientResponse = {
 };
 
 export type IngredientTypes = IngredientResponse | undefined;
+
+export type Recipe = {
+  id: number;
+  recipeName: string;
+  ingredients: SelectedIngredient[];
+  uid: string;
+};

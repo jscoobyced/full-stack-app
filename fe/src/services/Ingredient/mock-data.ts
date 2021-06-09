@@ -1,4 +1,4 @@
-import { Ingredient, Unit, Category, Calorie } from "../../models/ingredients";
+import { Ingredient, Unit, Category, Calorie, SelectedIngredient, Recipe } from "../../models/ingredients";
 
 const mockIngredientCategories: Category[] = [{
   id: 0,
@@ -132,5 +132,34 @@ export const mockCalories: Calorie[] = [
     unit: mockUnits[5],
     serving: 1,
     calories: 60,
+  },
+];
+
+export const mockSelectedIngredients: SelectedIngredient[] = [{
+  id: 1,
+  ingredient: mockIngredients[1],
+  calorie: mockCalories[1],
+  serving: 1,
+  totalCalories: 100,
+}, {
+  id: 2,
+  ingredient: mockIngredients[2],
+  calorie: mockCalories[3],
+  serving: 15,
+  totalCalories: 65,
+}];
+
+export const mockRecipes: Recipe[] = [
+  {
+    id: 1,
+    recipeName: 'Recipe 1',
+    ingredients: mockSelectedIngredients,
+    uid: '123456',
+  },
+  {
+    id: 2,
+    recipeName: 'Recipe 2',
+    ingredients: mockSelectedIngredients.concat(mockSelectedIngredients),
+    uid: '123456',
   },
 ];

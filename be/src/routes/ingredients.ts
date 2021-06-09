@@ -18,4 +18,11 @@ export const routes: Route[] = [
     middleware: [requestLogger],
     handler: saveSelectedIngredients,
   },
+  {
+    version: API_VERSION.V1,
+    method: 'get',
+    path: '/recipes',
+    middleware: [requestLogger],
+    handler: saveSelectedIngredients,
+  },
 ];

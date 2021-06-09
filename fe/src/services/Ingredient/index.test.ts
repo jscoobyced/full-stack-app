@@ -1,6 +1,6 @@
 import { IngredientService } from ".";
 import { SelectedIngredient } from "../../models/ingredients";
-import { mockIngredients, mockCalories } from "./mock-data";
+import { mockIngredients, mockCalories, mockSelectedIngredients, mockRecipes } from "./mock-data";
 
 const mockResponse = {
   json: () => Promise.resolve({
@@ -11,14 +11,6 @@ const mockResponse = {
   }),
   status: 200,
 } as Response;
-
-const mockSelectedIngredients: SelectedIngredient[] = [{
-  id: 1,
-  ingredient: mockIngredients[1],
-  calorie: mockCalories[1],
-  serving: 1,
-  totalCalories: 100,
-}];
 
 const recipeName = 'Recipe #1';
 const uid = '1234567';
@@ -76,5 +68,17 @@ describe('Ingredient Service', () => {
     jest.spyOn(global, 'fetch').mockResolvedValue(Promise.resolve(mockErrorResponse));
     const response = await IngredientService().saveSelectedIngredients(uid, recipeName, mockSelectedIngredients);
     expect(response.error).toBeDefined();
+  });
+
+  it('retrieves saved recipe', async () => {
+    const mockDataResponse = {
+      json: () => Promise.resolve({
+        data: mockRecipes
+      }),
+      status: 200,
+    } as Response;
+    jest.spyOn(global, 'fetch').mockResolvedValue(Promise.resolve(mockDataResponse));
+    const response = await IngredientService().getRecipes(uid);
+    expect(response).toEqual(mockRecipes);
   });
 });

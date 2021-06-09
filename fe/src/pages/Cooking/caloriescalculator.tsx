@@ -62,6 +62,10 @@ export const CaloriesCalculator = (props: CalorieCalculatorProps) => {
     });
   };
 
+  const replaceSelectedIngredients = (newSelectedIngredients: SelectedIngredient[]) => {
+    updateIngredients(newSelectedIngredients);
+  }
+
   useEffect(() => {
     /* istanbul ignore next */
     switch (saveStatus) {
@@ -95,7 +99,9 @@ export const CaloriesCalculator = (props: CalorieCalculatorProps) => {
         <CaloriesCalculatorInput
           selectIngredient={setSelectedIngredient}
           canSave={canSave}
-          saveIngredients={saveSelectedIngredients} />
+          saveIngredients={saveSelectedIngredients}
+          user={user?.user}
+          replaceSelectedIngredients={replaceSelectedIngredients} />
         <div>{savingMessage}</div>
         <CaloriesCalculatorOutput
           selectedIngredients={ingredients}

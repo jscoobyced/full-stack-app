@@ -31,3 +31,10 @@ export type IngredientResponse = {
   ingredients: Ingredient[];
   calories: Calorie[];
 };
+
+export type Recipe = {
+  id: number,
+  recipeName: string,
+  ingredients: SelectedIngredient[],
+  uid: string,
+};

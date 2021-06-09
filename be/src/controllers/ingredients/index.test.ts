@@ -145,4 +145,21 @@ describe('Ingredient Controller - getIngredients', () => {
     expect(mockResponse.send).toHaveBeenCalledTimes(0);
     expect(mockResponse.status).toHaveBeenCalledTimes(1);
   });
+
+  it('returns user recipes', async () => {
+    const { mockRequest, mockResponse } = createDefaultMock();
+    mockRequest.query = {
+      uid: '123456',
+    };
+    await IngredientController.getRecipes(mockRequest, mockResponse);
+    expect(mockResponse.send).toHaveBeenCalledTimes(1);
+  });
+
+  it('returns HTTP 404 when no user id provided', async () => {
+    const { mockRequest, mockResponse } = createDefaultMock();
+    mockRequest.query = {};
+    await IngredientController.getRecipes(mockRequest, mockResponse);
+    expect(mockResponse.status).toHaveBeenCalledTimes(1);
+    expect(mockResponse.status).toHaveBeenCalledWith(404);
+  });
 });
