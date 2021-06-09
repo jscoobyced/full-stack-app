@@ -1,3 +1,7 @@
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+
 const formatMessage = (message: string): string => {
   const now = new Date();
   const HH = String(now.getHours()).padStart(2, '0');
@@ -18,7 +22,9 @@ const error = (message: string, _error?: Error): void => {
 };
 
 const info = (message: string): void => {
-  console.log(formatMessage(message));
+  if (process.env.LOG_LEVEL?.toLocaleLowerCase() === 'info') {
+    console.log(formatMessage(message));
+  }
 };
 
 export const logger = {

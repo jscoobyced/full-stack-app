@@ -130,6 +130,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
 
   const save = canSave ? (<button
     className='button-save'
+    disabled={!recipeName || recipeName.length < 1}
     onClick={saveReceipe}>Save</button>) : (<></>);
 
   const recipeNameComponent = canSave ? (<input id='quantity'
