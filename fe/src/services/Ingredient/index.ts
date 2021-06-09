@@ -61,7 +61,7 @@ export const IngredientService = (): IIngredientService => {
   };
 
   const getRecipes = (uid: string): Promise<Recipe[]> => {
-    return fetch(`${BACK_END_URL}${BACK_END_SERVICES_ENDPOINTS.saveSelectedIngredients}/?uid=${uid}`).then(data => {
+    return fetch(`${BACK_END_URL}${BACK_END_SERVICES_ENDPOINTS.getRecipes}/?uid=${uid}`).then(data => {
       return data.json().then(response => {
         return response.data as Recipe[];
       });
