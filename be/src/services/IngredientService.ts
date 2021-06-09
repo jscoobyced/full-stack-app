@@ -26,7 +26,7 @@ export const saveSelectedIngredients = async (
   const response: ServiceResponse = {} as ServiceResponse;
   const user = await UserRepo.getUserByReferenceId(uid);
   if (!!user && user.isAllowed) {
-    const result = await IngredientRepo.saveSelectedIngredients(recipeName, ingredients);
+    const result = await IngredientRepo.saveSelectedIngredients(uid, recipeName, ingredients);
     response.data = result;
   } else {
     response.error = {

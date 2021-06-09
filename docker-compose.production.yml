@@ -17,6 +17,7 @@ services:
       FRONT_END_API_HOST: rochefolle.org
       FRONT_END_API_PORT: none
       FRONT_END_API_SCHEME: https
+      LOG_LEVEL: error
 
   fe:
     image: jscdroiddev/full-stack-app-fe:JSCVERSION

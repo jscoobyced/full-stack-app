@@ -23,6 +23,7 @@ export const getIngredients = async (): Promise<Ingredient[]> => {
 };
 
 export const saveSelectedIngredients = async (
+  uid: string,
   recipeName: string,
   ingredients: SelectedIngredient[],
 ): Promise<number> => {
@@ -32,7 +33,7 @@ export const saveSelectedIngredients = async (
   const pool = getPool();
   const recipeIds = await pool
     .promise()
-    .query('CALL save_recipe_v1(?)', recipeName)
+    .query('CALL save_recipe_v1(?, ?)', [recipeName, uid])
     .then(([result]) => {
       const rows = dbRows(result);
       return rows.map((row) => {
