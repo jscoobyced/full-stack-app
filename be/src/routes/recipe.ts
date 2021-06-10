@@ -1,7 +1,7 @@
 import { Route } from '../models/route';
 import { requestLogger } from '../middleware/logger';
 import { API_VERSION } from '../config/constants';
-import { getRecipes, saveRecipe } from '../controllers/recipes';
+import { getRecipesByUserId, saveRecipe } from '../controllers/recipes';
 
 export const routes: Route[] = [
   {
@@ -16,6 +16,6 @@ export const routes: Route[] = [
     method: 'get',
     path: '/recipes',
     middleware: [requestLogger],
-    handler: getRecipes,
+    handler: getRecipesByUserId,
   },
 ];

@@ -15,8 +15,8 @@ const mockMocks = () => {
   });
 };
 
-jest.mock('../../services/IngredientService', () => ({
-  getAllIngredients: jest.fn().mockImplementation(async () => mockMocks()),
+jest.mock('../../services/recipeService', () => ({
+  getRecipesByUserId: jest.fn().mockImplementation(async () => mockMocks()),
   saveRecipe: jest.fn().mockImplementation(async () => mockMocks()),
 }));
 
@@ -107,20 +107,20 @@ describe('Recipe Controller - saveRecipe', () => {
   });
 });
 
-describe('RecipeController - getRecipes', () => {
+describe('RecipeController - getRecipesByUserId', () => {
   it('returns user recipes', async () => {
     const { mockRequest, mockResponse } = createDefaultMock();
     mockRequest.query = {
       uid: '123456',
     };
-    await RecipeController.getRecipes(mockRequest, mockResponse);
+    await RecipeController.getRecipesByUserId(mockRequest, mockResponse);
     expect(mockResponse.send).toHaveBeenCalledTimes(1);
   });
 
   it('returns HTTP 404 when no user id provided', async () => {
     const { mockRequest, mockResponse } = createDefaultMock();
     mockRequest.query = {};
-    await RecipeController.getRecipes(mockRequest, mockResponse);
+    await RecipeController.getRecipesByUserId(mockRequest, mockResponse);
     expect(mockResponse.status).toHaveBeenCalledTimes(1);
     expect(mockResponse.status).toHaveBeenCalledWith(404);
   });
