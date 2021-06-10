@@ -51,10 +51,9 @@ export const RecipeService = (): IRecipeService => {
   const getRecipes = (uid: string): Promise<ControllerResponse> => {
     return fetch(`${BACK_END_URL}${BACK_END_SERVICES_ENDPOINTS.getRecipes}/?uid=${uid}`).then(data => {
       return data.json().then(response => {
-        const controllerResponse: ControllerResponse = {
+        return {
           data: response.data,
         };
-        return controllerResponse;
       });
     });
   };
