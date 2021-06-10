@@ -31,7 +31,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
   const [recipeList, setRecipeList] = useState([] as JSX.Element[]);
   const [recipes, setRecipes] = useState([] as Recipe[]);
 
-  const { ingredientService } = useContext(ServiceContext);
+  const { ingredientService, recipeService } = useContext(ServiceContext);
 
   useEffect(() => {
     ingredientService.getIngredients().then(response => {
@@ -40,15 +40,16 @@ const CaloriesCalculatorInput = (props: InputProps) => {
       setIngredientData(buildIngredientList(response.ingredients));
     });
     if (!!user && !!user.referenceId) {
-      ingredientService.getRecipes(user.referenceId).then(response => {
-        setRecipes(response);
-        const _recipeList = buildSavedRecipeList(response);
+      recipeService.getRecipes(user.referenceId).then(response => {
+        const _recipes = response.data as Recipe[];
+        setRecipes(_recipes);
+        const _recipeList = buildSavedRecipeList(_recipes);
         if (!!_recipeList) {
           setRecipeList(_recipeList);
         }
       });
     }
-  }, [ingredientService, user]);
+  }, [ingredientService, user, recipeService]);
 
   const buildIngredientList = (ingredients: Ingredient[]) => {
     const ingredientCategories = getUniqueCategories(ingredients);
@@ -90,7 +91,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
       return undefined;
     }
     return savedRecipes.map(recipe => {
-      return (<option key={'recipe-' + recipe.id} value={recipe.id}>{recipe.recipeName}</option>);
+      return (<option key={'recipe-' + recipe.id} value={recipe.id}>{recipe.name}</option>);
     })
   }
 

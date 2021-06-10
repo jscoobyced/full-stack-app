@@ -1,14 +1,21 @@
 import { Route } from '../models/route';
-import { getIngredients } from '../controllers/ingredients';
 import { requestLogger } from '../middleware/logger';
 import { API_VERSION } from '../config/constants';
+import { getRecipes, saveRecipe } from '../controllers/recipes';
 
 export const routes: Route[] = [
   {
     version: API_VERSION.V1,
-    method: 'get',
-    path: '/ingredients',
+    method: 'post',
+    path: '/recipes',
     middleware: [requestLogger],
-    handler: getIngredients,
+    handler: saveRecipe,
+  },
+  {
+    version: API_VERSION.V1,
+    method: 'get',
+    path: '/recipes',
+    middleware: [requestLogger],
+    handler: getRecipes,
   },
 ];

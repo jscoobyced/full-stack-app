@@ -6,13 +6,13 @@ import { mockContext } from './services/Context/mock';
 import { GoogleAuthenticationHandler } from './services/Authentication/Google/google-handler';
 import './index.css';
 
-const { ingredientService, userService } = mockContext();
+const { ingredientService, userService, recipeService } = mockContext();
 const handler = new GoogleAuthenticationHandler();
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <ServiceContext.Provider value={{ ingredientService, handler, userService }}>
+    <ServiceContext.Provider value={{ ingredientService, handler, userService, recipeService }}>
       <App />
     </ServiceContext.Provider>
   </React.StrictMode>,

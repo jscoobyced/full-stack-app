@@ -15,7 +15,7 @@ export const CaloriesCalculator = (props: CalorieCalculatorProps) => {
   const [ingredients, setIngredients] = useState([] as SelectedIngredient[]);
   const [totalCalories, setTotalCalories] = useState(0);
   const [canSave, setCanSave] = useState(false);
-  const { ingredientService } = useContext(ServiceContext);
+  const { recipeService } = useContext(ServiceContext);
   const [saveStatus, setSaveStatus] = useState(0);
   const [savingMessage, setSavingMessage] = useState('');
 
@@ -51,7 +51,13 @@ export const CaloriesCalculator = (props: CalorieCalculatorProps) => {
     }
     setSaveStatus(1);
     const uid = user.user.referenceId + '';
-    ingredientService.saveSelectedIngredients(uid, recipeName, ingredients).then(result => {
+    const recipe = {
+      id: 0,
+      name: recipeName,
+      ingredients,
+      uid,
+    };
+    recipeService.saveRecipe(recipe).then(result => {
       if (result && result.data) {
         setSaveStatus(2);
       } else if (result && !!result.error?.message) {

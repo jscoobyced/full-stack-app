@@ -71,12 +71,18 @@ CREATE TABLE `user` (
 
 CREATE TABLE `recipe` (
   id INT NOT NULL AUTO_INCREMENT,
+  `user` VARCHAR(32),
   recipe_name VARCHAR(128),
   created DATETIME,
   updated DATETIME,
   active BOOLEAN,
   PRIMARY KEY (id)
 );
+
+ALTER TABLE
+  `recipe`
+ADD
+  CONSTRAINT FK_user_recipe FOREIGN KEY (`user`) REFERENCES `user`(`uid`);
 
 CREATE TABLE `selected_ingredient` (
   id INT NOT NULL AUTO_INCREMENT,

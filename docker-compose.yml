@@ -23,6 +23,7 @@ services:
       FRONT_END_API_HOST: localhost
       FRONT_END_API_PORT: 3000
       FRONT_END_API_SCHEME: http
+      LOG_LEVEL: info
 
   fe:
     build:

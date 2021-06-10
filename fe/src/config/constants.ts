@@ -9,7 +9,7 @@ export const SIGNOUT = 'Sign Out';
 export const BACK_END_URL = `${process.env.REACT_APP_BACK_END_API_SCHEME}://${process.env.REACT_APP_BACK_END_API_HOST}:${process.env.REACT_APP_BACK_END_API_PORT}/`;
 export const BACK_END_SERVICES_ENDPOINTS = {
   getIngredients: 'v1/ingredients',
-  saveSelectedIngredients: 'v1/ingredients/selected',
+  saveRecipes: 'v1/recipes',
   userLogin: 'v1/users/login',
   getRecipes: 'v1/recipes',
 }
