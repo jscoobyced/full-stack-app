@@ -31,7 +31,7 @@ export const RecipeService = (): IRecipeService => {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(recipe)
+      body: JSON.stringify({ recipe: recipe }),
     }).then(async (response) => {
       if (response.status === 200) {
         controllerResponse.data = true;
