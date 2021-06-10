@@ -76,7 +76,7 @@ export const getRecipesByUserId = async (uid: string): Promise<Recipe[]> => {
     .then(([result]) => {
       const rows = dbRows(result);
       return rows.map((row) => {
-        const recipe: Recipe = {
+        return {
           id: row.RecipeId,
           name: row.RecipeName,
           uid: row.RecipeUserId,
@@ -111,7 +111,6 @@ export const getRecipesByUserId = async (uid: string): Promise<Recipe[]> => {
             },
           ],
         };
-        return recipe;
       });
     });
   return Promise.resolve(mergeRecipeIngredients(recipes));
