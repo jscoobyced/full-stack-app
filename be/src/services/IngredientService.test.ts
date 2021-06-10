@@ -1,6 +1,6 @@
-import * as IngredientRepo from './IngredientService';
+import * as IngredientService from './IngredientService';
 import * as json from '../models/ingredient-data.json';
-import { IngredientResponse } from '../models/ingredients';
+import { IngredientResponse, Recipe } from '../models/ingredients';
 import { User } from '../models/common';
 import { API_ERROR_CODES } from '../config/constants';
 
@@ -34,6 +34,13 @@ const mockUser = () => {
   return user;
 };
 
+const mockRecipe: Recipe = {
+  id: 1,
+  name: 'My Recipe',
+  ingredients: mockSelectedIngredients,
+  uid: '123456',
+};
+
 jest.mock('../repos/ingredients', () => ({
   getIngredients: jest.fn().mockImplementation(async () => {
     return Promise.resolve(mockIngredients);
@@ -65,7 +72,7 @@ beforeEach(() => {
 
 describe('IngredientService - getIngredients', () => {
   it('returns the ingredients', async () => {
-    const response = await IngredientRepo.getAllIngredients();
+    const response = await IngredientService.getAllIngredients();
     expect(response).toBeDefined();
     expect(response.data).toBeDefined();
     const data = response.data as IngredientResponse;
@@ -74,7 +81,7 @@ describe('IngredientService - getIngredients', () => {
   });
 
   it('saves the selected ingredients', async () => {
-    const response = await IngredientRepo.saveSelectedIngredients('123456', 'recipe', mockSelectedIngredients);
+    const response = await IngredientService.saveRecipe(mockRecipe);
     expect(response).toBeDefined();
     expect(response.data).toBeDefined();
     const data = response.data as number;
@@ -86,7 +93,7 @@ describe('IngredientService - getIngredients', () => {
       uid: '132',
       isAllowed: false,
     };
-    const response = await IngredientRepo.saveSelectedIngredients('123456', 'recipe', mockSelectedIngredients);
+    const response = await IngredientService.saveRecipe(mockRecipe);
     expect(response).toBeDefined();
     expect(response.error).toBeDefined();
     expect(response.error?.code).toEqual(API_ERROR_CODES.UNAUTHORIZED);
@@ -94,7 +101,7 @@ describe('IngredientService - getIngredients', () => {
 
   it("doesn't saves the selected ingredients due to no user", async () => {
     user = undefined as unknown as User;
-    const response = await IngredientRepo.saveSelectedIngredients('123456', 'recipe', mockSelectedIngredients);
+    const response = await IngredientService.saveRecipe(mockRecipe);
     expect(response).toBeDefined();
     expect(response.error).toBeDefined();
     expect(response.error?.code).toEqual(API_ERROR_CODES.CANNOT_INSERT_DATA);

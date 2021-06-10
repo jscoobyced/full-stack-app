@@ -1,7 +1,7 @@
 import { ServiceResponse } from '../models/service';
 import * as IngredientRepo from '../repos/ingredients';
 import * as CalorieRepo from '../repos/calories';
-import { SelectedIngredient } from '../models/ingredients';
+import { Recipe } from '../models/ingredients';
 import * as UserRepo from '../repos/users';
 import { API_ERROR_CODES } from '../config/constants';
 
@@ -18,15 +18,11 @@ export const getAllIngredients = async (): Promise<ServiceResponse> => {
   });
 };
 
-export const saveSelectedIngredients = async (
-  uid: string,
-  recipeName: string,
-  ingredients: SelectedIngredient[],
-): Promise<ServiceResponse> => {
+export const saveRecipe = async (recipe: Recipe): Promise<ServiceResponse> => {
   const response: ServiceResponse = {} as ServiceResponse;
-  const user = await UserRepo.getUserByReferenceId(uid);
+  const user = await UserRepo.getUserByReferenceId(recipe.uid);
   if (!!user && user.isAllowed) {
-    const result = await IngredientRepo.saveSelectedIngredients(uid, recipeName, ingredients);
+    const result = await IngredientRepo.saveSelectedIngredients(recipe.uid, recipe.name, recipe.ingredients);
     response.data = result;
   } else {
     response.error = {

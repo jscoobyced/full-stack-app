@@ -6,10 +6,10 @@ import { mockCalories, mockIngredients } from '../../services/Ingredient/mock-da
 import { MockIngredientService } from '../../services/Ingredient/mock';
 import { mockContext } from '../../services/Context/mock';
 import { newSecureUser } from '../../models/user';
-import { IIngredientService } from '../../services/Ingredient';
+import { IRecipeService } from '../../services/Recipe';
 
 const configuration = MockIngredientService();
-const { handler, userService } = mockContext();
+const { handler, userService, recipeService } = mockContext();
 
 const expectedIngredient: SelectedIngredient = {
   id: 0,
@@ -25,9 +25,14 @@ const saveIngredients = jest.fn();
 const selectIngredient = jest.fn();
 const replaceSelectedIngredients = jest.fn();
 
-const setupTest = async (customSelectedIngredient?: SelectedIngredient, ingredientService?: IIngredientService) => {
+const setupTest = async (customSelectedIngredient?: SelectedIngredient, _recipeService?: IRecipeService) => {
   const _selectIngredient = jest.fn().mockImplementation(() => customSelectedIngredient ?? expectedIngredient);
-  const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: (ingredientService ?? configuration), userService, handler }}>
+  const { unmount } = render(<ServiceContext.Provider value={{
+    ingredientService: configuration,
+    userService,
+    handler,
+    recipeService: (_recipeService ?? recipeService)
+  }}>
     <CaloriesCalculatorInput
       selectIngredient={_selectIngredient}
       canSave={false}
@@ -53,7 +58,7 @@ afterEach(() => {
 
 describe('Main component', () => {
   it('can render the options', async () => {
-    const { unmount, getByRole } = render(<ServiceContext.Provider value={{ ingredientService: configuration, userService, handler }}>
+    const { unmount, getByRole } = render(<ServiceContext.Provider value={{ ingredientService: configuration, userService, handler, recipeService }}>
       <CaloriesCalculatorInput
         selectIngredient={selectIngredient}
         canSave={false}
@@ -113,7 +118,7 @@ describe('Main component', () => {
 
   it('can show the save button', async () => {
     const _saveIngredients = jest.fn();
-    const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration, userService, handler }}>
+    const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration, userService, handler, recipeService }}>
       <CaloriesCalculatorInput
         selectIngredient={selectIngredient}
         canSave={true}
@@ -148,17 +153,14 @@ describe('Main component', () => {
   });
 
   it('does not enable recipe list when no recipe', async () => {
-    const { getIngredients, saveSelectedIngredients } = configuration;
     const getRecipes = jest.fn().mockImplementation(() => {
-      return Promise.resolve([]);
+      return Promise.resolve({ data: [] });
     });
-    const ingredientService: IIngredientService = {
-      getIngredients,
+    const _recipeService: IRecipeService = {
       getRecipes,
-      saveSelectedIngredients
+      saveRecipe: recipeService.saveRecipe
     };
-    const { unmount, ingredientSelect } = await setupTest(undefined, ingredientService);
-    fireEvent.change(ingredientSelect, { target: { value: 20 } });
+    const { unmount } = await setupTest(undefined, _recipeService);
     const recipeSelect = screen.getByRole('combobox', { name: /recipes/i }) as HTMLSelectElement;
     fireEvent.change(recipeSelect, { target: { value: 1 } });
     expect(recipeSelect).toBeDisabled();

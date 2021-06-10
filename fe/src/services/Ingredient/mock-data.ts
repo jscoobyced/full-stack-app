@@ -152,13 +152,13 @@ export const mockSelectedIngredients: SelectedIngredient[] = [{
 export const mockRecipes: Recipe[] = [
   {
     id: 1,
-    recipeName: 'Recipe 1',
+    name: 'Recipe 1',
     ingredients: mockSelectedIngredients,
     uid: '123456',
   },
   {
     id: 2,
-    recipeName: 'Recipe 2',
+    name: 'Recipe 2',
     ingredients: mockSelectedIngredients.concat(mockSelectedIngredients),
     uid: '123456',
   },

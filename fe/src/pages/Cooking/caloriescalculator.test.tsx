@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { ControllerResponse } from '../../models/common';
-import { SelectedIngredient } from '../../models/ingredients';
+import { Recipe, SelectedIngredient } from '../../models/ingredients';
 import { newSecureUser, SecureUser, toSecureUser, User } from '../../models/user';
 import { ServiceContext } from '../../services/Context';
 import { mockContext } from '../../services/Context/mock';
@@ -61,7 +61,7 @@ jest.mock('./caloriescalculatorinput', () => (props: {
   );
 });
 
-const { ingredientService, handler, userService } = mockContext();
+const { ingredientService, handler, userService, recipeService } = mockContext();
 
 afterAll(() => {
   jest.restoreAllMocks();
@@ -71,7 +71,7 @@ describe('CaloriesCalculator component', () => {
 
   it('can render', async () => {
     const { unmount } = render(
-      <ServiceContext.Provider value={{ ingredientService, userService, handler }}>
+      <ServiceContext.Provider value={{ ingredientService, userService, handler, recipeService }}>
         <CaloriesCalculator user={newSecureUser()} />
       </ServiceContext.Provider>);
     const listElement = screen.getByText(/This is the calories calculator/i);
@@ -88,7 +88,7 @@ describe('CaloriesCalculator component', () => {
 
   it('can remove ingredients', async () => {
     const { unmount } = render(
-      <ServiceContext.Provider value={{ ingredientService, userService, handler }}>
+      <ServiceContext.Provider value={{ ingredientService, userService, handler, recipeService }}>
         <CaloriesCalculator user={newSecureUser()} />
       </ServiceContext.Provider>);
     const button = screen.getByRole('button', { name: /add/i }) as HTMLButtonElement;
@@ -106,7 +106,7 @@ describe('CaloriesCalculator component', () => {
 
   it('can save ingredients', async () => {
     const success = jest.fn();
-    ingredientService.saveSelectedIngredients = (uid: string, _recipe: string, ingredients: SelectedIngredient[]): Promise<ControllerResponse> => {
+    recipeService.saveRecipe = (_recipe: Recipe): Promise<ControllerResponse> => {
       success();
       return Promise.resolve({
         data: true,
@@ -114,7 +114,7 @@ describe('CaloriesCalculator component', () => {
     };
 
     const { unmount } = render(
-      <ServiceContext.Provider value={{ ingredientService, userService, handler }}>
+      <ServiceContext.Provider value={{ ingredientService, userService, handler, recipeService }}>
         <CaloriesCalculator user={user} />
       </ServiceContext.Provider>);
     let button = screen.getByRole('button', { name: /add/i }) as HTMLButtonElement;
@@ -138,7 +138,7 @@ describe('CaloriesCalculator component', () => {
       referenceId: undefined
     }, '', '', 0, 0);
     const failed = jest.fn();
-    ingredientService.saveSelectedIngredients = (uid: string, _recipe: string, ingredients: SelectedIngredient[]): Promise<ControllerResponse> => {
+    recipeService.saveRecipe = (_recipe: Recipe): Promise<ControllerResponse> => {
       failed();
       return Promise.resolve({
         error: {
@@ -147,7 +147,7 @@ describe('CaloriesCalculator component', () => {
       });
     };
     const { unmount } = render(
-      <ServiceContext.Provider value={{ ingredientService, userService, handler }}>
+      <ServiceContext.Provider value={{ ingredientService, userService, handler, recipeService }}>
         <CaloriesCalculator user={_user} />
       </ServiceContext.Provider>);
     let button = screen.getByRole('button', { name: /add/i }) as HTMLButtonElement;
@@ -163,7 +163,7 @@ describe('CaloriesCalculator component', () => {
 
   it('fails to save ingredients', async () => {
     const failed = jest.fn();
-    ingredientService.saveSelectedIngredients = (uid: string, _recipe: string, ingredients: SelectedIngredient[]): Promise<ControllerResponse> => {
+    recipeService.saveRecipe = (_recipe: Recipe): Promise<ControllerResponse> => {
       failed();
       return Promise.resolve({
         error: {
@@ -172,7 +172,7 @@ describe('CaloriesCalculator component', () => {
       });
     };
     const { unmount } = render(
-      <ServiceContext.Provider value={{ ingredientService, userService, handler }}>
+      <ServiceContext.Provider value={{ ingredientService, userService, handler, recipeService }}>
         <CaloriesCalculator user={user} />
       </ServiceContext.Provider>);
     let button = screen.getByRole('button', { name: /add/i }) as HTMLButtonElement;
@@ -188,12 +188,12 @@ describe('CaloriesCalculator component', () => {
 
   it('fails to save ingredients unexpectedly', async () => {
     const failed = jest.fn();
-    ingredientService.saveSelectedIngredients = (uid: string, _recipe: string, ingredients: SelectedIngredient[]): Promise<ControllerResponse> => {
+    recipeService.saveRecipe = (_recipe: Recipe): Promise<ControllerResponse> => {
       failed();
       return Promise.resolve({});
     };
     const { unmount } = render(
-      <ServiceContext.Provider value={{ ingredientService, userService, handler }}>
+      <ServiceContext.Provider value={{ ingredientService, userService, handler, recipeService }}>
         <CaloriesCalculator user={user} />
       </ServiceContext.Provider>);
     let button = screen.getByRole('button', { name: /add/i }) as HTMLButtonElement;
@@ -209,7 +209,7 @@ describe('CaloriesCalculator component', () => {
 
   it('can select recipe', async () => {
     const { unmount } = render(
-      <ServiceContext.Provider value={{ ingredientService, userService, handler }}>
+      <ServiceContext.Provider value={{ ingredientService, userService, handler, recipeService }}>
         <CaloriesCalculator user={user} />
       </ServiceContext.Provider>);
     const button = screen.getByRole('button', { name: /recipe/i }) as HTMLButtonElement;

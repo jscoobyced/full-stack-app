@@ -2,10 +2,12 @@ import React from "react";
 import { IUserService } from "../Authentication";
 import { IAuthenticationHandler } from "../Authentication/handler";
 import { IIngredientService } from "../Ingredient";
+import { IRecipeService } from "../Recipe";
 
 interface IServiceContext {
   ingredientService: IIngredientService;
   userService: IUserService;
+  recipeService: IRecipeService;
   handler: IAuthenticationHandler;
 }
 

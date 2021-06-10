@@ -34,7 +34,7 @@ export type IngredientResponse = {
 
 export type Recipe = {
   id: number,
-  recipeName: string,
+  name: string,
   ingredients: SelectedIngredient[],
   uid: string,
 };
