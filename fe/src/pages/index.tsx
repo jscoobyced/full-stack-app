@@ -23,27 +23,29 @@ export const App = () => {
           <Link to='/calc'>Calories Calculator</Link>
         </nav>
       </header>
-      <main>
-        <Switch>
-          <Route path="/" exact={true}>
-            <Home />
-          </Route>
-          <Route path="/calc" exact={true}>
-            <CaloriesCalculator
-              user={user} />
-          </Route>
-        </Switch>
-        <section className='login'>
-          <SignInButton
-            signInText={SIGNIN}
-            signOutText={SIGNOUT}
-            setUser={setUser}
-            userService={userService}
-            handler={handler}
-          />
-          <span>{user && user.user && user.user.firstName}</span>
-        </section>
-      </main>
+      <div className='container'>
+        <main>
+          <Switch>
+            <Route path="/" exact={true}>
+              <Home />
+            </Route>
+            <Route path="/calc" exact={true}>
+              <CaloriesCalculator
+                user={user} />
+            </Route>
+          </Switch>
+          <section className='login'>
+            <SignInButton
+              signInText={SIGNIN}
+              signOutText={SIGNOUT}
+              setUser={setUser}
+              userService={userService}
+              handler={handler}
+            />
+            <span>{user && user.user && user.user.firstName}</span>
+          </section>
+        </main>
+      </div>
       <Footer></Footer>
     </BrowserRouter>
   );

@@ -3,6 +3,7 @@ footer {
   flex-direction: column;
   background: url(../../../blue-line.png) repeat-x;
   background-position: bottom;
+  width: 100%;
 }
 
 footer span {

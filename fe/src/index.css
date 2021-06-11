@@ -19,7 +19,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--primary) url(blue-line.png) repeat-x;
+  background: var(--primary-light) url(blue-line.png) repeat-x;
   background-size: auto 15px;
 }
 
@@ -37,7 +37,9 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background: url('./owls.png') no-repeat 0 10px;
+  width: 80%;
+  margin: 0 auto;
+  background: #F6FFFF url('./owls.png') no-repeat 0 10px;
 }
 
 a,
