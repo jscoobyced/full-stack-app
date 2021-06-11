@@ -14,6 +14,9 @@ server {
         proxy_cache_bypass $http_upgrade;
         proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header   X-Forwarded-Proto $scheme;
+        if ($request_uri = "/calc") {
+		      rewrite ^(.*)$ /index.html break;
+	      }
     }
 
     add_header   Strict-Transport-Security 'max-age=31536000; includeSubDomains';
@@ -27,6 +30,15 @@ server {
 }
 ```
 The above includes some safe practice of secure HTTP Headers.
+
+Note about the section:
+```
+        if ($request_uri = "/calc") {
+		      rewrite ^(.*)$ /index.html break;
+	      }
+```
+The above allows the React Browser Routes to allow sharing link or refresh. Without it you would get a HTTP 404.
+You need to add the same `if` block for every browsable route in your application.
 
 For the APIs
 ```
