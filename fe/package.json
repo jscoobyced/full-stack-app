@@ -2,6 +2,7 @@
   "name": "fe",
   "version": "JSCVERSION",
   "private": true,
+  "homepage": "https://rochefolle.org",
   "main": "index.js",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
