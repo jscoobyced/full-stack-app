@@ -8,7 +8,7 @@ const mockResponse = {
   }
 };
 
-jest.mock('../../repos/http', () => ({
+jest.mock('../../repos/HttpService', () => ({
   getData: () => Promise.resolve(mockResponse)
 }));
 

@@ -12,7 +12,7 @@ const mockResponse: { data: any } = {
 const recipeName = 'Recipe #1';
 const uid = '1234567';
 
-jest.mock('../../repos/http', () => ({
+jest.mock('../../repos/HttpService', () => ({
   getData: () => Promise.resolve(mockResponse),
   postData: () => Promise.resolve(mockResponse)
 }));

@@ -1,6 +1,6 @@
 import { BACK_END_SERVICES_ENDPOINTS, BACK_END_URL } from "../../config/constants";
 import { IngredientResponse } from "../../models/ingredients";
-import HttpService from "../../repos/http";
+import HttpService from "../../repos/HttpService";
 
 export interface IIngredientService {
   getIngredients: () => Promise<IngredientResponse>,

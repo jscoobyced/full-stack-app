@@ -1,7 +1,7 @@
 import { BACK_END_SERVICES_ENDPOINTS, BACK_END_URL } from "../../config/constants";
 import { ControllerResponse } from "../../models/common";
 import { Recipe } from "../../models/ingredients";
-import HttpService from "../../repos/http";
+import HttpService from "../../repos/HttpService";
 
 export interface IRecipeService {
   saveRecipe: (recipe: Recipe) => Promise<ControllerResponse>,

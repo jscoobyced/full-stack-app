@@ -1,6 +1,6 @@
 import { BACK_END_SERVICES_ENDPOINTS, BACK_END_URL } from "../../config/constants";
 import { newSecureUser, SecureUser, User } from "../../models/user";
-import HttpService from "../../repos/http";
+import HttpService from "../../repos/HttpService";
 import { IUserService } from "../Authentication";
 
 export default class UserService implements IUserService {

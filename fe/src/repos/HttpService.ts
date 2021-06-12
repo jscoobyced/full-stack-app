@@ -17,7 +17,7 @@ const fetchData = async (method: string, url: string, data?: any, token?: string
     headers.append('Content-Type', 'application/json');
     options.body = JSON.stringify(data);
   }
-  const response: ControllerResponse = await fetch(url, options).then(_response => {
+  return fetch(url, options).then(_response => {
     if (!_response.ok) {
       return {
         error: {
@@ -41,7 +41,6 @@ const fetchData = async (method: string, url: string, data?: any, token?: string
         });
     }
   });
-  return response;
 };
 
 const HttpService = {

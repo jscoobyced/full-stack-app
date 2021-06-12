@@ -5,7 +5,7 @@ import { newSecureUser, User } from "../../models/user";
 const mockResponse = {} as Response;
 
 beforeEach(() => {
-  jest.mock('../../repos/http', () => (Promise.resolve(mockResponse)));
+  jest.mock('../../repos/HttpService', () => (Promise.resolve(mockResponse)));
 });
 
 afterEach(() => {
