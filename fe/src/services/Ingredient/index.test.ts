@@ -2,18 +2,15 @@ import { IngredientService } from ".";
 import { mockIngredients, mockCalories } from "./mock-data";
 
 const mockResponse = {
-  json: () => Promise.resolve({
-    data: {
-      ingredients: mockIngredients,
-      calories: mockCalories,
-    },
-  }),
-  status: 200,
-} as Response;
+  data: {
+    ingredients: mockIngredients,
+    calories: mockCalories,
+  }
+};
 
-beforeEach(() => {
-  jest.spyOn(global, 'fetch').mockResolvedValue(Promise.resolve(mockResponse));
-});
+jest.mock('../../repos/http', () => ({
+  getData: () => Promise.resolve(mockResponse)
+}));
 
 afterEach(() => {
   jest.restoreAllMocks();

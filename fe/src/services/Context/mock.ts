@@ -1,9 +1,10 @@
+import { IServiceContext } from ".";
 import { newSecureUser } from "../../models/user";
 import { AuthenticationHandler } from "../Authentication/handler";
 import { MockIngredientService } from "../Ingredient/mock";
 import { MockRecipeService } from "../Recipe/mock";
 
-export const mockContext = () => {
+export const mockContext = (): IServiceContext => {
   const ingredientService = MockIngredientService();
   const recipeService = MockRecipeService();
   const handler = new AuthenticationHandler();
@@ -16,7 +17,7 @@ export const mockContext = () => {
       newUser.user.referenceId = '12345678';
       return Promise.resolve(newUser);
     },
-    userLogin: (user:any) => Promise.resolve(),
+    userLogin: (user: any) => Promise.resolve(),
   };
 
   return {
