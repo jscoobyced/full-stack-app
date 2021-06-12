@@ -5,7 +5,7 @@ import { newSecureUser, User } from "../../models/user";
 const mockResponse = {} as Response;
 
 beforeEach(() => {
-  jest.spyOn(global, 'fetch').mockResolvedValue(Promise.resolve(mockResponse))
+  jest.mock('../../repos/HttpService', () => (Promise.resolve(mockResponse)));
 });
 
 afterEach(() => {

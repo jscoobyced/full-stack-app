@@ -6,7 +6,7 @@ import { mockContext } from '../services/Context/mock';
 
 jest.mock('./Cooking/caloriescalculatorinput', () => () => 'mocked');
 
-const { ingredientService, handler, userService } = mockContext();
+const { ingredientService, handler, userService, recipeService } = mockContext();
 
 afterAll(() => {
   jest.restoreAllMocks();
@@ -14,7 +14,7 @@ afterAll(() => {
 
 describe('Main component', () => {
   it('can render default components', async () => {
-    const { unmount } = render(<ServiceContext.Provider value={{ ingredientService, userService, handler }}>
+    const { unmount } = render(<ServiceContext.Provider value={{ ingredientService, userService, handler, recipeService }}>
       <App />
     </ServiceContext.Provider>);
     const textElement = screen.getByText(TITLE);

@@ -4,12 +4,12 @@ import { IAuthenticationHandler } from "../Authentication/handler";
 import { IIngredientService } from "../Ingredient";
 import { IRecipeService } from "../Recipe";
 
-interface IServiceContext {
+export interface IServiceContext {
   ingredientService: IIngredientService;
   userService: IUserService;
   recipeService: IRecipeService;
   handler: IAuthenticationHandler;
-}
+  }
 
 const defaultServiceContext = undefined as unknown as IServiceContext;
 
