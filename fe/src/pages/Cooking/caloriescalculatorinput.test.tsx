@@ -7,9 +7,10 @@ import { MockIngredientService } from '../../services/Ingredient/mock';
 import { mockContext } from '../../services/Context/mock';
 import { newSecureUser } from '../../models/user';
 import { IRecipeService } from '../../services/Recipe';
+import { Language } from '../../models/common';
 
 const configuration = MockIngredientService();
-const { handler, userService, recipeService } = mockContext();
+const { handler, userService, recipeService, getTranslations, setLanguage } = mockContext();
 
 const expectedIngredient: SelectedIngredient = {
   id: 0,
@@ -22,21 +23,27 @@ const expectedIngredient: SelectedIngredient = {
 const mockUser = newSecureUser().user;
 
 const saveIngredients = jest.fn();
-const selectIngredient = jest.fn();
 const replaceSelectedIngredients = jest.fn();
 
-const setupTest = async (customSelectedIngredient?: SelectedIngredient, _recipeService?: IRecipeService) => {
+const setupTest = async (
+  canSave: boolean,
+  customSelectedIngredient?: SelectedIngredient,
+  _recipeService?: IRecipeService,
+  customSaveIngredients?: any) => {
   const _selectIngredient = jest.fn().mockImplementation(() => customSelectedIngredient ?? expectedIngredient);
-  const { unmount } = render(<ServiceContext.Provider value={{
+  const { unmount, getByRole } = render(<ServiceContext.Provider value={{
     ingredientService: configuration,
     userService,
     handler,
-    recipeService: (_recipeService ?? recipeService)
+    recipeService: (_recipeService ?? recipeService),
+    getTranslations,
+    setLanguage,
+    language: Language.English,
   }}>
     <CaloriesCalculatorInput
       selectIngredient={_selectIngredient}
-      canSave={false}
-      saveIngredients={saveIngredients}
+      canSave={canSave}
+      saveIngredients={customSaveIngredients ?? saveIngredients}
       user={mockUser}
       replaceSelectedIngredients={replaceSelectedIngredients} />
   </ServiceContext.Provider>);
@@ -49,6 +56,7 @@ const setupTest = async (customSelectedIngredient?: SelectedIngredient, _recipeS
     _selectIngredient,
     unmount,
     ingredientSelect,
+    getByRole,
   };
 };
 
@@ -58,14 +66,7 @@ afterEach(() => {
 
 describe('Main component', () => {
   it('can render the options', async () => {
-    const { unmount, getByRole } = render(<ServiceContext.Provider value={{ ingredientService: configuration, userService, handler, recipeService }}>
-      <CaloriesCalculatorInput
-        selectIngredient={selectIngredient}
-        canSave={false}
-        saveIngredients={saveIngredients}
-        user={mockUser}
-        replaceSelectedIngredients={replaceSelectedIngredients} />
-    </ServiceContext.Provider>);
+    const { unmount, getByRole } = await setupTest(false);
     await waitFor(() => {
       const ingredientSelect = getByRole('combobox', { name: /ingredient/i }) as HTMLSelectElement;
       expect(ingredientSelect.options.length).toEqual(mockIngredients.length + 1);
@@ -76,7 +77,7 @@ describe('Main component', () => {
   });
 
   it('can set the options', async () => {
-    const { unmount, ingredientSelect, _selectIngredient } = await setupTest();
+    const { unmount, ingredientSelect, _selectIngredient } = await setupTest(false);
     fireEvent.change(ingredientSelect, { target: { value: 2 } });
     const unitSelect = screen.getByRole('combobox', { name: /unit/i }) as HTMLSelectElement;
     fireEvent.change(unitSelect, { target: { value: 3 } });
@@ -89,7 +90,7 @@ describe('Main component', () => {
   });
 
   it('can select unknown ingredient', async () => {
-    const { unmount, ingredientSelect } = await setupTest();
+    const { unmount, ingredientSelect } = await setupTest(false);
     fireEvent.change(ingredientSelect, { target: { value: 20 } });
     const unitSelect = screen.getByRole('combobox', { name: /unit/i }) as HTMLSelectElement;
     expect(unitSelect).toBeDisabled();
@@ -104,7 +105,7 @@ describe('Main component', () => {
       serving: 10,
       totalCalories: 200,
     };
-    const { unmount, ingredientSelect, _selectIngredient } = await setupTest(_selectedIngredient);
+    const { unmount, ingredientSelect, _selectIngredient } = await setupTest(false, _selectedIngredient);
     fireEvent.change(ingredientSelect, { target: { value: 2 } });
     const unitSelect = screen.getByRole('combobox', { name: /unit/i }) as HTMLSelectElement;
     fireEvent.change(unitSelect, { target: { value: 20 } });
@@ -118,14 +119,7 @@ describe('Main component', () => {
 
   it('can show the save button', async () => {
     const _saveIngredients = jest.fn();
-    const { unmount } = render(<ServiceContext.Provider value={{ ingredientService: configuration, userService, handler, recipeService }}>
-      <CaloriesCalculatorInput
-        selectIngredient={selectIngredient}
-        canSave={true}
-        saveIngredients={_saveIngredients}
-        user={mockUser}
-        replaceSelectedIngredients={replaceSelectedIngredients} />
-    </ServiceContext.Provider>);
+    const { unmount } = await setupTest(true, undefined, undefined, _saveIngredients);
     let canSaveButton = {} as HTMLButtonElement;
     await waitFor(() => {
       canSaveButton = screen.getByRole('button', { name: /save/i }) as HTMLButtonElement;
@@ -145,7 +139,7 @@ describe('Main component', () => {
   });
 
   it('can select recipe', async () => {
-    const { unmount, ingredientSelect } = await setupTest();
+    const { unmount, ingredientSelect } = await setupTest(false);
     fireEvent.change(ingredientSelect, { target: { value: 20 } });
     const recipeSelect = screen.getByRole('combobox', { name: /recipes/i }) as HTMLSelectElement;
     fireEvent.change(recipeSelect, { target: { value: 1 } });
@@ -160,7 +154,7 @@ describe('Main component', () => {
       getRecipes,
       saveRecipe: recipeService.saveRecipe
     };
-    const { unmount } = await setupTest(undefined, _recipeService);
+    const { unmount } = await setupTest(false, undefined, _recipeService);
     const recipeSelect = screen.getByRole('combobox', { name: /recipes/i }) as HTMLSelectElement;
     fireEvent.change(recipeSelect, { target: { value: 1 } });
     expect(recipeSelect).toBeDisabled();

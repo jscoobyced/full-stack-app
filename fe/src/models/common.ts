@@ -5,3 +5,8 @@ export type EntityWithCategory = BaseEntityWithName & { category: Category };
 
 export type ErrorData = { code?: number; message?: string } | undefined;
 export type ControllerResponse = { data?: unknown; error?: ErrorData };
+
+export enum Language {
+  English=0,
+  French=1
+}

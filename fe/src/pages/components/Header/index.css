@@ -1,0 +1,44 @@
+header {
+  flex: 4;
+  flex-direction: row;
+  width: 100%;
+  padding-top: 5px;
+  background: url(../../../blue-line.png) repeat-x;
+  background-size: auto 15px;
+}
+
+header div {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+header .title {
+  font-size: xx-large;
+}
+
+header nav {
+  text-align: center;
+}
+
+header>span {
+  margin: auto auto 0 10px;
+}
+
+header>span>span {
+  cursor: pointer;
+}
+
+header .lang-on {
+  font-weight: bolder;
+}
+
+@media only screen and (max-width: 430px) {
+  header .title {
+    font-size: large;
+  }
+
+  nav {
+    font-size: small;
+  }
+}

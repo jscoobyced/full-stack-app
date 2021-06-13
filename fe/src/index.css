@@ -48,3 +48,9 @@ a:visited {
   text-decoration: none;
   color: var(--secondary-dark);
 }
+
+@media only screen and (max-width: 430px) {
+  #root {
+    background-image: none;
+  }
+}
