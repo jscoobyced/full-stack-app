@@ -81,23 +81,23 @@ export const CaloriesCalculator = (props: CalorieCalculatorProps) => {
         setSavingMessage('');
         break;
       case 1:
-        setSavingMessage('Saving...');
+        setSavingMessage(translations.Saving);
         break;
       case 2:
-        setSavingMessage('Saved successfully.');
+        setSavingMessage(translations.SavedSuccessfully);
         break;
       case 3:
-        setSavingMessage('Saving failed.');
+        setSavingMessage(translations.SavedFailed);
         break;
       case 4:
-        setSavingMessage('You are not allowed to save the recipe.');
+        setSavingMessage(translations.SavingNotAllowed);
         break;
       default:
         /* istanbul ignore next */
         break;
     }
 
-  }, [saveStatus]);
+  }, [saveStatus, translations]);
 
   return (
     <>

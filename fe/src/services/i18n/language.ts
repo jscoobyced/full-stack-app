@@ -16,13 +16,17 @@ export type LanguageContent = {
   SavedRecipes: string;
   Calories: string;
   Total: string;
+  Saving: string;
+  SavedSuccessfully: string;
+  SavedFailed: string;
+  SavingNotAllowed: string;
 };
 
 export const English: LanguageContent = {
   Title: 'Pheung & Céd homepage',
   Home: 'Home',
   Copyright: 'Copyright',
-  CaloriesCalculator: 'Calories Calulator',
+  CaloriesCalculator: 'Calories Calculator',
   SignIn: 'Sign In',
   SignOut: 'Sign Out',
   CaloriesCalculatorIntro: 'This is the calories calculator. Add the ingredients and quantity or volume and it will show you the resulting number of calories per overall volume.',
@@ -36,6 +40,10 @@ export const English: LanguageContent = {
   Calories: 'Calories',
   Remove: 'Remove',
   Total: 'Total',
+  Saving: 'Saving...',
+  SavedSuccessfully: 'Saved successfully.',
+  SavedFailed: 'Saving failed.',
+  SavingNotAllowed: 'You are not allowed to save the recipe. Please sign-in and contact the site administrator to enable your account.',
 };
 
 export const French: LanguageContent = {
@@ -57,6 +65,11 @@ export const French: LanguageContent = {
   Calories: 'Calories',
   Remove: 'Retirer',
   Total: 'Total',
+  Saving: 'Enregistrement end cours...',
+  SavedSuccessfully: 'Enregistrement completé.',
+  SavedFailed: 'L\'enregistrement a echoué.',
+  SavingNotAllowed: 'Vous n\'êtes pas autorisé à enregister des recettes. Veuillez vous connecter' +
+    ' et contactez l\'administrateur du site pour vous autoriser.',
 };
 
 export const Thai: LanguageContent = {
@@ -77,4 +90,8 @@ export const Thai: LanguageContent = {
   Calories: 'แคลอรี่',
   Remove: 'ลบ',
   Total: 'รวม',
+  Saving: 'กำลังบันทึก...',
+  SavedSuccessfully: 'บันทึกเรียบร้อยแล้ว.',
+  SavedFailed: 'การบันทึกล้มเหลว.',
+  SavingNotAllowed: 'คุณไม่ได้รับอนุญาตให้บันทึกสูตร โปรดลงชื่อเข้าใช้และติดต่อผู้ดูแลเว็บไซต์เพื่อเปิดใช้งานบัญชีของคุณ.',
 };
