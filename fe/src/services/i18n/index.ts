@@ -18,5 +18,4 @@ export const I18nService = (): LanguageService => {
   return {
     getTranslations
   };
-
 };

@@ -45,7 +45,8 @@ export const French: LanguageContent = {
   Copyright: 'Droits d\'auteurs',
   SignIn: 'Se Connecter',
   SignOut: 'Se Déconnecter',
-  CaloriesCalculatorIntro: 'Voici le calculateur de calories. Ajoutez les ingrédients et la quantité ou volume désiré et cela vous donnera le résultat total de calories pour cette recette.',
+  CaloriesCalculatorIntro: 'Voici le calculateur de calories. Ajoutez les ingrédients et la quantité ou volume '
+    + 'désiré et cela vous donnera le résultat total de calories pour cette recette.',
   Ingredient: 'Ingrédient',
   Unit: 'Unité',
   Quantity: 'Quantité',

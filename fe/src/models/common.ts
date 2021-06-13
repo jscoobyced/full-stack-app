@@ -9,4 +9,4 @@ export type ControllerResponse = { data?: unknown; error?: ErrorData };
 export enum Language {
   English=0,
   French=1
-};
+}

@@ -68,12 +68,12 @@ afterAll(() => {
   jest.restoreAllMocks();
 });
 
-const setupTest = (user?: SecureUser) => {
+const setupTest = (_user?: SecureUser) => {
   return render(
     <ServiceContext.Provider
       value={{ ingredientService, userService, handler, recipeService, getTranslations, language, setLanguage }}>
       <CaloriesCalculator
-        user={user ?? newSecureUser()}
+        user={_user ?? newSecureUser()}
         translations={English} />
     </ServiceContext.Provider>);
 }
