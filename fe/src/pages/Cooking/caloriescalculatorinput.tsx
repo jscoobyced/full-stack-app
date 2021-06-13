@@ -31,7 +31,8 @@ const CaloriesCalculatorInput = (props: InputProps) => {
   const [recipeList, setRecipeList] = useState([] as JSX.Element[]);
   const [recipes, setRecipes] = useState([] as Recipe[]);
 
-  const { ingredientService, recipeService } = useContext(ServiceContext);
+  const { ingredientService, recipeService, getTranslations } = useContext(ServiceContext);
+  const translations = getTranslations();
 
   useEffect(() => {
     ingredientService.getIngredients().then(response => {
@@ -164,7 +165,7 @@ const CaloriesCalculatorInput = (props: InputProps) => {
   const save = canSave ? (<button
     className='button-save'
     disabled={!recipeName || recipeName.length < 1}
-    onClick={saveReceipe}>Save</button>) : (<></>);
+    onClick={saveReceipe}>{translations.Save}</button>) : (<></>);
 
   const recipeNameComponent = canSave ? (<input id='quantity'
     aria-label='recipe-name'
@@ -176,19 +177,19 @@ const CaloriesCalculatorInput = (props: InputProps) => {
     <>
       <div className='select-ingredient'>
         <div className='select-ingredient-part'>
-          <label htmlFor='ingredient'>Ingredient</label>
+          <label htmlFor='ingredient'>{translations.Ingredient}</label>
           <select id='ingredient' onChange={onSelectIngredient}>
-            <option value='-1'>-- Select --</option>
+            <option value='-1'>-- {translations.Select} --</option>
             {ingredientData}
           </select>
-          <label htmlFor='unit'>Unit</label>
+          <label htmlFor='unit'>{translations.Unit}</label>
           <select id='unit' onChange={onSelectUnit} disabled={unitData.length === 0}>
-            <option value='-1'>-- Select --</option>
+            <option value='-1'>-- {translations.Select} --</option>
             {unitData}
           </select>
         </div>
         <div className='select-ingredient-part'>
-          <label htmlFor='quantity'>Quantity</label>
+          <label htmlFor='quantity'>{translations.Quantity}</label>
           <input id='quantity'
             aria-label='quantity'
             onChange={onSelectQuantity}
@@ -197,16 +198,16 @@ const CaloriesCalculatorInput = (props: InputProps) => {
           <div className='buttons'>
             <button className='button-add'
               disabled={!unit || !unit.id || quantity <= 0}
-              onClick={addIngredient}>Add</button>
+              onClick={addIngredient}>{translations.Add}</button>
             {save}
           </div>
           {recipeNameComponent}
         </div>
       </div>
       <div className='select-recipe'>
-        <label htmlFor='recipes'>Saved recipes</label>
+        <label htmlFor='recipes'>{translations.SavedRecipes}</label>
         <select id='recipes' onChange={onSelectRecipe} disabled={recipeList.length === 0}>
-          <option value='-1'>-- Select --</option>
+          <option value='-1'>-- {translations.Select} --</option>
           {recipeList}
         </select>
       </div>

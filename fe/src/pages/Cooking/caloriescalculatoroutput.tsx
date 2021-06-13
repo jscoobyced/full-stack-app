@@ -1,13 +1,15 @@
 import { SelectedIngredient } from "../../models/ingredients";
+import { LanguageContent } from "../../services/i18n/language";
 
 type OutputProps = {
   selectedIngredients: SelectedIngredient[];
   totalCalories: number;
   removeIngredient: (selectedIngredient: SelectedIngredient) => void,
+  translations: LanguageContent,
 };
 
 export const CaloriesCalculatorOutput = (props: OutputProps) => {
-  const { selectedIngredients, totalCalories, removeIngredient } = props;
+  const { selectedIngredients, totalCalories, removeIngredient, translations } = props;
   const isVisible = selectedIngredients && selectedIngredients.length > 0 ? 'show' : 'hide';
 
   const doRemoveIngredient = (event: React.MouseEvent<HTMLImageElement>) => {
@@ -23,10 +25,10 @@ export const CaloriesCalculatorOutput = (props: OutputProps) => {
     <table className={'ingredient-calories-summary ' + isVisible}>
       <thead>
         <tr>
-          <th>Ingredient</th>
-          <th>Quantity</th>
-          <th>Calories</th>
-          <th>Remove</th>
+          <th>{translations.Ingredient}</th>
+          <th>{translations.Quantity}</th>
+          <th>{translations.Calories}</th>
+          <th>{translations.Remove}</th>
         </tr>
       </thead>
       <tbody>
@@ -39,7 +41,7 @@ export const CaloriesCalculatorOutput = (props: OutputProps) => {
               <td><img
                 src='delete.png'
                 className='remove'
-                alt='Remove'
+                alt={translations.Remove}
                 onClick={doRemoveIngredient}
                 id={'' + selectedIngredient.id} /></td>
             </tr>;
@@ -48,7 +50,7 @@ export const CaloriesCalculatorOutput = (props: OutputProps) => {
       </tbody>
       <tfoot>
         <tr>
-          <th>Total</th>
+          <th>{translations.Total}</th>
           <th></th>
           <th>{totalCalories}</th>
           <th></th>

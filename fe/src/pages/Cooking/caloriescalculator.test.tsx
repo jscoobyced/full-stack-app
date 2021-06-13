@@ -5,6 +5,7 @@ import { Recipe, SelectedIngredient } from '../../models/ingredients';
 import { newSecureUser, SecureUser, toSecureUser, User } from '../../models/user';
 import { ServiceContext } from '../../services/Context';
 import { mockContext } from '../../services/Context/mock';
+import { English } from '../../services/i18n/language';
 import { mockCalories, mockIngredients } from '../../services/Ingredient/mock-data';
 import { CaloriesCalculator } from './caloriescalculator';
 
@@ -61,19 +62,26 @@ jest.mock('./caloriescalculatorinput', () => (props: {
   );
 });
 
-const { ingredientService, handler, userService, recipeService } = mockContext();
+const { ingredientService, handler, userService, recipeService, getTranslations, language, setLanguage } = mockContext();
 
 afterAll(() => {
   jest.restoreAllMocks();
 });
 
+const setupTest = (user?: SecureUser) => {
+  return render(
+    <ServiceContext.Provider
+      value={{ ingredientService, userService, handler, recipeService, getTranslations, language, setLanguage }}>
+      <CaloriesCalculator
+        user={user ?? newSecureUser()}
+        translations={English} />
+    </ServiceContext.Provider>);
+}
+
 describe('CaloriesCalculator component', () => {
 
   it('can render', async () => {
-    const { unmount } = render(
-      <ServiceContext.Provider value={{ ingredientService, userService, handler, recipeService }}>
-        <CaloriesCalculator user={newSecureUser()} />
-      </ServiceContext.Provider>);
+    const { unmount } = setupTest();
     const listElement = screen.getByText(/This is the calories calculator/i);
     expect(listElement).toBeInTheDocument();
     const button = screen.getByRole('button', { name: /add/i }) as HTMLButtonElement;
@@ -87,10 +95,7 @@ describe('CaloriesCalculator component', () => {
   });
 
   it('can remove ingredients', async () => {
-    const { unmount } = render(
-      <ServiceContext.Provider value={{ ingredientService, userService, handler, recipeService }}>
-        <CaloriesCalculator user={newSecureUser()} />
-      </ServiceContext.Provider>);
+    const { unmount } = setupTest();
     const button = screen.getByRole('button', { name: /add/i }) as HTMLButtonElement;
     mockValue.mockReturnValueOnce(mockSelectedIngredient);
     fireEvent.click(button);
@@ -112,11 +117,7 @@ describe('CaloriesCalculator component', () => {
         data: true,
       });
     };
-
-    const { unmount } = render(
-      <ServiceContext.Provider value={{ ingredientService, userService, handler, recipeService }}>
-        <CaloriesCalculator user={user} />
-      </ServiceContext.Provider>);
+    const { unmount } = setupTest(user);
     let button = screen.getByRole('button', { name: /add/i }) as HTMLButtonElement;
     mockValue.mockReturnValueOnce(mockSelectedIngredient);
     fireEvent.click(button);
@@ -146,10 +147,7 @@ describe('CaloriesCalculator component', () => {
         }
       });
     };
-    const { unmount } = render(
-      <ServiceContext.Provider value={{ ingredientService, userService, handler, recipeService }}>
-        <CaloriesCalculator user={_user} />
-      </ServiceContext.Provider>);
+    const { unmount } = setupTest(_user);
     let button = screen.getByRole('button', { name: /add/i }) as HTMLButtonElement;
     mockValue.mockReturnValueOnce(mockSelectedIngredient);
     fireEvent.click(button);
@@ -171,10 +169,7 @@ describe('CaloriesCalculator component', () => {
         }
       });
     };
-    const { unmount } = render(
-      <ServiceContext.Provider value={{ ingredientService, userService, handler, recipeService }}>
-        <CaloriesCalculator user={user} />
-      </ServiceContext.Provider>);
+    const { unmount } = setupTest(user);
     let button = screen.getByRole('button', { name: /add/i }) as HTMLButtonElement;
     mockValue.mockReturnValueOnce(mockSelectedIngredient);
     fireEvent.click(button);
@@ -192,10 +187,7 @@ describe('CaloriesCalculator component', () => {
       failed();
       return Promise.resolve({});
     };
-    const { unmount } = render(
-      <ServiceContext.Provider value={{ ingredientService, userService, handler, recipeService }}>
-        <CaloriesCalculator user={user} />
-      </ServiceContext.Provider>);
+    const { unmount } = setupTest(user);
     let button = screen.getByRole('button', { name: /add/i }) as HTMLButtonElement;
     mockValue.mockReturnValueOnce(mockSelectedIngredient);
     fireEvent.click(button);
@@ -208,14 +200,10 @@ describe('CaloriesCalculator component', () => {
   });
 
   it('can select recipe', async () => {
-    const { unmount } = render(
-      <ServiceContext.Provider value={{ ingredientService, userService, handler, recipeService }}>
-        <CaloriesCalculator user={user} />
-      </ServiceContext.Provider>);
+    const { unmount } = setupTest(user);
     const button = screen.getByRole('button', { name: /recipe/i }) as HTMLButtonElement;
     fireEvent.click(button);
     expect(mockSelectRecipe).toHaveBeenCalledTimes(1);
     unmount();
   });
-
 });

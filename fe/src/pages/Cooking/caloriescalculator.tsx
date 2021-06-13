@@ -3,15 +3,17 @@ import { SelectedIngredient } from "../../models/ingredients";
 import { SecureUser } from "../../models/user";
 import { isAllowedToSaveRecipe } from "../../services/Authorization";
 import { ServiceContext } from "../../services/Context";
+import { LanguageContent } from "../../services/i18n/language";
 import CaloriesCalculatorInput from "./caloriescalculatorinput";
 import { CaloriesCalculatorOutput } from "./caloriescalculatoroutput";
 
 interface CalorieCalculatorProps {
   user: SecureUser;
+  translations: LanguageContent;
 }
 
 export const CaloriesCalculator = (props: CalorieCalculatorProps) => {
-  const { user } = props;
+  const { user, translations } = props;
   const [ingredients, setIngredients] = useState([] as SelectedIngredient[]);
   const [totalCalories, setTotalCalories] = useState(0);
   const [canSave, setCanSave] = useState(false);
@@ -100,8 +102,7 @@ export const CaloriesCalculator = (props: CalorieCalculatorProps) => {
   return (
     <>
       <section id='calculator'>
-        <span>This is the calories calculator. Add the ingredients and quantity or volume and it
-    will show you the resulting number of calories per overall volume.</span>
+        <span>{translations.CaloriesCalculatorIntro}</span>
         <CaloriesCalculatorInput
           selectIngredient={setSelectedIngredient}
           canSave={canSave}
@@ -113,6 +114,7 @@ export const CaloriesCalculator = (props: CalorieCalculatorProps) => {
           selectedIngredients={ingredients}
           totalCalories={totalCalories}
           removeIngredient={removeIngredient}
+          translations={translations}
         />
       </section>
     </>
