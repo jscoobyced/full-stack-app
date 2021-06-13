@@ -19,13 +19,20 @@ export const Header = () => {
     setLanguage(Language.French);
   }
 
+  const setThai = (event: React.MouseEvent<HTMLSpanElement>) => {
+    event.preventDefault();
+    setLanguage(Language.Thai);
+  }
+
   return (
     <header>
       <span><span
         onClick={setEnglish}
         className={(language === Language.English) ? 'lang-on' : ''}>EN</span> | <span
           onClick={setFrench}
-          className={(language === Language.French) ? 'lang-on' : ''}>FR</span></span>
+          className={(language === Language.French) ? 'lang-on' : ''}>FR</span> | <span
+            onClick={setThai}
+            className={(language === Language.Thai) ? 'lang-on' : ''}>TH</span></span>
       <div>
         <span className='title'>{translations.Title}</span>
         <nav>

@@ -58,3 +58,23 @@ export const French: LanguageContent = {
   Remove: 'Retirer',
   Total: 'Total',
 };
+
+export const Thai: LanguageContent = {
+  Title: 'เว็บไซต์ของ Pheung & Céd',
+  Home: 'หน้าแรก',
+  Copyright: 'ลิขสิทธิ์',
+  CaloriesCalculator: 'เครื่องคำนวณแคลอรี่',
+  SignIn: 'เข้าสู่ระบบ',
+  SignOut: 'ออกจากระบบ',
+  CaloriesCalculatorIntro: 'นี่คือเครื่องคำนวณแคลอรี่ เพิ่มส่วนผสมและปริมาณหรือปริมาตรและจะแสดงจำนวนแคลอรี่ที่เกิดขึ้นต่อปริมาตรโดยรวม',
+  Ingredient: 'ส่วนผสม',
+  Unit: 'หน่วย',
+  Quantity: 'ปริมาณ',
+  Save: 'บันทึก',
+  Add: 'เพิ่ม',
+  Select: 'เลือก',
+  SavedRecipes: 'สูตรที่บันทึกไว้',
+  Calories: 'แคลอรี่',
+  Remove: 'ลบ',
+  Total: 'รวม',
+};

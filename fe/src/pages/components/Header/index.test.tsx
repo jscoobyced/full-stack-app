@@ -4,11 +4,14 @@ import { Header } from '.';
 import { Language } from '../../../models/common';
 import { ServiceContext } from '../../../services/Context';
 import { mockContext } from '../../../services/Context/mock';
-import { English, French } from '../../../services/i18n/language';
+import { I18nService } from '../../../services/i18n';
+import { English, French, Thai } from '../../../services/i18n/language';
 
-const { ingredientService, handler, userService, recipeService, getTranslations, language, setLanguage } = mockContext();
+const { ingredientService, handler, userService, recipeService, language, setLanguage } = mockContext();
+const languageService = I18nService();
 
 const createHeader = (_setLanguage: (language: Language) => void, _language?: Language) => {
+  const lang = !!_language ? _language : language;
   return render(
     <ServiceContext.Provider value={
       {
@@ -16,8 +19,8 @@ const createHeader = (_setLanguage: (language: Language) => void, _language?: La
         userService,
         handler,
         recipeService,
-        getTranslations,
-        language: _language ?? language,
+        getTranslations: () => languageService.getTranslations(lang),
+        language: lang,
         setLanguage: _setLanguage
       }}>
       <BrowserRouter>
@@ -33,12 +36,21 @@ describe('Main component', () => {
     expect(title).toBeInTheDocument();
     const frenchButton = getByText('FR');
     fireEvent.click(frenchButton);
+    const thaiButton = getByText('TH');
+    fireEvent.click(thaiButton);
     unmount();
   });
 
   it('can start in French language', async () => {
     const { unmount, getByText } = createHeader(setLanguage, Language.French);
     const title = getByText(French.Title);
+    expect(title).toBeInTheDocument();
+    unmount();
+  });
+
+  it('can start in Thai language', async () => {
+    const { unmount, getByText } = createHeader(setLanguage, Language.Thai);
+    const title = getByText(Thai.Title);
     expect(title).toBeInTheDocument();
     unmount();
   });
